@@ -48,3 +48,31 @@
 	});
 
 })(jQuery, document, window);
+
+//Afficher les TrainingById
+$(document).ready(function(){
+    $(document).on('click', ".btn-success", function(){
+        $('.modal-content').animate({'opacity': 1}, 800)
+        $('.modal-close').animate({'opacity': 1}, 800)
+        $('.modal-content').css('display', 'flex')
+    })
+    $(document).on('click', ".modal-close", function(){
+        $('.modal-content').animate({'opacity': 0}, 400)
+        $('.modal-close').animate({'opacity': 0}, 400)
+        $('.modal-content').css('display', 'none')
+    })
+})
+
+//Afficher les updateTraining
+$(document).ready(function(){
+    $(document).on('click', ".btn-primary", function(){
+        $('.modal-content').animate({'opacity': 1}, 400)
+        $('.modal-close').animate({'opacity': 1}, 400)
+        $('.modal-content').css('display', 'flex')
+    })
+    $(document).on('click', ".modal-close", function(){
+        $('.modal-content').animate({'opacity': 0}, 400)
+        $('.modal-close').animate({'opacity': 0}, 400)
+        $('.modal-content').css('display', 'none')
+    })
+})
