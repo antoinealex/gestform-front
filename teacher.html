@@ -1,220 +1,283 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
-		
-		<title>Teacher | You Stud</title>
-		<!-- Loading third party fonts -->
-		<link href="http://fonts.googleapis.com/css?family=Arvo:400,700|" rel="stylesheet" type="text/css">
-		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<!-- Loading main css file -->
-		<link rel="stylesheet" href="style.css">
-		
-		<!--[if lt IE 9]>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+
+    <title>Teacher | You Stud</title>
+    <!-- Loading third party fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Arvo:400,700|" rel="stylesheet" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Loading main css file -->
+    <link rel="stylesheet" href="style.css">
+
+    <!--[if lt IE 9]>
 		<script src="js/ie-support/html5.js"></script>
 		<script src="js/ie-support/respond.js"></script>
 		<![endif]-->
 
-    </head>
-    
-    <body>
-		
-		<div id="site-content">
-			<header class="site-header">
-				<div class="primary-header">
-					<div class="container">
-						<a href="index.html" id="branding">
-							<img src="images/logo_youstud2.png" alt="youstud">
-						</a> <!-- #branding -->
-						
-						<div class="main-navigation">
-							<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
-							<ul class="menu">
-								<li class="menu-item"><a href="index.html">Accueil</a></li>
-								<li class="menu-item current-menu-item"><a href="course.html">Cours</a></li>
-                                <li class="menu-item"><a href="event.html">Calendrier</a></li>
-                                <li class="menu-item"><a href="teacherprofil.html">Modifier profil</a></li>
-								<li class="menu-item"><a href="exportpaye.html">Export fiche de paye</a></li>
-							</ul> <!-- .menu -->
-						</div> <!-- .main-navigation -->
+</head>
 
-						<div class="mobile-navigation"></div>
-					</div> <!-- .container -->
-                </div> <!-- .primary-header -->
+<body>
 
-                <div class="page-title">
-					<div class="container">
-						<h2>Bienvenue sur votre page, professeur</h2>
-					</div>
+    <div id="site-content">
+        <header class="site-header">
+            <div class="primary-header">
+                <div class="container">
+                    <a href="index.html" id="branding">
+                        <img src="images/logo_youstud2.png" alt="youstud">
+                    </a> <!-- #branding -->
+
+                    <div class="main-navigation">
+                        <button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+                        <ul class="menu">
+                            <li class="menu-item"><a href="index.html">Accueil</a></li>
+                            <li class="menu-item current-menu-item"><a href="course.html">Cours</a></li>
+                            <li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
+                            <li class="menu-item"><a href="teacherprofil.html">Modifier profil</a></li>
+                            <li class="menu-item"><a href="exportpaye.html">Export fiche de paye</a></li>
+                        </ul> <!-- .menu -->
+                    </div> <!-- .main-navigation -->
+
+                    <div class="mobile-navigation"></div>
+                </div> <!-- .container -->
+            </div> <!-- .primary-header -->
+
+            <div class="page-title">
+                <div class="container">
+                    <h2>Bienvenue sur votre page, professeur: </h2>
                 </div>
-            </header>
-        </div>
-        
-        <main class="main-content">
-			<div class="fullwidth-block inner-content">
-				<div class="container">
-					<div class="fullwidth-content">
-                        <div class="row">
-                        <div class="col-md-5">
-						<h2 class="section-title"><i class="icon-calendar-lg"></i>Vos cours</h2>
+            </div>
+        </header>
+    </div>
 
-						<div class="accordion">
-							<div class="accordion-toggle">
-								<h3>Mathématiques 1ère</h3><br>
-                                <span class="date"><i class="icon-calendar"></i> 6 APR 2014</span>
-                                <span class="time"><i class="icon-clock"></i>1:00pm-2:00pm</span>
-								
-							</div>
-							<div class="accordion-content">
-								<p>Contenu du cours</p>
-							</div>
-						</div>
-						<div class="accordion">
-							<div class="accordion-toggle">
-								<h3>Mathématiques 2nde</h3><br>
-                                <span class="date"><i class="icon-calendar"></i> 6 APR 2014</span>
-                                <span class="time"><i class="icon-clock"></i>1:00pm-2:00pm</span>
-								
-							</div>
-							<div class="accordion-content">
-								<p>Contenu du cours</p>
-							</div>
-						</div>
-						<div class="accordion">
-							<div class="accordion-toggle">
-								<h3>Mathématiques 4ème</h3><br>
-                                <span class="date"><i class="icon-calendar"></i> 6 APR 2014</span>
-                                <span class="time"><i class="icon-clock"></i>1:00pm-2:00pm</span>
-								
-							</div>
-							<div class="accordion-content">
-								<p>Contenu du cours</p>
-							</div>
-						</div>
-						<div class="accordion">
-							<div class="accordion-toggle">
-								<h3>Mathématiques 6ème</h3><br>
-                                <span class="date"><i class="icon-calendar"></i> 6 APR 2014</span>
-                                <span class="time"><i class="icon-clock"></i>1:00pm-2:00pm</span>
-								
-							</div>
-							<div class="accordion-content">
-								<p>Contenu du cours</p>
-							</div>
-						</div>
-						<div class="accordion">
-							<div class="accordion-toggle">
-								<h3>Mathématiques 3ème</h3><br>
-                                <span class="date"><i class="icon-calendar"></i> 6 APR 2014</span>
-                                <span class="time"><i class="icon-clock"></i>1:00pm-2:00pm</span>
-								
-							</div>
-							<div class="accordion-content">
-								<p>Contenu du cours</p>
-							</div>
-                        </div>
-                        <p class="text-center">
-                            <a href="#" class="more button secondary">Ajouter/Modifier</a>
-                        </p>
-                    </div>
+    <main class="main-content">
+        <div class="fullwidth-block inner-content">
+            <div class="container">
+                <div class="fullwidth-content">
+                    <div class="row">
                         <div class="col-md-5">
-                            <h2 class="section-title"><i class="icon-calendar-lg"></i>Vos élèves</h2>
-    
-                            <div class="accordion">
-                                <div class="accordion-toggle">
-                                    <h3>Elève 1</h3><br><br>                                    
-                                </div>
-                                <div class="accordion-content">
-                                    <p>Nom, prénom, adresse, téléphone, email, niveau, cours suivis, total heure de cours</p>
-                                </div>
+                            <h2 class="section-title"><i class="icon-calendar-lg"></i>Vos cours</h2>
+                            <div class="accordion" id="cours">
+                                <!-- Resultats Ajax-->
                             </div>
-                            <div class="accordion">
-                                <div class="accordion-toggle">
-                                    <h3>Elève 2</h3><br><br>
-                                    
-                                </div>
-                                <div class="accordion-content">
-                                    <p>Nom, prénom, adresse, téléphone, email, niveau, cours suivis, total heure de cours</p>
-                                </div>
-                            </div>
-                            <div class="accordion">
-                                <div class="accordion-toggle">
-                                    <h3>Elève 3</h3><br><br>
-                                    
-                                    
-                                </div>
-                                <div class="accordion-content">
-                                    <p>Nom, prénom, adresse, téléphone, email, niveau, cours suivis, total heure de cours</p>
-                                </div>
-                            </div>
-                            <div class="accordion">
-                                <div class="accordion-toggle">
-                                    <h3>Elève 4</h3><br><br>
-                                    
-                                    
-                                </div>
-                                <div class="accordion-content">
-                                    <p>Nom, prénom, adresse, téléphone, email, niveau, cours suivis, total heure de cours</p>
-                                </div>
-                            </div>
-                            <div class="accordion">
-                                <div class="accordion-toggle">
-                                    <h3>Elève 5</h3><br><br>
-                                    
-                                    
-                                </div>
-                                <div class="accordion-content">
-                                    <p>Nom, prénom, adresse, téléphone, email, niveau, cours suivis, total heure de cours</p>
-                                </div>
-                            </div>
+
                             <p class="text-center">
-                                <a href="#" class="more button secondary">Rechercher un élève</a>
+                                <a href="#" class="more button secondary" data-toggle="modal"
+                                    data-target="#myModalAjoutTrainig">Ajouter un Training</a>
                             </p>
                         </div>
-                            </div> <!-- row -->
-						</div>
-                    </div>
-                </div>
-                
-				</div>
-			</div> <!-- .fullwidth-block -->
-		</main>
-                <footer class="site-footer">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="widget">
-                                    <h3 class="widget-title">Contactez nous</h3>
-                                    <address>You Stud' <br>25 rue de Lille <br>59200 tourcoing</address>
-        
-                                    <a href="mailto:contact@you-stud.fr">contact@you-stud.fr</a> <br>
-                                    <a href="tel:07 70 51 26 85">07 70 51 26 85</a>
+                        <div class="col-md-5">
+                            <h2 class="section-title"><i class="icon-calendar-lg"></i>Vos élèves</h2>
+
+                            <div class="accordion">
+                                <div class="accordion-toggle" id="eleves">
+                                    <h3></h3><br><br>
+                                </div>
+                                <div class="accordion-content">
+                                    <p>Nom, prénom, adresse, téléphone, email, niveau, cours suivis, total heure de
+                                        cours</p>
                                 </div>
                             </div>
-                            <div class="col-md-5">
-                                <div class="widget">
-                                    <h3 class="widget-title">Rejoignez-nous</h3>
-                                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-                                    <div class="social-links circle">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        
+
+                            <p class="text-center">
+                                <a href="#" class="more button secondary" data-toggle="modal"
+                                    data-target="#myModalAddStudent">Ajouter un élève</a>
+                            </p>
+                        </div>
+                    </div> <!-- row -->
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-between">
+                <!-- Formulaire Ajout Training -->
+                <div class="col-md-5">
+                    <div class="modal fade" id="myModalAjoutTrainig">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1>REMPLIR LES CHAMPS</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formT">
+                                        <div class="offset-1 col-3">
+                                            <label for="teacher_id">TeacherID</label><br />
+                                            <input name="teacher_id" type="text" required><br />
+                                            <label for="start_training">Debut</label><br />
+                                            <input name="start_training" type="datetime-local" required><br />
+                                            <label for="end_training">Fin</label><br />
+                                            <input name="end_training" type="datetime-local" required><br />
+                                            <label for="max_student">Nombre de student</label><br />
+                                            <input name="max_student" type="text" required><br />
+                                            <label for="price_per_student">Prix/student</label><br />
+                                            <input name="price_per_student" type="text" required><br />
+                                            <label for="training_description">Description</label><br />
+                                            <input name="training_description" type="text" required><br />
+                                            <label for="subject">Subject</label><br />
+                                            <input name="subject" type="text" required><br />
+                                            </br>
+                                            <button class="btn btn-outline-success my-2 my-sm-0" id="submit_t"
+                                                type="submit">Ajouter</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Editer Training -->
+                <div class="col-md-5">
+                    <div class="modal fade" id="myModalUpdateTraining">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1>MODIFIER LES CHAMPS</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formU">
+                                        <div class="offset-1 col-3">
+                                            <label for="training_id">TrainingID</label><br />
+                                            <input name="training_id" type="text" id="training_id" required><br />
+                                            <label for="start_training">Debut</label><br />
+                                            <input name="start_training" type="datetime-local" id="start_training"
+                                                required><br />
+                                            <label for="end_training">Fin</label><br />
+                                            <input name="end_training" type="datetime-local" id="end_training"
+                                                required><br />
+                                            <label for="max_student">Nombre de student</label><br />
+                                            <input name="max_student" type="text" id="max_student" required><br />
+                                            <label for="price_per_student">Prix/student</label><br />
+                                            <input name="price_per_student" type="text" id="price_per_student"
+                                                required><br />
+                                            <label for="training_description">Description</label><br />
+                                            <input name="training_description" type="text" id="training_description"
+                                                required><br />
+                                            <label for="subject">Subject</label><br />
+                                            <input name="subject" type="text" id="subject" required><br />
+                                            </br>
+                                            <button class="btn btn-outline-success my-2 my-sm-0" id="submit_u"
+                                                type="submit">Ajouter</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- Formulaire Ajout Student -->
+                    <div class="col-md-5">
+                        <div class="modal fade" id="myModalAddStudent">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1>REMPLIR LES CHAMPS</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="formS">
+                                            <div class="offset-1 col-3">
+                                                <label for="email">Email</label><br />
+                                                <input name="email" type="email" id="email" required><br />
+                                                <label for="roles">Rôle</label><br />
+                                                <select id="roles" name="roles" class="form-control">
+                                                    <option value="ROLE_STUDENT">ROLE_STUDENT</option>
+                                                    <option value="ROLE_TEACHER">ROLE_TEACHER</option>
+                                                </select><br />
+                                                <label for="password">Mot de passe</label><br />
+                                                <input name="password" type="password" id="password" required><br />
+                                                <label for="lastname">Nom</label><br />
+                                                <input name="lastname" type="text" id="lastname" required><br />
+                                                <label for="firstname">Prénom</label><br />
+                                                <input name="firstname" type="text" id="firstname" required><br />
+                                                <label for="phone">Téléphone</label><br />
+                                                <input name="phone" type="tel" id="phone" required><br />
+                                                <label for="address">Adresse</label><br />
+                                                <input name="address" type="text" id="address" required><br />
+                                                <label for="postcode">Code Postal</label><br />
+                                                <input name="postcode" type="text" id="postcode" required><br />
+                                                <label for="city">Ville</label><br />
+                                                <input name="city" type="text" id="city" required><br />
+                                                </br>
+                                                <button class="btn btn-outline-success my-2 my-sm-0" id="submit_s"
+                                                    type="submit">Ajouter</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-dark" data-dismiss="modal" value="close">
+
                                     </div>
                                 </div>
                             </div>
-                            
-                        </div>
-        
-                        <div class="copy">Copyright 2020 You Stud. All rights reserved.</div>
-                    </div>
-        
-                </footer>
-        
-                <script src="js/jquery-1.11.1.min.js"></script>
-                <script src="js/plugins.js"></script>
-                <script src="js/app.js"></script>
-                
 
-            </header>
-        </body>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        </div> <!-- .fullwidth-block -->
+
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="widget">
+                        <h3 class="widget-title">Contactez nous</h3>
+                        <address>You Stud' <br>25 rue de Lille <br>59200 tourcoing</address>
+
+                        <a href="mailto:contact@you-stud.fr">contact@you-stud.fr</a> <br>
+                        <a href="tel:07 70 51 26 85">07 70 51 26 85</a>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="widget">
+                        <h3 class="widget-title">Rejoignez-nous</h3>
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
+                        <div class="social-links circle">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="copy">Copyright 2020 You Stud. All rights reserved.</div>
+        </div>
+
+    </footer>
+
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/teacher.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    </header>
+</body>
