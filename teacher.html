@@ -38,8 +38,9 @@
                             <li class="menu-item"><a href="index.html">Accueil</a></li>
                             <li class="menu-item current-menu-item"><a href="course.html">Cours</a></li>
                             <li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
-                            <li class="menu-item"><a href="teacherprofil.html">Modifier profil</a></li>
-                            <li class="menu-item"><a href="exportpaye.html">Export fiche de paye</a></li>
+                            <li class="menu-item"><a href="#" id="modalUpdateProfil" data-toggle="modal"
+                                    data-target="#myModalUpdateProfil">Modifier profil</a></li>
+                            <li class="menu-item"><a href="export.html">Export</a></li>
                         </ul> <!-- .menu -->
                     </div> <!-- .main-navigation -->
 
@@ -49,7 +50,7 @@
 
             <div class="page-title">
                 <div class="container">
-                    <h2>Bienvenue sur votre page, professeur: </h2>
+                    <h2 class="text-center">Bienvenue sur votre page, professeur </h2>
                 </div>
             </div>
         </header>
@@ -61,33 +62,31 @@
                 <div class="fullwidth-content">
                     <div class="row">
                         <div class="col-md-5">
+                            <p class="text-center">
+                                <a href="#" class="more button secondary" data-toggle="modal"
+                                    data-target="#myModalAjoutTrainig">Ajouter un Training</a>
+                            </p>
                             <h2 class="section-title"><i class="icon-calendar-lg"></i>Vos cours</h2>
                             <div class="accordion" id="cours">
                                 <!-- Resultats Ajax-->
                             </div>
 
-                            <p class="text-center">
-                                <a href="#" class="more button secondary" data-toggle="modal"
-                                    data-target="#myModalAjoutTrainig">Ajouter un Training</a>
-                            </p>
+
                         </div>
                         <div class="col-md-5">
-                            <h2 class="section-title"><i class="icon-calendar-lg"></i>Vos élèves</h2>
-
-                            <div class="accordion">
-                                <div class="accordion-toggle" id="eleves">
-                                    <h3></h3><br><br>
-                                </div>
-                                <div class="accordion-content">
-                                    <p>Nom, prénom, adresse, téléphone, email, niveau, cours suivis, total heure de
-                                        cours</p>
-                                </div>
-                            </div>
-
                             <p class="text-center">
                                 <a href="#" class="more button secondary" data-toggle="modal"
                                     data-target="#myModalAddStudent">Ajouter un élève</a>
                             </p>
+                            <h2 class="section-title"><i class="icon-calendar-lg"></i>Vos élèves</h2>
+
+                            <div class="accordion" id="eleves">
+
+
+
+
+                            </div>
+
                         </div>
                     </div> <!-- row -->
                 </div>
@@ -95,6 +94,44 @@
         </div>
         <div class="container">
             <div class="row justify-content-between">
+                <!-- AFicher Training -->
+                <div class="col-md-5">
+                    <div class="modal fade" id="myModalDisplayTeacher">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 name="NameTeacher"></h1>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="offset-1 col-3">
+                                        <label for="training_id">TrainingID</label><br />
+                                        <p name="training_id" type="text"></p><br />
+                                        <label for="start_training">Debut</label><br />
+                                        <p name="start_training" type="datetime-local"></p><br />
+                                        <label for="end_training">Fin</label><br />
+                                        <p name="end_training" type="datetime-local"></p><br />
+                                        <label for="max_student">Nombre de student</label><br />
+                                        <p name="max_student" type="text"></p><br />
+                                        <label for="price_per_student">Prix/student</label><br />
+                                        <p name="price_per_student" type="text"></p><br />
+                                        <label for="training_description">Description</label><br />
+                                        <p name="training_description" type="text"></p><br />
+                                        <label for="subject">Subject</label><br />
+                                        <p name="subject" type="text"></p><br />
+                                        </br>
+
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Formulaire Ajout Training -->
                 <div class="col-md-5">
                     <div class="modal fade" id="myModalAjoutTrainig">
@@ -134,6 +171,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Editer Training -->
                 <div class="col-md-5">
                     <div class="modal fade" id="myModalUpdateTraining">
@@ -165,7 +203,7 @@
                                             <input name="subject" type="text" id="subject" required><br />
                                             </br>
                                             <button class="btn btn-outline-success my-2 my-sm-0" id="submit_u"
-                                                type="submit">Ajouter</button>
+                                                type="submit">Modifier</button>
                                         </div>
                                     </form>
 
@@ -179,6 +217,50 @@
 
 
                     </div>
+                    <!-- Formulaire UpdateProfil -->
+                    <div class="col-md-5">
+                        <div class="modal fade" id="myModalUpdateProfil">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1>REMPLIR LES CHAMPS</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="formUp">
+                                            <div class="offset-1 col-3">
+                                                <label for="email">Email</label><br />
+                                                <input name="email" type="email" required><br />
+                                                <label for="lastname">Nom</label><br />
+                                                <input name="lastname" type="text" required><br />
+                                                <label for="firstname">Prénom</label><br />
+                                                <input name="firstname" type="text" required><br />
+                                                <label for="phone">Téléphone</label><br />
+                                                <input name="phone" type="tel" required><br />
+                                                <label for="address">Adresse</label><br />
+                                                <input name="address" type="text" required><br />
+                                                <label for="postcode">Code Postal</label><br />
+                                                <input name="postcode" type="text" required><br />
+                                                <label for="city">Ville</label><br />
+                                                <input name="city" type="text" required><br />
+                                                </br>
+                                                <button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"
+                                                    type="submit">Modifier</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-dark" data-dismiss="modal" value="close">
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
                     <!-- Formulaire Ajout Student -->
                     <div class="col-md-5">
                         <div class="modal fade" id="myModalAddStudent">
