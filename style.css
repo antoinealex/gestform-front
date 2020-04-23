@@ -14,35 +14,6 @@ body {
   line-height: 2;
   font-weight: 300;
 }
-.modal-content{
-  display: none;
-  width: 100%;
-  position: relative;
-  margin: 0 auto;
-  padding: 8px;
-  padding-top: 30px;
-  box-shadow: 8px 8px 12px #333;
-  opacity: 0;
-}
-.modal-bg{
-  background-color: #333;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  opacity: 0.5;
-  /* display: none; */
-}
-.modal-close{
-  color: red;
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  cursor: pointer;
-  opacity: 0;
-}
 address {
   font-style: normal;
 }
