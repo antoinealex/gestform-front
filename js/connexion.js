@@ -3,8 +3,8 @@ $(document).ready(function () {
         e.preventDefault();
         console.log($('input[name=email]').val());
         var data = {};
-        data['email'] = $('input[name=email]').val(); //Recuperation des données formulaire connexion
-        data['password'] = $('input[name=password]').val(); //email et password
+        data['email'] = $('input[name = email]').val(); //Recuperation des données formulaire connexion
+        data['password'] = $('input[name = password]').val(); //email et password
         if (!(data['email']) || !(data['password'])) {
             alert("Veuillez saisir un identifiant et un mot de passe !");
         } else
@@ -15,11 +15,13 @@ $(document).ready(function () {
                 contentType: "application/json",
                 processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
                 data: JSON.stringify(data), //Envoi des données en JSON
+
                 success: function (response) {
                     console.log("success");
                     localStorage.setItem('MonToken', response.token); //On stock la response (token de connexion)
                     location.href = 'teacher.html';
                 },
+
                 error: function (jqXhr) {
                     alert(jqXhr.responseText);
                 },

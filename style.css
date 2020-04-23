@@ -14,7 +14,7 @@ body {
   line-height: 2;
   font-weight: 300;
 }
-.modal-content{
+/*.modal-content{
   display: none;
   width: 100%;
   position: relative;
@@ -33,7 +33,7 @@ body {
   left: 0;
   z-index: 2;
   opacity: 0.5;
-  /* display: none; */
+  /* display: none;
 }
 .modal-close{
   color: red;
@@ -42,7 +42,7 @@ body {
   right: 8px;
   cursor: pointer;
   opacity: 0;
-}
+}*/
 address {
   font-style: normal;
 }
@@ -283,14 +283,12 @@ input[disabled] {
 
 input[type="checkbox"],
 input[type="radio"] {
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0;
 }
 
 input[type="search"] {
   -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
 
@@ -315,8 +313,7 @@ table {
 }
 
 *, *:before, *:after {
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 [class^="icon-"] {
@@ -430,35 +427,35 @@ table {
 }
 .button.primary, input.primary[type="submit"] {
   background: #f7eacc;
-  background: -webkit-linear-gradient(270deg, #f7eacc, #c2ae81);
+  background: -webkit-gradient(linear, left top, left bottom, from(#f7eacc), to(#c2ae81));
   background: linear-gradient(180deg, #f7eacc, #c2ae81);
   color: #72664c;
 }
 .button.primary:hover, input.primary[type="submit"]:hover {
   background: #c2ae81;
-  background: -webkit-linear-gradient(90deg, #f7eacc, #c2ae81);
+  background: -webkit-gradient(linear, left bottom, left top, from(#f7eacc), to(#c2ae81));
   background: linear-gradient(0deg, #f7eacc, #c2ae81);
 }
 .button.secondary, input.secondary[type="submit"], .pagination .page-numbers {
   background: #cbd3c4;
-  background: -webkit-linear-gradient(270deg, #e4e9e0, #cbd3c4);
+  background: -webkit-gradient(linear, left top, left bottom, from(#e4e9e0), to(#cbd3c4));
   background: linear-gradient(180deg, #e4e9e0, #cbd3c4);
   color: #8a9184;
 }
 .button.secondary:hover, input.secondary[type="submit"]:hover, .pagination .page-numbers:hover {
   background: #cbd3c4;
-  background: -webkit-linear-gradient(90deg, #e4e9e0, #cbd3c4);
+  background: -webkit-gradient(linear, left bottom, left top, from(#e4e9e0), to(#cbd3c4));
   background: linear-gradient(0deg, #e4e9e0, #cbd3c4);
 }
 .button.green, input.green[type="submit"], .pagination .page-numbers.current, .accordion.expanded .accordion-toggle:after {
   background: #719c51;
-  background: -webkit-linear-gradient(270deg, #719c51, #648a48);
+  background: -webkit-gradient(linear, left top, left bottom, from(#719c51), to(#648a48));
   background: linear-gradient(180deg, #719c51, #648a48);
   color: white;
 }
 .button.green:hover, input.green[type="submit"]:hover, .pagination .page-numbers.current:hover, .accordion.expanded .accordion-toggle:hover:after {
   background: #648a48;
-  background: -webkit-linear-gradient(90deg, #719c51, #648a48);
+  background: -webkit-gradient(linear, left bottom, left top, from(#719c51), to(#648a48));
   background: linear-gradient(0deg, #719c51, #648a48);
 }
 .button.large, input.large[type="submit"] {
@@ -468,23 +465,24 @@ table {
 
 input[type="submit"] {
   background: #6c7f60;
-  background: -webkit-linear-gradient(270deg, #6c7f60, #495740);
+  background: -webkit-gradient(linear, left top, left bottom, from(#6c7f60), to(#495740));
   background: linear-gradient(180deg, #6c7f60, #495740);
   color: white;
-  text-decoration: 0 1px 1px rgba(0, 0, 0, 0.4);
+  -webkit-text-decoration: 0 1px 1px rgba(0, 0, 0, 0.4);
+          text-decoration: 0 1px 1px rgba(0, 0, 0, 0.4);
 }
 input[type="submit"]:hover {
-  background: -webkit-linear-gradient(90deg, #6c7f60, #495740);
+  background: -webkit-gradient(linear, left bottom, left top, from(#6c7f60), to(#495740));
   background: linear-gradient(0deg, #6c7f60, #495740);
 }
 input[type="submit"].light {
   background: #c6d3bd;
-  background: -webkit-linear-gradient(270deg, #c6d3bd, #a5b59b);
+  background: -webkit-gradient(linear, left top, left bottom, from(#c6d3bd), to(#a5b59b));
   background: linear-gradient(180deg, #c6d3bd, #a5b59b);
   color: #505f46;
 }
 input[type="submit"].light:hover {
-  background: -webkit-linear-gradient(90deg, #c6d3bd, #a5b59b);
+  background: -webkit-gradient(linear, left bottom, left top, from(#c6d3bd), to(#a5b59b));
   background: linear-gradient(0deg, #c6d3bd, #a5b59b);
 }
 
@@ -515,7 +513,7 @@ input[type="submit"].light:hover {
   text-align: center;
   border-radius: 50%;
   background: #c6d3bd;
-  background: -webkit-linear-gradient(270deg, #c6d3bd, #a5b59b);
+  background: -webkit-gradient(linear, left top, left bottom, from(#c6d3bd), to(#a5b59b));
   background: linear-gradient(180deg, #c6d3bd, #a5b59b);
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.5);
   color: #505f46;
@@ -525,7 +523,7 @@ input[type="submit"].light:hover {
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 .social-links.circle a:hover {
-  background: -webkit-linear-gradient(90deg, #c6d3bd, #a5b59b);
+  background: -webkit-gradient(linear, left bottom, left top, from(#c6d3bd), to(#a5b59b));
   background: linear-gradient(0deg, #c6d3bd, #a5b59b);
 }
 
@@ -611,7 +609,7 @@ form select {
 }
 .courses li.current {
   background: #719d51;
-  background: -webkit-linear-gradient(270deg, #719d51, #638948);
+  background: -webkit-gradient(linear, left top, left bottom, from(#719d51), to(#638948));
   background: linear-gradient(180deg, #719d51, #638948);
   border: none;
   border-radius: 10px;
@@ -2013,7 +2011,7 @@ form select {
   bottom: 0;
   left: 0;
   background-color: #ccb47e;
-  background-image: -webkit-linear-gradient(270deg, #cab27c 70%, #c1975b 15%, #ad744d 15%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(70%, #cab27c), color-stop(15%, #c1975b), color-stop(15%, #ad744d));
   background-image: linear-gradient(180deg, #cab27c 70%, #c1975b 15%, #ad744d 15%);
   background-image: url(images/wood.png);
   background-repeat: repeat-x;
@@ -2077,10 +2075,10 @@ form select {
   padding-left: 0; */
   color: #72664c;
   background: #f7eacc;
-  background: -webkit-linear-gradient(270deg, #f7eacc, #cfbe97);
+  background: -webkit-gradient(linear, left top, left bottom, from(#f7eacc), to(#cfbe97));
   background: linear-gradient(180deg, #f7eacc, #cfbe97);
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
-  background: -webkit-linear-gradient(90deg, #f7eacc, #cfbe97);
+  background: -webkit-gradient(linear, left bottom, left top, from(#f7eacc), to(#cfbe97));
   background: linear-gradient(0deg, #f7eacc, #cfbe97);
  
 }
@@ -2114,7 +2112,7 @@ form select {
 .main-navigation .menu-item.current-menu-item a, .main-navigation .menu-item:hover a {
   color: #72664c;
   background: #f7eacc;
-  background: -webkit-linear-gradient(270deg, #f7eacc, #cfbe97);
+  background: -webkit-gradient(linear, left top, left bottom, from(#f7eacc), to(#cfbe97));
   background: linear-gradient(180deg, #f7eacc, #cfbe97);
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
 }
@@ -2124,14 +2122,14 @@ form select {
   background: #f7eacc;
   padding: 10px 20px;
   border-radius: 3px;
-  background: -webkit-linear-gradient(270deg, #f7eacc, #cfbe97);
+  background: -webkit-gradient(linear, left top, left bottom, from(#f7eacc), to(#cfbe97));
   background: linear-gradient(180deg, #f7eacc, #cfbe97);
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
   display: none;
   outline: none;
 }
 .main-navigation .menu-toggle:active {
-  background: -webkit-linear-gradient(90deg, #f7eacc, #cfbe97);
+  background: -webkit-gradient(linear, left bottom, left top, from(#f7eacc), to(#cfbe97));
   background: linear-gradient(0deg, #f7eacc, #cfbe97);
 }
 @media screen and (max-width: 990px) {
@@ -2170,7 +2168,7 @@ form select {
 .mobile-navigation .menu .current-menu-item a, .mobile-navigation .menu .menu-item:hover a {
   color: #72664c;
   background: #f7eacc;
-  background: -webkit-linear-gradient(270deg, #f7eacc, #cfbe97);
+  background: -webkit-gradient(linear, left top, left bottom, from(#f7eacc), to(#cfbe97));
   background: linear-gradient(180deg, #f7eacc, #cfbe97);
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
 }
@@ -2324,5 +2322,3 @@ article .featured-image img {
   color: #777c73;
   line-height: 1.5;
 }
-
-/*# sourceMappingURL=style.css.map */
