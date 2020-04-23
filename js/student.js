@@ -38,8 +38,8 @@ $(document).ready(function () {
             $.each(response, function (i, training) {
                 $("#cours").append('<div class="accordion-toggle">' +
                     '<h3>' + training.subject + '</h3><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + training.startTraining + '</span><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + training.endTraining + '</span><br />' +
+                    '<span class= "date"><i class="icon-calendar"></i>' + training.startTraining.substring(0, 19) + '</span><br />' +
+                    '<span class= "date"><i class="icon-calendar"></i>' + training.endTraining.substring(0, 19) + '</span><br />' +
                     //'<p> Contenu du cours: ' + training.description + '</p>' +
                     //'<p> Nombre d\'élèves: ' + training.studentsCount + '</p>' +
                     '<button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining">Afficher</button>' +
@@ -195,5 +195,4 @@ $(document).ready(function () {
             },
         });
     });
-
 });

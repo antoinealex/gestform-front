@@ -18,13 +18,49 @@ $(document).ready(function () {
 
                 success: function (response) {
                     console.log("success");
-                    localStorage.setItem('MonToken', response.token); //On stock la response (token de connexion)
-                    location.href = 'teacher.html';
+                    localStorage.setItem('MonToken', response.token); //On stock la response (token de connexion)    
+                    $.ajax({
+                        url: 'https://gestform.ei-bs.eu/user/getCurrentUser',
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        headers: {
+                            Authorization: `Bearer ${ localStorage.getItem('MonToken') }`
+                        }, //token dans le header de la requete
+
+
+                        success: function (response) {
+                            console.log(response.roles[0]);
+                            if (response.roles[0] == "ROLE_ADMIN") {
+                                location.href = 'admin.html';
+                            } else if (response.roles[0] == "ROLE_TEACHER") {
+                                location.href = 'teacher.html';
+                            } else if (response.roles[0] == "ROLE_STUDENT") {
+                                location.href = 'student.html';
+                            } else if (response.roles[0] == null) {
+                                alert('Rôle non défini, merci de contacter l administrateur !')
+                                location.href = 'index.html';
+                            } else
+                                location.href('index.html');
+                        },
+                        error: function (jqxhr) {
+                            alert(jqxhr.responseText);
+                            location.href = 'index.html';
+                        },
+                    });
                 },
 
                 error: function (jqXhr) {
                     alert(jqXhr.responseText);
+                    location.href = 'index.html';
                 },
             });
+    });
+
+    $("#Deconnexion").click(function (e) {
+        e.preventDefault();
+
+        localStorage.setItem('MonToken', '   ');
+        location.href = 'index.html';
     });
 });
