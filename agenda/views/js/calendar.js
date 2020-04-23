@@ -1,9 +1,9 @@
 $(document).ready(function() {
     var calendar = $('#calendar').fullCalendar({
-        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-        dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
-        dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
+        monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+        monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Jun','Jui','Aoû','Sep','Oct','Nov','Déc'],
+        dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+        dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
         editable:true,
         header:{
             left:'prev,next today',
@@ -12,9 +12,9 @@ $(document).ready(function() {
         },
         eventSources: [
             {
-                url:"http://gestform/calendar/getCurrentUserEvents",
+                url:"https://gestform.ei-bs.eu/user/getCurrentUser",
                 headers:{
-                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    'Authorization': 'Bearer ' + localStorage.getItem('MyUniqueUserToken')
                 }
             }
         ],
@@ -28,10 +28,10 @@ $(document).ready(function() {
                 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                 $.ajax({
-                    url:"http://gestform/calendar/newCurrentUserEvent",
+                    url:"https://gestform.ei-bs.eu/calendar/getCurrentUserEvents",
                     type:"POST",
                     headers:{
-                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                        'Authorization': 'Bearer ' + localStorage.getItem('MyUniqueUserToken')
                     },
                     data:{title:title, start:start, end:end, description:description},
                     success:function()
@@ -50,12 +50,12 @@ $(document).ready(function() {
             data['start'] = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
             data['end'] = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
             $.ajax({
-                url:"http://gestform/calendar/updateCurrentUserEventFC",
+                url:"https://gestform.ei-bs.eu/calendar/updateCurrentUserEvent",
                 type:"PUT",
                 dataType: 'json',
                 preventData: false,
                 headers:{
-                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+                    'Authorization': 'Bearer ' + localStorage.getItem('MyUniqueUserToken')
                 },
                 data: JSON.stringify(data),
                 success:function(){
@@ -72,12 +72,12 @@ $(document).ready(function() {
             data['start'] = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
             data['end'] = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
             $.ajax({
-                url:"http://gestform/calendar/updateCurrentUserEventFC",
+                url:"https://gestform.ei-bs.eu/calendar/updateCurrentUserEvent",
                 type:"PUT",
                 dataType: 'json',
                 preventData: false,
                 headers:{
-                    'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+                    'Authorization': 'Bearer ' + localStorage.getItem('MyUniqueUserToken'),
                 },
                 data: JSON.stringify(data),
                 success:function()
@@ -95,12 +95,12 @@ $(document).ready(function() {
                 var data = {};
                 data['eventId'] = event.id;
                 $.ajax({
-                    url:"http://gestform/calendar/deleteCurrentUserEventFC",
+                    url:"https://gestform.ei-bs.eu/calendar/deleteCurrentUserEvent",
                     type:"DELETE",
                     dataType: 'json',
                     preventData: false,
                     headers:{
-                        'Authorization': 'Bearer ' + localStorage.getItem('accessToken') 
+                        'Authorization': 'Bearer ' + localStorage.getItem('MyUniqueUserToken') 
                     },
                     data: JSON.stringify(data),
                     success:function()
