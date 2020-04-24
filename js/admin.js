@@ -26,10 +26,6 @@ $(document).ready(function () {
 
     //****************getAllTraining********************
     $(document).ready(function (){
-        
-        var courses = $('#cours')
-        //var token = localStorage.getItem('MyUniqueUserToken');
-
 
         $.ajax({
             url: 'https://gestform.ei-bs.eu/training/getAllTraining',
@@ -44,7 +40,7 @@ $(document).ready(function () {
                     var start = chnStart.substring(0,19);
                     var chnEnd= training.endTraining;
                     var end = chnEnd.substring(0,19);
-                    courses.append('\
+                    $('#cours').append('\
                     <div class="accordion-toggle">' +
                         '<h3>' + training.subject + '</h3><br />' +
                         '<span class= "date"><i class="icon-calendar"></i>' + start + '</span><br />' +
@@ -68,9 +64,6 @@ $(document).ready(function () {
 
     //****************getAllUser********************
     $(document).ready(function (){
-        
-        var student = $('#eleves')
-        //var token = localStorage.getItem('MyUniqueUserToken');
 
         $.ajax({
             url: 'https://gestform.ei-bs.eu/admin/getAllUser',
@@ -81,7 +74,7 @@ $(document).ready(function () {
             success: function(user){
                 console.log("success GET")
                 $.each(user, function(i, user){
-                    student.append('\
+                    $('#eleves').append('\
                     <div class="accordion-toggle">' +
                         '<h3>' + user.firstname + ' ' + user.lastname + '</h3><br />' +
                         '<span class="id">id n°:'+ user.id +'</span><br>' +
@@ -105,9 +98,9 @@ $(document).ready(function () {
 
     //****************getTrainingById********************
     $(document).on('click',".getTraining", function (){
-       // var token = localStorage.getItem('MyUniqueUserToken');
         event.preventDefault();
         var id = $(this).attr('id');
+
         $.ajax({
             url: 'https://gestform.ei-bs.eu/training/getTrainingById?id=' + id,
             type: 'GET',
@@ -139,9 +132,9 @@ $(document).ready(function () {
 
     //****************getUSerById********************
     $(document).on('click',".getUser", function (){
-        //var token = localStorage.getItem('MyUniqueUserToken');
-        //event.preventDefault();
+        event.preventDefault();
         var id = $(this).attr('id');
+
         $.ajax({
             url: 'https://gestform.ei-bs.eu/admin/getUserByID?id=' + id,
             type: 'GET',
@@ -173,9 +166,6 @@ $(document).ready(function () {
     //****************addTraining********************
     $("#submit_t").click(function (){
         event.preventDefault();
-
-        //var token = localStorage.getItem('MyUniqueUserToken');
-
         data = {};
         
         $.ajax({
@@ -209,7 +199,6 @@ $(document).ready(function () {
     //****************addUser********************
     $("#submit_s").click(function (){
         event.preventDefault();
-        //var token = localStorage.getItem('MyUniqueUserToken');
         data = {};
         
         $.ajax({
@@ -249,7 +238,6 @@ $(document).ready(function () {
     //****************updateTraining********************
 
     $(document).on('click',".updateTraining", function (){
-        //var token = localStorage.getItem('MyUniqueUserToken');
         event.preventDefault();
         var id = $(this).attr('id');
 
@@ -326,7 +314,6 @@ $(document).ready(function () {
     //****************updateUser********************
 
     $(document).on('click',".updateUser", function (){
-        //var token = localStorage.getItem('MyUniqueUserToken');
         event.preventDefault();
         var id = $(this).attr('id');
 
@@ -396,6 +383,72 @@ $(document).ready(function () {
         });
     });
 
+    ////////////////////////UPDATE Profil CurrentUser////////////////////////////////
+    $("#modalUpdateProfil").click(function (e) {
+        e.preventDefault();
+
+        if (confirm("Etes-vous sûr de vouloir modifier votre profil ?")) {
+            $.ajax({
+                url: 'https://gestform.ei-bs.eu/user/getCurrentUser',
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json',
+                headers: {
+                    Authorization: `Bearer ${ token }`
+                },
+
+                success: function (response) {
+
+                    $("input[name=email]").val(response.email);
+                    $('input[name=lastname]').val(response.lastname);
+                    $('input[name=firstname]').val(response.firstname);
+                    $('input[name=phone]').val(response.phone);
+                    $('input[name=address]').val(response.address);
+                    $('input[name=postcode]').val(response.postcode);
+                    $('input[name=city]').val(response.city);
+
+                },
+                error: function (jqXhr) {
+                    alert(jqXhr.responseText);
+                },
+            })
+        } else {
+            location.href = 'teacher.html';
+        }
+    });
+
+    $("#submit_up").click(function (e) {
+        e.preventDefault();
+        data = {
+            "email": $("input[name=email]").val(),
+            "lastname": $('input[name=lastname]').val(),
+            "firstname": $('input[name=firstname]').val(),
+            "phone": $('input[name=phone]').val(),
+            "address": $('input[name=address]').val(),
+            "postcode": $('input[name=postcode]').val(),
+            "city": $('input[name=city]').val()
+        }
+
+        $.ajax({
+            url: 'https://gestform.ei-bs.eu/user/updateCurrentUser',
+            type: 'PUT',
+            dataType: 'json', //type de données qu'on attend en réponse du serveur
+            contentType: "application/json",
+            processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+            data: JSON.stringify(data),
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+
+            success: function () {
+                alert('Informations Modifiées avec succés !');
+                location.reload(true);
+            },
+            error: function (jqXhr) {
+                alert(jqXhr.responseText);
+            },
+        });
+    });
 
     //******************************************************************************
     //********************************** DELETE ************************************
@@ -403,7 +456,6 @@ $(document).ready(function () {
 
     //****************deleteTraining********************
         $(document).on('click',".deleteTraining", function (){
-            //var token = localStorage.getItem('MyUniqueUserToken');
             event.preventDefault();
             
             $(this).text('Chargement');
@@ -426,7 +478,6 @@ $(document).ready(function () {
 
         //****************deleteUser********************
         $(document).on('click',".deleteUser", function (){
-            //var token = localStorage.getItem('MyUniqueUserToken');
             event.preventDefault();
             
             $(this).text('Chargement');
