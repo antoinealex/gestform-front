@@ -39,7 +39,7 @@
 								<li class="menu-item"><a href="teacher.html">Interface teacher</a></li>
 								<li class="menu-item"><a href="student.html">Interface student</a></li>
                                 <li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
-                                <li class="menu-item"><a href="teacherprofil.html">Modifier profil</a></li>
+								<li class="menu-item"><a href="#" id="modalUpdateProfil" data-toggle="modal" data-target="#myModalUpdateProfil">Modifier profil</a></li>
 								<li class="menu-item"><a href="export.html">Export</a></li>
 								<li class="menu-item"><a id="disconnect" href="" >Déconnexion</a></li>
 							</ul> <!-- .menu -->
@@ -92,6 +92,46 @@
 				</div>
 			</div>
 			<div class="container">
+				<!-- Formulaire UpdateProfil -->
+				<div class="col-md-5">
+					<div class="modal fade" id="myModalUpdateProfil">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1>REMPLIR LES CHAMPS</h1>
+								</div>
+								<div class="modal-body">
+									<form id="formUp">
+										<div class="offset-1 col-3">
+											<label for="email">Email</label><br />
+											<input name="email" type="email" required><br />
+											<label for="lastname">Nom</label><br />
+											<input name="lastname" type="text" required><br />
+											<label for="firstname">Prénom</label><br />
+											<input name="firstname" type="text" required><br />
+											<label for="phone">Téléphone</label><br />
+											<input name="phone" type="tel" required><br />
+											<label for="address">Adresse</label><br />
+											<input name="address" type="text" required><br />
+											<label for="postcode">Code Postal</label><br />
+											<input name="postcode" type="text" required><br />
+											<label for="city">Ville</label><br />
+											<input name="city" type="text" required><br />
+											</br>
+											<button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"
+												type="submit">Modifier</button>
+										</div>
+									</form>
+
+								</div>
+								<div class="modal-footer">
+									<input class="btn btn-dark" data-dismiss="modal" value="close">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="row justify-content-between">
 					<!-- Formulaire Afficher Training -->
 					<div class="col-md-5">
