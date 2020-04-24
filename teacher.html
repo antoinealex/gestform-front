@@ -35,6 +35,7 @@
                     <div class="main-navigation">
                         <button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
                         <ul class="menu">
+<<<<<<< HEAD
 							<li class="menu-item"><a href="index.html">Accueil</a></li>
 							<li class="menu-item"><a href="admin.html">Interface admin</a></li>
 							<li class="menu-item"><a href="teacher.html">Interface teacher</a></li>
@@ -43,6 +44,15 @@
 							<li class="menu-item"><a href="teacherprofil.html">Modifier profil</a></li>
 							<li class="menu-item"><a href="export.html">Export</a></li>
 							<li class="menu-item"><a id="disconnect" href="" >Déconnexion</a></li>
+=======
+                            <li class="menu-item"><a href="index.html">Accueil</a></li>
+                            <li class="menu-item current-menu-item"><a href="course.html">Cours</a></li>
+                            <li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
+                            <li class="menu-item"><a href="#" id="modalUpdateProfil" data-toggle="modal"
+                                    data-target="#myModalUpdateProfil">Modifier profil</a></li>
+                            <li class="menu-item"><a href="export.html">Export</a></li>
+                            <li class="menu-item"><a href="#" id="Deconnexion">Déconnexion</a></li>
+>>>>>>> 58f1c3ff1129a7b38ff9cf0e40ce32341c6b7a17
                         </ul> <!-- .menu -->
                     </div> <!-- .main-navigation -->
 
@@ -185,8 +195,8 @@
                                 <div class="modal-body">
                                     <form id="formU">
                                         <div class="offset-1 col-3">
-                                            <label for="training_id">TrainingID</label><br />
-                                            <input name="training_id" type="text" id="training_id" required><br />
+
+                                            <input name="training_id" type="hidden" id="training_id" required><br />
                                             <label for="start_training">Debut</label><br />
                                             <input name="start_training" type="datetime-local" id="start_training"
                                                 required><br />
@@ -356,6 +366,7 @@
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/plugins.js"></script>
+    <script src="js/connexion.js"></script>
     <script src="js/app.js"></script>
     <script src="js/teacher.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
