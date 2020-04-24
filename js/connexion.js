@@ -60,7 +60,6 @@ $(document).ready(function () {
                 },
             });
     });
-<<<<<<< HEAD
 });
 
 //***********************************************************************
@@ -73,13 +72,3 @@ $('#disconnect').click(function(e){
     data = localStorage.setItem('MonToken', '');
     location.href = "index.html";
 })
-=======
-
-    $("#Deconnexion").click(function (e) {
-        e.preventDefault();
-
-        localStorage.setItem('MonToken', '   ');
-        location.href = 'index.html';
-    });
-});
->>>>>>> 58f1c3ff1129a7b38ff9cf0e40ce32341c6b7a17
