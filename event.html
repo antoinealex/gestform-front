@@ -7,8 +7,9 @@
 		
 		<title>Events | You Stud</title>
 		<!-- Loading third party fonts -->
-		<link href="http://fonts.googleapis.com/css?family=Arvo:400,700|" rel="stylesheet" type="text/css">
+		<link href="vendor/arvo.css" rel="stylesheet" type="text/css">
 		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
 		<!-- Loading main css file -->
 		<link rel="stylesheet" href="style.css">
 		
@@ -34,10 +35,13 @@
 							<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
 							<ul class="menu">
 								<li class="menu-item"><a href="index.html">Accueil</a></li>
-								<li class="menu-item current-menu-item"><a href="course.html">Cours</a></li>
-								<!-- <li class="menu-item"><a href="student.html">Students</a></li> -->
-								<li class="menu-item"><a href="event.html">Calendrier</a></li>
-								<li class="menu-item"><a href="contact.html">Contact</a></li>
+								<li class="menu-item"><a href="admin.html">Interface admin</a></li>
+								<li class="menu-item"><a href="teacher.html">Interface teacher</a></li>
+								<li class="menu-item"><a href="student.html">Interface student</a></li>
+                                <li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
+                                <li class="menu-item"><a href="teacherprofil.html">Modifier profil</a></li>
+								<li class="menu-item"><a href="export.html">Export</a></li>
+								<li class="menu-item"><a id="disconnect" href="" >Déconnexion</a></li>
 							</ul> <!-- .menu -->
 						</div> <!-- .main-navigation -->
 
@@ -182,7 +186,8 @@
 
 		</footer>
 
-		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="vendor/jquery-3.4.1.min.js"></script>
+		<script src="vendor/bootstrap/bootstrap.min.js"></script>
 		<script src="js/plugins.js"></script>
 		<script src="js/app.js"></script>
 		

@@ -1,3 +1,7 @@
+//***********************************************************************
+//*************************** LOGIN *************************************
+//***********************************************************************
+
 $(document).ready(function () {
     $("#submit").click(function (e) {
         e.preventDefault();
@@ -9,7 +13,7 @@ $(document).ready(function () {
             alert("Veuillez saisir un identifiant et un mot de passe !");
         } else
             $.ajax({
-                url: 'http://gestform.ei-bs.eu/security/login_check', //Request
+                url: 'https://gestform.ei-bs.eu/security/login_check', //Request
                 type: 'POST',
                 dataType: 'json', //type de données qu'on attend en réponse du serveur
                 contentType: "application/json",
@@ -56,11 +60,15 @@ $(document).ready(function () {
                 },
             });
     });
-
-    $("#Deconnexion").click(function (e) {
-        e.preventDefault();
-
-        localStorage.setItem('MonToken', '   ');
-        location.href = 'index.html';
-    });
 });
+
+//***********************************************************************
+//*************************** LOGOUT ************************************
+//***********************************************************************
+
+$('#disconnect').click(function(e){
+    e.preventDefault();
+
+    data = localStorage.setItem('MonToken', '');
+    location.href = "index.html";
+})
