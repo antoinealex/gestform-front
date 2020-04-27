@@ -198,7 +198,7 @@ $(document).ready(function () {
 
             console.log(data);
             $.ajax({
-                url: 'https: //gestform.ei-bs.eu/admin/createUser',
+                url: 'https://gestform.ei-bs.eu/admin/createUser',
                 type: 'POST',
                 data: data,
                 contentType: false,
