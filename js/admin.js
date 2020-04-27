@@ -78,8 +78,7 @@ $(document).ready(function () {
                     <div class="accordion-toggle">' +
                         '<h3>' + user.firstname + ' ' + user.lastname + '</h3><br />' +
                         '<span class="id">id n°:'+ user.id +'</span><br>' +
-                        '<span class="text">'+ user.phone +'</span><br>' +
-                        '<span class="text">'+ user.email +'</span><br>' +
+                        '<span class="text">'+ user.roles[0] +'</span><br>' +
                         '<button id=' + user.id + ' type="button" class="getUser btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetUser">Afficher</button>' +
                         '<button id=' + user.id + ' type="button" class="updateUser btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateUser">Editer</button>' +
                         '<button id=' + user.id + ' type="button" class="deleteUser btn btn-danger btn-sm">Supprimer</button><br />' +
@@ -173,13 +172,13 @@ $(document).ready(function () {
             type: 'POST',
             headers: { Authorization: `Bearer ${ token }`},
             data: {
-                teacher_id: $('input[name=teacher_id]').val(),
-                start_training: $('input[name=start_training]').val(),
-                end_training: $('input[name=end_training]').val(),
-                max_student: $('input[name=max_student]').val(),
-                price_per_student: $('input[name=price_per_student]').val(),
-                training_description: $('input[name=training_description]').val(),
-                subject: $('input[name=subject]').val()
+                teacher_id: $('input[name=addTeacher_id]').val(),
+                start_training: $('input[name=addStart_training]').val(),
+                end_training: $('input[name=addEnd_training]').val(),
+                max_student: $('input[name=addMax_student]').val(),
+                price_per_student: $('input[name=addPrice_per_student]').val(),
+                training_description: $('input[name=addTraining_description]').val(),
+                subject: $('input[name=addSubject]').val()
             },
                 success: function(){
                     alert('Le cours a été ajouté avec succés !');
@@ -206,15 +205,15 @@ $(document).ready(function () {
             type: 'POST',
             headers: { Authorization: `Bearer ${ token }`},
             data: {
-                email: $('input[name=email]').val(),
-                roles: $('select[name=roles]').val(),
-                password: $('input[name=password]').val(),
-                lastname: $('input[name=lastname]').val(),
-                firstname: $('input[name=firstname]').val(),
-                phone: $('input[name=phone]').val(),
-                address: $('input[name=address]').val(),
-                postcode: $('input[name=postcode]').val(),
-                city: $('input[name=city]').val()
+                email: $('input[name=addEmail]').val(),
+                roles: $('select[name=addRoles]').val(),
+                password: $('input[name=addPassword]').val(),
+                lastname: $('input[name=addLastname]').val(),
+                firstname: $('input[name=addFirstname]').val(),
+                phone: $('input[name=addPhone]').val(),
+                address: $('input[name=addAddress]').val(),
+                postcode: $('input[name=addPostcode]').val(),
+                city: $('input[name=addCity]').val()
             },
                 success: function(){
                     alert('L\'utilisateur a été ajouté avec succés !');
@@ -259,14 +258,14 @@ $(document).ready(function () {
                 var chnEnd= training.endTraining;
                 var end = chnEnd.substring(0,19);
                 
-                $('input[name=trainingId]').val(training.id)
-                $('input[name=teacher]').val(/*training.teacher['firstname'] + " " + training.teacher['lastname']*/training.teacher["id"]);
-                $('input[name=start_training]').val(start);
-                $('input[name=end_training]').val(end);
-                $('input[name=max_student]').val(training.maxStudent);
-                $('input[name=price_per_student]').val(training.pricePerStudent);
-                $('input[name=training_description]').val(training.trainingDescription);
-                $('input[name=subject]').val(training.subject);
+                $('input[name=editTrainingId]').val(training.id)
+                $('input[name=editTeacher]').val(/*training.teacher['firstname'] + " " + training.teacher['lastname']*/training.teacher["id"]);
+                $('input[name=editStart_training]').val(start);
+                $('input[name=editEnd_training]').val(end);
+                $('input[name=editMax_student]').val(training.maxStudent);
+                $('input[name=editPrice_per_student]').val(training.pricePerStudent);
+                $('input[name=editTraining_description]').val(training.trainingDescription);
+                $('input[name=editSubject]').val(training.subject);
             },
             error : function( jqXHR, textStatus, errorThrown ){
                 alert( textStatus, errorThrown );
@@ -275,19 +274,19 @@ $(document).ready(function () {
                 console.log( textStatus );
             }
         });
-        $(document).on('click',"#submit_u", function (){
+        $("#formU").on('click',"#submit_u", function (){
             event.preventDefault();
-            trainingData = {
-                "id": $('input[name=trainingId]').val(),
-                "teacher_id": $('input[name=teacher]').val(),
-                "startTraining": $('input[name=start_training]').val(),
-                "endTraining": $('input[name=end_training]').val(),
-                "maxStudent": $('input[name=max_student]').val(),
-                "pricePerStudent": $('input[name=price_per_student]').val(),
-                "trainingDescription": $('input[name=training_description]').val(),
-                "subject": $('input[name=subject]').val()
+            var trainingData = {
+                id: $('input[name=editTrainingId]').val(),
+                teacher_id: $('input[name=editTeacher]').val(),
+                startTraining: $('input[name=editStart_training]').val(),
+                endTraining: $('input[name=editEnd_training]').val(),
+                maxStudent: $('input[name=editMax_student]').val(),
+                pricePerStudent: $('input[name=editPrice_per_student]').val(),
+                trainingDescription: $('input[name=editTraining_description]').val(),
+                subject: $('input[name=editSubject]').val()
             };
-
+            console.log(JSON.stringify(trainingData))
             $.ajax({
                 url: 'https://gestform.ei-bs.eu/admin/updateTraining',
                 type: 'PUT',
@@ -297,15 +296,15 @@ $(document).ready(function () {
                 headers: { Authorization: `Bearer ${ token }`},
                 data: JSON.stringify(trainingData),
                     success: function(){
-                        console.log(training.id);
-                        location.reload(true);
+                        //console.log(training.id);
+                        //location.reload(true);
         
                 },
                 error : function( jqXHR, textStatus, errorThrown ){
                     alert( textStatus, errorThrown );
                 },
                 complete : function( jqXHR, textStatus ){
-                    console.log( textStatus );
+                    //console.log( JSON.stringify(trainingData) );
                 }
             });
         });
@@ -327,16 +326,16 @@ $(document).ready(function () {
             success: function(user) {
                 console.log(id);
 
-                $('input[name=userId]').val(id)
-                $('input[name=lastname]').val(user.lastname);
-                $('input[name=firstname]').val(user.firstname);
-                $('input[name=roles]').val(user.roles[0]);
-                $('input[name=email]').val(user.email)
+                $('input[name=editUserId]').val(id)
+                $('input[name=editLastname]').val(user.lastname);
+                $('input[name=editFirstname]').val(user.firstname);
+                $('input[name=editRoles]').val(user.roles[0]);
+                $('input[name=editEmail]').val(user.email)
                 //$('input[name=password]').val(user.password);
-                $('input[name=phone]').val(user.phone);
-                $('input[name=address]').val(user.address);
-                $('input[name=postcode]').val(user.postcode);
-                $('input[name=city]').val(user.city);
+                $('input[name=editPhone]').val(user.phone);
+                $('input[name=editAddress]').val(user.address);
+                $('input[name=editPostcode]').val(user.postcode);
+                $('input[name=editCity]').val(user.city);
             },
             error : function( jqXHR, textStatus, errorThrown ){
                 alert( textStatus, errorThrown );
@@ -348,18 +347,18 @@ $(document).ready(function () {
         $(document).on('click',"#submit_e", function (){
             event.preventDefault();
             userData = {
-                id: $('input[name=userId]').val(),
-                lastname: $('input[name=lastname]').val(),
-                firstname: $('input[name=firstname]').val(),
-                roles: $('input[name=roles]').val(),
-                email: $('input[name=email]').val(),
+                id: $('input[name=editUserId]').val(),
+                lastname: $('input[name=editLastname]').val(),
+                firstname: $('input[name=editFirstname]').val(),
+                roles: $('input[name=editRoles]').val(),
+                email: $('input[name=editEmail]').val(),
                 //password: $('input[name=password]').val(),
-                phone: $('input[name=phone]').val(),
-                address: $('input[name=address]').val(),
-                postcode: $('input[name=postcode]').val(),
-                city: $('input[name=city]').val()
+                phone: $('input[name=editPhone]').val(),
+                address: $('input[name=editAddress]').val(),
+                postcode: $('input[name=editPostcode]').val(),
+                city: $('input[name=editCity]').val()
             };
-
+            console.log(userData)
             $.ajax({
                 url: 'https://gestform.ei-bs.eu/admin/updateUser',
                 type: 'PUT',
@@ -399,13 +398,13 @@ $(document).ready(function () {
 
                 success: function (response) {
 
-                    $("input[name=email]").val(response.email);
-                    $('input[name=lastname]').val(response.lastname);
-                    $('input[name=firstname]').val(response.firstname);
-                    $('input[name=phone]').val(response.phone);
-                    $('input[name=address]').val(response.address);
-                    $('input[name=postcode]').val(response.postcode);
-                    $('input[name=city]').val(response.city);
+                    $("input[name=myEmail]").val(response.email);
+                    $('input[name=myLastname]').val(response.lastname);
+                    $('input[name=myFirstname]').val(response.firstname);
+                    $('input[name=myPhone]').val(response.phone);
+                    $('input[name=myAddress]').val(response.address);
+                    $('input[name=myPostcode]').val(response.postcode);
+                    $('input[name=myCity]').val(response.city);
 
                 },
                 error: function (jqXhr) {
@@ -420,13 +419,13 @@ $(document).ready(function () {
     $("#submit_up").click(function (e) {
         e.preventDefault();
         data = {
-            "email": $("input[name=email]").val(),
-            "lastname": $('input[name=lastname]').val(),
-            "firstname": $('input[name=firstname]').val(),
-            "phone": $('input[name=phone]').val(),
-            "address": $('input[name=address]').val(),
-            "postcode": $('input[name=postcode]').val(),
-            "city": $('input[name=city]').val()
+            "email": $("input[name=myEmail]").val(),
+            "lastname": $('input[name=myLastname]').val(),
+            "firstname": $('input[name=myFirstname]').val(),
+            "phone": $('input[name=myPhone]').val(),
+            "address": $('input[name=myAddress]').val(),
+            "postcode": $('input[name=myPostcode]').val(),
+            "city": $('input[name=myCity]').val()
         }
 
         $.ajax({
