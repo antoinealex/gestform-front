@@ -3,10 +3,10 @@
 //*****************************************************************************
 
 //****************getAllTraining********************
-$(document).ready(function (){
-    
+$(document).ready(function () {
+
     var courses = $('#cours')
-    var token = localStorage.getItem('MyUniqueUserToken');
+    var token = localStorage.getItem('MonToken');
 
 
     $.ajax({
@@ -14,14 +14,16 @@ $(document).ready(function (){
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        success: function(training){
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+        success: function (training) {
             console.log("success GET")
-            $.each(training, function(i, training){
-                var chnStart= training.startTraining;
-                var start = chnStart.substring(0,19);
-                var chnEnd= training.endTraining;
-                var end = chnEnd.substring(0,19);
+            $.each(training, function (i, training) {
+                var chnStart = training.startTraining;
+                var start = chnStart.substring(0, 19);
+                var chnEnd = training.endTraining;
+                var end = chnEnd.substring(0, 19);
                 courses.append('\
                 <div class="accordion-toggle">' +
                     '<h3>' + training.subject + '</h3><br />' +
@@ -30,60 +32,62 @@ $(document).ready(function (){
                     '<button id=' + training.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetTraining">Afficher</button>' +
                     '<button id=' + training.id + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Editer</button>' +
                     '<button id=' + training.id + ' type="button" class="deleteTraining btn btn-danger btn-sm">Supprimer</button><br />' +
-                '</div>'
-            );
+                    '</div>'
+                );
             })
         },
-        error : function( jqXHR, textStatus, errorThrown ){
-            alert( textStatus, errorThrown );
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
         },
-        complete : function( jqXHR, textStatus ){
-            console.log( textStatus );
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
         }
     });
 });
 
 
 //****************getAllUser********************
-$(document).ready(function (){
-    
+$(document).ready(function () {
+
     var student = $('#eleves')
-    var token = localStorage.getItem('MyUniqueUserToken');
+    var token = localStorage.getItem('MonToken');
 
     $.ajax({
         url: 'https://gestform.ei-bs.eu/admin/getAllUser',
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        success: function(user){
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+        success: function (user) {
             console.log("success GET")
-            $.each(user, function(i, user){
+            $.each(user, function (i, user) {
                 student.append('\
                 <div class="accordion-toggle">' +
                     '<h3>' + user.firstname + ' ' + user.lastname + '</h3><br />' +
-                    '<span class="id">id n°:'+ user.id +'</span><br>' +
-                    '<span class="text">'+ user.phone +'</span><br>' +
-                    '<span class="text">'+ user.email +'</span><br>' +
+                    '<span class="id">id n°:' + user.id + '</span><br>' +
+                    '<span class="text">' + user.phone + '</span><br>' +
+                    '<span class="text">' + user.email + '</span><br>' +
                     '<button id=' + user.id + ' type="button" class="getUser btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetUser">Afficher</button>' +
                     '<button id=' + user.id + ' type="button" class="updateUser btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateUser">Editer</button>' +
                     '<button id=' + user.id + ' type="button" class="deleteUser btn btn-danger btn-sm">Supprimer</button><br />' +
-                '</div>'
+                    '</div>'
                 )
             })
         },
-        error : function( jqXHR, textStatus, errorThrown ){
-            alert( textStatus, errorThrown );
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
         },
-        complete : function( jqXHR, textStatus ){
-            console.log( textStatus );
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
         }
     });
 });
 
 //****************getTrainingById********************
-$(document).on('click',".getTraining", function (){
-    var token = localStorage.getItem('MyUniqueUserToken');
+$(document).on('click', ".getTraining", function () {
+    var token = localStorage.getItem('MonToken');
     event.preventDefault();
     var id = $(this).attr('id');
     $.ajax({
@@ -91,9 +95,11 @@ $(document).on('click',".getTraining", function (){
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        
-        success: function(training) {
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+
+        success: function (training) {
             console.log(id);
             $("p[name=teacher_id]").append(training.teacher["firstname"] + " " + training.teacher["lastname"]);
             $('p[name=start_training]').append(training.startTraining);
@@ -106,18 +112,18 @@ $(document).on('click',".getTraining", function (){
             //     $('p[name=student_list]').append(student.participants[student.participants["firstname"] + " " + student.participants["lastname"]])
             // })
         },
-        error : function( jqXHR, textStatus, errorThrown ){
-            alert( textStatus, errorThrown );
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
         },
-        complete : function( jqXHR, textStatus ){
-            console.log( textStatus );
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
         }
     });
 });
 
 //****************getUSerById********************
-$(document).on('click',".getUser", function (){
-    var token = localStorage.getItem('MyUniqueUserToken');
+$(document).on('click', ".getUser", function () {
+    var token = localStorage.getItem('MonToken');
     //event.preventDefault();
     var id = $(this).attr('id');
     $.ajax({
@@ -125,9 +131,11 @@ $(document).on('click',".getUser", function (){
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        
-        success: function(user) {
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+
+        success: function (user) {
             console.log(id);
             $("p[name=nom]").append(user.firstname + " " + user.lastname);
             $('p[name=role]').append(user.roles);
@@ -135,31 +143,33 @@ $(document).on('click',".getUser", function (){
             $('p[name=phone]').append(user.phone);
             $('p[name=adress]').append(user.address + " " + user.city + " " + user.postcode);
         },
-        error : function( jqXHR, textStatus, errorThrown ){
-            alert( textStatus, errorThrown );
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
         },
-        complete : function( jqXHR, textStatus ){
-            console.log( textStatus );
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
         }
     });
 });
-    
+
 //******************************************************************************
 //********************************** POST **************************************
 //******************************************************************************
 
 //****************addTraining********************
-$("#submit_t").click(function (){
+$("#submit_t").click(function () {
     event.preventDefault();
 
-    var token = localStorage.getItem('MyUniqueUserToken');
+    var token = localStorage.getItem('MonToken');
 
     data = {};
-    
+
     $.ajax({
         url: 'https://gestform.ei-bs.eu/training/addTraining',
         type: 'POST',
-        headers: { Authorization: `Bearer ${ token }`},
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
         data: {
             teacher_id: $('input[name=teacher_id]').val(),
             start_training: $('input[name=start_training]').val(),
@@ -169,31 +179,33 @@ $("#submit_t").click(function (){
             training_description: $('input[name=training_description]').val(),
             subject: $('input[name=subject]').val()
         },
-            success: function(){
-                alert('Le cours a été ajouté avec succés !');
-                location.reload(true);
-                //$('.courses').load("../gestform-front/course.html .courses") //insert la page entiere dans la div
+        success: function () {
+            alert('Le cours a été ajouté avec succés !');
+            location.reload(true);
+            //$('.courses').load("../gestform-front/course.html .courses") //insert la page entiere dans la div
 
         },
-        error : function( jqXHR, textStatus, errorThrown ){
-            alert( textStatus, errorThrown );
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
         },
-        complete : function( jqXHR, textStatus ){
-            console.log( textStatus );
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
         }
     });
 });
 
 //****************addUser********************
-$("#submit_s").click(function (){
+$("#submit_s").click(function () {
     event.preventDefault();
-    var token = localStorage.getItem('MyUniqueUserToken');
+    var token = localStorage.getItem('MonToken');
     data = {};
-    
+
     $.ajax({
         url: 'https://gestform.ei-bs.eu/admin/createUser',
         type: 'POST',
-        headers: { Authorization: `Bearer ${ token }`},
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
         data: {
             email: $('input[name=email]').val(),
             roles: $('select[name=roles]').val(),
@@ -205,17 +217,17 @@ $("#submit_s").click(function (){
             postcode: $('input[name=postcode]').val(),
             city: $('input[name=city]').val()
         },
-            success: function(){
-                alert('L\'utilisateur a été ajouté avec succés !');
-                location.reload(true);
-                //$('.courses').load("../gestform-front/course.html .courses") //insert la page entiere dans la div
+        success: function () {
+            alert('L\'utilisateur a été ajouté avec succés !');
+            location.reload(true);
+            //$('.courses').load("../gestform-front/course.html .courses") //insert la page entiere dans la div
 
         },
-        error : function( jqXHR, textStatus, errorThrown ){
-            alert( textStatus, errorThrown );
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
         },
-        complete : function( jqXHR, textStatus ){
-            console.log( textStatus );
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
         }
     });
 });
@@ -226,8 +238,8 @@ $("#submit_s").click(function (){
 
 //****************updateTraining********************
 
-$(document).on('click',".updateTraining", function (){
-    var token = localStorage.getItem('MyUniqueUserToken');
+$(document).on('click', ".updateTraining", function () {
+    var token = localStorage.getItem('MonToken');
     event.preventDefault();
     var id = $(this).attr('id');
 
@@ -236,21 +248,23 @@ $(document).on('click',".updateTraining", function (){
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        
-        success: function(training) {
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+
+        success: function (training) {
             console.log(id);
             // if (training.teacher_id) {
             //     $("option[name=teacher_name]").val(training.teacher["firstname"] + " " + training.teacher["lastname"]);
             // };
             //Formater la date
-            var chnStart= training.startTraining;
-            var start = chnStart.substring(0,19);
-            var chnEnd= training.endTraining;
-            var end = chnEnd.substring(0,19);
-            
+            var chnStart = training.startTraining;
+            var start = chnStart.substring(0, 19);
+            var chnEnd = training.endTraining;
+            var end = chnEnd.substring(0, 19);
+
             $('input[name=trainingId]').val(training.id)
-            $('input[name=teacher]').val(/*training.teacher['firstname'] + " " + training.teacher['lastname']*/training.teacher_id);
+            $('input[name=teacher]').val( /*training.teacher['firstname'] + " " + training.teacher['lastname']*/ training.teacher_id);
             $('input[name=start_training]').val(start);
             $('input[name=end_training]').val(end);
             $('input[name=max_student]').val(training.maxStudent);
@@ -258,14 +272,14 @@ $(document).on('click',".updateTraining", function (){
             $('input[name=training_description]').val(training.trainingDescription);
             $('input[name=subject]').val(training.subject);
         },
-        error : function( jqXHR, textStatus, errorThrown ){
-            alert( textStatus, errorThrown );
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
         },
-        complete : function( jqXHR, textStatus ){
-            console.log( textStatus );
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
         }
     });
-    $(document).on('click',"#submit_u", function (){
+    $(document).on('click', "#submit_u", function () {
         event.preventDefault();
         trainingData = {
             "id": $('input[name=trainingId]').val(),
@@ -284,18 +298,20 @@ $(document).on('click',".updateTraining", function (){
             dataType: 'json', //text
             contentType: "application/json",
             processData: false,
-            headers: { Authorization: `Bearer ${ token }`},
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
             data: JSON.stringify(trainingData),
-                success: function(){
-                    console.log(training.id);
-                    location.reload(true);
-    
+            success: function () {
+                console.log(training.id);
+                location.reload(true);
+
             },
-            error : function( jqXHR, textStatus, errorThrown ){
-                alert( textStatus, errorThrown );
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus, errorThrown);
             },
-            complete : function( jqXHR, textStatus ){
-                console.log( textStatus );
+            complete: function (jqXHR, textStatus) {
+                console.log(textStatus);
             }
         });
     });
@@ -303,8 +319,8 @@ $(document).on('click',".updateTraining", function (){
 
 //****************updateUser********************
 
-$(document).on('click',".updateUser", function (){
-    var token = localStorage.getItem('MyUniqueUserToken');
+$(document).on('click', ".updateUser", function () {
+    var token = localStorage.getItem('MonToken');
     event.preventDefault();
     var id = $(this).attr('id');
 
@@ -313,9 +329,11 @@ $(document).on('click',".updateUser", function (){
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        
-        success: function(user) {
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+
+        success: function (user) {
             console.log(id);
 
             $('input[name=userId]').val(id)
@@ -329,14 +347,14 @@ $(document).on('click',".updateUser", function (){
             $('input[name=postcode]').val(user.postcode);
             $('input[name=city]').val(user.city);
         },
-        error : function( jqXHR, textStatus, errorThrown ){
-            alert( textStatus, errorThrown );
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
         },
-        complete : function( jqXHR, textStatus ){
-            console.log( textStatus );
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
         }
     });
-    $(document).on('click',"#submit_e", function (){
+    $(document).on('click', "#submit_e", function () {
         event.preventDefault();
         userData = {
             id: $('input[name=userId]').val(),
@@ -357,18 +375,20 @@ $(document).on('click',".updateUser", function (){
             dataType: 'json', //text
             contentType: "application/json",
             processData: false,
-            headers: { Authorization: `Bearer ${ token }`},
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
             data: JSON.stringify(userData),
-                success: function(){
-                    console.log(user.id);
+            success: function () {
+                console.log(user.id);
                 //location.reload(true);
-    
+
             },
-            error : function( jqXHR, textStatus, errorThrown ){
-                alert( textStatus, errorThrown );
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus, errorThrown);
             },
-            complete : function( jqXHR, textStatus ){
-                console.log( textStatus );
+            complete: function (jqXHR, textStatus) {
+                console.log(textStatus);
             }
         });
     });
@@ -380,47 +400,51 @@ $(document).on('click',".updateUser", function (){
 //******************************************************************************
 
 //****************deleteTraining********************
-    $(document).on('click',".deleteTraining", function (){
-        var token = localStorage.getItem('MyUniqueUserToken');
-        event.preventDefault();
-        
-        $(this).text('Chargement');
-        $.ajax({
-            url: 'https://gestform.ei-bs.eu/admin/deleteTraining?id=' + $(this).attr('id'),
-            type: 'DELETE',
-            headers: { Authorization: `Bearer ${ token }`},
-            
-            success: function(response) {
-                location.reload(true);
-            },
-            error : function( jqXHR, textStatus, errorThrown ){
-                alert( textStatus, errorThrown );
-            },
-            complete : function( jqXHR, textStatus ){
-                console.log( textStatus );
-            }
-        });
-    });
+$(document).on('click', ".deleteTraining", function () {
+    var token = localStorage.getItem('MonToken');
+    event.preventDefault();
 
-    //****************deleteUser********************
-    $(document).on('click',".deleteUser", function (){
-        var token = localStorage.getItem('MyUniqueUserToken');
-        event.preventDefault();
-        
-        $(this).text('Chargement');
-        $.ajax({
-            url: 'https://gestform.ei-bs.eu/admin/deleteUser?id=' + $(this).attr('id'),
-            type: 'DELETE',
-            headers: { Authorization: `Bearer ${ token }`},
-            
-            success: function(response) {
-                location.reload(true);
-            },
-            error : function( jqXHR, textStatus, errorThrown ){
-                alert( textStatus, errorThrown );
-            },
-            complete : function( jqXHR, textStatus ){
-                console.log( textStatus );
-            }
-        });
+    $(this).text('Chargement');
+    $.ajax({
+        url: 'https://gestform.ei-bs.eu/admin/deleteTraining?id=' + $(this).attr('id'),
+        type: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+
+        success: function (response) {
+            location.reload(true);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
+        },
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
+        }
     });
+});
+
+//****************deleteUser********************
+$(document).on('click', ".deleteUser", function () {
+    var token = localStorage.getItem('MonToken');
+    event.preventDefault();
+
+    $(this).text('Chargement');
+    $.ajax({
+        url: 'https://gestform.ei-bs.eu/admin/deleteUser?id=' + $(this).attr('id'),
+        type: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+
+        success: function (response) {
+            location.reload(true);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus, errorThrown);
+        },
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
+        }
+    });
+});

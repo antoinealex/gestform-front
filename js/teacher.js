@@ -1,4 +1,8 @@
-//////////////////GET/affichage des données Utilisateur connecté////////////////////////
+//*****************************************************************************
+//********************************** GET **************************************
+//*****************************************************************************
+
+//****************getCurrentUser************************
 $(document).ready(function () {
     var token = localStorage.getItem('MonToken'); //On récupére le token stocké pour l'authent
     $.ajax({
@@ -13,6 +17,7 @@ $(document).ready(function () {
 
         success: function (response) {
             console.log("success");
+
             $(".page-title h2").append("</br>" + response.lastname + " " + response.firstname);
 
         },
@@ -22,7 +27,7 @@ $(document).ready(function () {
         },
     });
 
-    ////////////////////GET/affichage des trainings du teacher////////////////////////////
+    //****************getMyTrainings*****************************
     $.ajax({
         url: 'https://gestform.ei-bs.eu/teacher/getMyTrainings',
         type: 'get',
@@ -38,8 +43,8 @@ $(document).ready(function () {
             $.each(response, function (i, training) {
                 $("#cours").append('<div class="accordion-toggle">' +
                     '<h3>' + training.subject + '</h3><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + training.startDatetime + '</span><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + training.endDatetime + '</span><br />' +
+                    '<span class= "date"><i class="icon-calendar"></i>' + new Date(training.startDatetime).toLocaleString() + '</span><br />' +
+                    '<span class= "date"><i class="icon-calendar"></i>' + new Date(training.endDatetime).toLocaleString() + '</span><br />' +
                     //'<p> Contenu du cours: ' + training.description + '</p>' +
                     //'<p> Nombre d\'élèves: ' + training.studentsCount + '</p>' +
                     '<button id=' + i + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTeacher">Afficher</button>' +
@@ -56,8 +61,7 @@ $(document).ready(function () {
 
     });
 
-    ////////////////////GET/affichage d'un TrainingById////////////////////////////////
-
+    //****************getTrainingById*****************************
     $(document).on('click', ".btn-success", function (e) {
         e.preventDefault();
 
@@ -76,8 +80,8 @@ $(document).ready(function () {
 
                 $("h1[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
                 $("p[name=training_id]").empty().append(response.id);
-                $('p[name=start_training]').empty().append(response.startTraining);
-                $('p[name=end_training]').empty().append(response.endTraining);
+                $('p[name=start_training]').empty().append(new Date(response.startTraining.substring(0, 19)).toLocaleString());
+                $('p[name=end_training]').empty().append(new Date(response.endTraining.substring(0, 19)).toLocaleString());
                 $('p[name=max_student]').empty().append(response.maxStudent);
                 $('p[name=price_per_student]').empty().append(response.pricePerStudent);
                 $('p[name=training_description]').empty().append(response.trainingDescription);
@@ -88,12 +92,11 @@ $(document).ready(function () {
             error: function (jqXhr) {
                 alert(jqXhr.responseText);
             },
-        })
+        });
 
     });
 
-    ////////////////////GET/affichage des students du teacher//////////////////////////////
-
+    //****************getTrainingById (pour récuperer les Students)***********************
     $.ajax({
         url: 'https://gestform.ei-bs.eu/teacher/getMyTrainings',
         type: 'get',
@@ -130,7 +133,7 @@ $(document).ready(function () {
 
                                 '</div>');
 
-                        })
+                        });
                     },
                     error: function (jqxhr) {
                         alert(jqxhr.responseText);
@@ -144,13 +147,20 @@ $(document).ready(function () {
         },
     });
 
+    //*****************************************************************************
+    //********************************** POST *************************************
+    //*****************************************************************************
 
 
-
-    ///////////////////////POST/Ajout d'un training////////////////////////////////////
-
+    //****************addTraining**************************
     $("#submit_t").click(function (e) {
         e.preventDefault();
+
+
+
+
+
+
         console.log($('input[name=teacher_id]').val());
         $.ajax({
             url: 'https://gestform.ei-bs.eu/training/addTraining',
@@ -176,14 +186,15 @@ $(document).ready(function () {
             },
         });
     });
-    ////////////////////////POST/Ajout d'un student => à déplacer(ADMIN)  ////////////////////////////
 
+    //****************createUser******************************
     $("#submit_s").click(function (e) {
         e.preventDefault();
+        $("span[style^='color:red']").empty();
         if ($("#email").val().length === 0) {
-            $("#email").after('<div class="alert alert-danger" > Merci de remplir ce champ !</div>');
+            $("#email").after('<span style="color:red"> Merci de remplir ce champ !</span>');
         } else if (!$("#email").val().match(/^[a-zA-Z0-9\.\-_]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/i)) { //Regex validation mail
-            $("#email").after('<div class="alert alert-danger"> Mail invalide !</div>');
+            $("#email").after('<span style="color:red"> Mail invalide !</span>');
         } else if ($("#password").val().length === 0) {
             $("#password").after('<span style="color:red"> Merci de remplir ce champ !</span>');
         } else if (!$("#password").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
@@ -198,7 +209,7 @@ $(document).ready(function () {
 
             console.log(data);
             $.ajax({
-                url: 'https: //gestform.ei-bs.eu/admin/createUser',
+                url: 'https://gestform.ei-bs.eu/admin/createUser',
                 type: 'POST',
                 data: data,
                 contentType: false,
@@ -223,7 +234,12 @@ $(document).ready(function () {
         }
     });
 
-    ////////////////////////DELETE Training/////////////////////////////////////////////
+    //*****************************************************************************
+    //********************************** DELETE ***********************************
+    //*****************************************************************************
+
+
+    //****************deleteTraining****************************
     $(document).on('click', ".btn-danger", function (e) {
         e.preventDefault();
         console.log($(this).attr('id'));
@@ -241,11 +257,15 @@ $(document).ready(function () {
                 error: function (jqXhr) {
                     alert(jqXhr.responseText);
                 },
-            })
+            });
         }
     });
 
-    ////////////////////////UPDATE Training////////////////////////////////
+    //*****************************************************************************
+    //********************************** PUT **************************************
+    //*****************************************************************************
+
+    //****************updateTraining*************************
 
     $(document).on('click', ".btn-primary", function (e) {
         e.preventDefault();
@@ -280,7 +300,7 @@ $(document).ready(function () {
                 error: function (jqXhr) {
                     alert(jqXhr.responseText);
                 },
-            })
+            });
         } else {
             location.href = 'teacher.html';
         }
@@ -296,7 +316,7 @@ $(document).ready(function () {
             "pricePerStudent": $('#price_per_student').val(),
             "trainingDescription": $('#training_description').val(),
             "subject": $('#subject').val()
-        }
+        };
 
         $.ajax({
             url: 'https://gestform.ei-bs.eu/teacher/updateTraining',
@@ -319,7 +339,7 @@ $(document).ready(function () {
         });
     });
 
-    ////////////////////////UPDATE Profil CurrentUser////////////////////////////////
+    //****************updateCurrentUser*****************************
     $("#modalUpdateProfil").click(function (e) {
         e.preventDefault();
 
@@ -347,7 +367,7 @@ $(document).ready(function () {
                 error: function (jqXhr) {
                     alert(jqXhr.responseText);
                 },
-            })
+            });
         } else {
             location.href = 'teacher.html';
         }
@@ -363,7 +383,7 @@ $(document).ready(function () {
             "address": $('input[name=address]').val(),
             "postcode": $('input[name=postcode]').val(),
             "city": $('input[name=city]').val()
-        }
+        };
 
         $.ajax({
             url: 'https://gestform.ei-bs.eu/user/updateCurrentUser',
@@ -384,6 +404,46 @@ $(document).ready(function () {
                 alert(jqXhr.responseText);
             },
         });
+    });
+
+    //****************updatePassword*****************************
+    $("#submit_mdp").click(function (e) {
+        e.preventDefault();
+        $("span[style^='color:red']").empty();
+        if ($("#oldpassword").val().length === 0) {
+            $("#oldpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+        } else if ($("#newpassword").val().length === 0) {
+            $("#newpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+        } else if (!$("#newpassword").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
+            $("#newpassword").after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
+
+        } else {
+            data = {
+                "oldPassword": $("input[name=oldpassword]").val(),
+                "newPassword": $('input[name=newpassword]').val(),
+            };
+
+            $.ajax({
+                url: 'https://gestform.ei-bs.eu/user/passwordUpdate',
+                type: 'PUT',
+                dataType: 'json', //type de données qu'on attend en réponse du serveur
+                contentType: "application/json",
+                processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+                data: JSON.stringify(data),
+                headers: {
+                    Authorization: `Bearer ${ token }`
+                },
+
+                success: function () {
+                    alert('Mot de passe modifié avec succés !');
+                    location.reload(true);
+                },
+                error: function (jqXhr) {
+                    alert(jqXhr.responseText);
+                    location.reload(true);
+                },
+            });
+        }
     });
 
 });

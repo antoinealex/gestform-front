@@ -9,16 +9,10 @@
     <title>Teacher | You Stud</title>
     <!-- Loading third party fonts -->
     <link href="http://fonts.googleapis.com/css?family=Arvo:400,700|" rel="stylesheet" type="text/css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/bootstrap.css" rel="stylesheet">
     <!-- Loading main css file -->
     <link rel="stylesheet" href="style.css">
 
-    <!--[if lt IE 9]>
-		<script src="js/ie-support/html5.js"></script>
-		<script src="js/ie-support/respond.js"></script>
-		<![endif]-->
 
 </head>
 
@@ -40,6 +34,8 @@
                             <li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
                             <li class="menu-item"><a href="#" id="modalUpdateProfil" data-toggle="modal"
                                     data-target="#myModalUpdateProfil">Modifier profil</a></li>
+                            <li class="menu-item"><a href="#" id="modalUpdatePassword" data-toggle="modal"
+                                    data-target="#myModalUpdatePassword">Modifier mon mot de passe</a></li>
                             <li class="menu-item"><a href="export.html">Export</a></li>
                             <li class="menu-item"><a href="#" id="Deconnexion">Déconnexion</a></li>
                         </ul> <!-- .menu -->
@@ -71,8 +67,6 @@
                             <div class="accordion" id="cours">
                                 <!-- Resultats Ajax-->
                             </div>
-
-
                         </div>
                         <div class="col-md-5">
                             <p class="text-center">
@@ -82,153 +76,148 @@
                             <h2 class="section-title"><i class="icon-calendar-lg"></i>Vos élèves</h2>
 
                             <div class="accordion" id="eleves">
-
-
-
-
+                                <!-- Resultats Ajax-->
                             </div>
-
                         </div>
                     </div> <!-- row -->
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="row justify-content-between">
-                <!-- AFicher Training -->
-                <div class="col-md-5">
-                    <div class="modal fade" id="myModalDisplayTeacher">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 name="NameTeacher"></h1>
-                                </div>
-                                <div class="modal-body">
 
-                                    <div class="offset-1 col-3">
-                                        <label for="training_id">TrainingID</label><br />
-                                        <p name="training_id" type="text"></p><br />
-                                        <label for="start_training">Debut</label><br />
-                                        <p name="start_training" type="datetime-local"></p><br />
-                                        <label for="end_training">Fin</label><br />
-                                        <p name="end_training" type="datetime-local"></p><br />
-                                        <label for="max_student">Nombre de student</label><br />
-                                        <p name="max_student" type="text"></p><br />
-                                        <label for="price_per_student">Prix/student</label><br />
-                                        <p name="price_per_student" type="text"></p><br />
-                                        <label for="training_description">Description</label><br />
-                                        <p name="training_description" type="text"></p><br />
-                                        <label for="subject">Subject</label><br />
-                                        <p name="subject" type="text"></p><br />
-                                        </br>
+            <div class="container">
+                <div class="row justify-content-between">
+                    <!-- AFicher Training -->
+                    <div class="col-md-5">
+                        <div class="modal fade" id="myModalDisplayTeacher">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 name="NameTeacher"></h1>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="offset-1 col-6">
+                                            <label for="training_id">TrainingID</label><br />
+                                            <p name="training_id" type="text"></p><br />
+                                            <label for="start_training">Debut</label><br />
+                                            <p name="start_training" type="datetime-local"></p><br />
+                                            <label for="end_training">Fin</label><br />
+                                            <p name="end_training" type="datetime-local"></p><br />
+                                            <label for="max_student">Nombre de student</label><br />
+                                            <p name="max_student" type="text"></p><br />
+                                            <label for="price_per_student">Prix/student</label><br />
+                                            <p name="price_per_student" type="text"></p><br />
+                                            <label for="training_description">Description</label><br />
+                                            <p name="training_description" type="text"></p><br />
+                                            <label for="subject">Subject</label><br />
+                                            <p name="subject" type="text"></p><br />
+                                            </br>
+
+                                        </div>
 
                                     </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-dark" data-dismiss="modal" value="close">
 
-                                </div>
-                                <div class="modal-footer">
-                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Formulaire Ajout Training -->
-                <div class="col-md-5">
-                    <div class="modal fade" id="myModalAjoutTrainig">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1>REMPLIR LES CHAMPS</h1>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="formT">
-                                        <div class="offset-1 col-3">
-                                            <label for="teacher_id">TeacherID</label><br />
-                                            <input name="teacher_id" type="text" required><br />
-                                            <label for="start_training">Debut</label><br />
-                                            <input name="start_training" type="datetime-local" required><br />
-                                            <label for="end_training">Fin</label><br />
-                                            <input name="end_training" type="datetime-local" required><br />
-                                            <label for="max_student">Nombre de student</label><br />
-                                            <input name="max_student" type="text" required><br />
-                                            <label for="price_per_student">Prix/student</label><br />
-                                            <input name="price_per_student" type="text" required><br />
-                                            <label for="training_description">Description</label><br />
-                                            <input name="training_description" type="text" required><br />
-                                            <label for="subject">Subject</label><br />
-                                            <input name="subject" type="text" required><br />
-                                            </br>
-                                            <button class="btn btn-outline-success my-2 my-sm-0" id="submit_t"
-                                                type="submit">Ajouter</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <!-- Formulaire Ajout Training -->
+                    <div class="col-md-5">
+                        <div class="modal fade" id="myModalAjoutTrainig">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1>REMPLIR LES CHAMPS</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="formT">
+                                            <div class="offset-1 col-6">
+                                                <label for="teacher_id">TeacherID</label><br />
+                                                <input name="teacher_id" type="text" required><br />
+                                                <label for="start_training">Debut</label><br />
+                                                <input name="start_training" type="datetime-local" required><br />
+                                                <label for="end_training">Fin</label><br />
+                                                <input name="end_training" type="datetime-local" required><br />
+                                                <label for="max_student">Nombre de student</label><br />
+                                                <input name="max_student" type="text" required><br />
+                                                <label for="price_per_student">Prix/student</label><br />
+                                                <input name="price_per_student" type="text" required><br />
+                                                <label for="training_description">Description</label><br />
+                                                <input name="training_description" type="text" required><br />
+                                                <label for="subject">Subject</label><br />
+                                                <input name="subject" type="text" required><br />
+                                                </br>
+                                                <button class="btn btn-outline-success my-2 my-sm-0" id="submit_t"
+                                                    type="submit">Ajouter</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-dark" data-dismiss="modal" value="close">
 
-                <!-- Editer Training -->
-                <div class="col-md-5">
-                    <div class="modal fade" id="myModalUpdateTraining">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1>MODIFIER LES CHAMPS</h1>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="formU">
-                                        <div class="offset-1 col-3">
-
-                                            <input name="training_id" type="hidden" id="training_id" required><br />
-                                            <label for="start_training">Debut</label><br />
-                                            <input name="start_training" type="datetime-local" id="start_training"
-                                                required><br />
-                                            <label for="end_training">Fin</label><br />
-                                            <input name="end_training" type="datetime-local" id="end_training"
-                                                required><br />
-                                            <label for="max_student">Nombre de student</label><br />
-                                            <input name="max_student" type="text" id="max_student" required><br />
-                                            <label for="price_per_student">Prix/student</label><br />
-                                            <input name="price_per_student" type="text" id="price_per_student"
-                                                required><br />
-                                            <label for="training_description">Description</label><br />
-                                            <input name="training_description" type="text" id="training_description"
-                                                required><br />
-                                            <label for="subject">Subject</label><br />
-                                            <input name="subject" type="text" id="subject" required><br />
-                                            </br>
-                                            <button class="btn btn-outline-success my-2 my-sm-0" id="submit_u"
-                                                type="submit">Modifier</button>
-                                        </div>
-                                    </form>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
+
+                    <!-- Editer Training -->
+                    <div class="col-md-5">
+                        <div class="modal fade" id="myModalUpdateTraining">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1>MODIFIER LES CHAMPS</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="formU">
+                                            <div class="offset-1 col-6">
+                                                <input name="training_id" type="hidden" id="training_id" required><br />
+                                                <label for="start_training">Debut</label><br />
+                                                <input name="start_training" type="datetime-local" id="start_training"
+                                                    required><br />
+                                                <label for="end_training">Fin</label><br />
+                                                <input name="end_training" type="datetime-local" id="end_training"
+                                                    required><br />
+                                                <label for="max_student">Nombre de student</label><br />
+                                                <input name="max_student" type="text" id="max_student" required><br />
+                                                <label for="price_per_student">Prix/student</label><br />
+                                                <input name="price_per_student" type="text" id="price_per_student"
+                                                    required><br />
+                                                <label for="training_description">Description</label><br />
+                                                <input name="training_description" type="text" id="training_description"
+                                                    required><br />
+                                                <label for="subject">Subject</label><br />
+                                                <input name="subject" type="text" id="subject" required><br />
+                                                </br>
+                                                <button class="btn btn-outline-success my-2 my-sm-0" id="submit_u"
+                                                    type="submit">Modifier</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-dark" data-dismiss="modal" value="close">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Formulaire UpdateProfil -->
                     <div class="col-md-5">
                         <div class="modal fade" id="myModalUpdateProfil">
-                            <div class="modal-dialog modal-lg">
+                            <div class="modal-dialog modal-md">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1>REMPLIR LES CHAMPS</h1>
                                     </div>
                                     <div class="modal-body">
                                         <form id="formUp">
-                                            <div class="offset-1 col-3">
+                                            <div class="offset-1 col-6">
                                                 <label for="email">Email</label><br />
                                                 <input name="email" type="email" required><br />
                                                 <label for="lastname">Nom</label><br />
@@ -252,27 +241,23 @@
                                     </div>
                                     <div class="modal-footer">
                                         <input class="btn btn-dark" data-dismiss="modal" value="close">
-
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
 
                     <!-- Formulaire Ajout Student -->
                     <div class="col-md-5">
                         <div class="modal fade" id="myModalAddStudent">
-                            <div class="modal-dialog modal-lg">
+                            <div class="modal-dialog modal-md">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1>REMPLIR LES CHAMPS</h1>
                                     </div>
                                     <div class="modal-body">
                                         <form id="formS">
-                                            <div class="offset-1 col-3">
+                                            <div class="offset-1 col-6">
                                                 <label for="email">Email</label><br />
                                                 <input name="email" type="email" id="email" required><br />
                                                 <label for="roles">Rôle</label><br />
@@ -303,21 +288,46 @@
                                     </div>
                                     <div class="modal-footer">
                                         <input class="btn btn-dark" data-dismiss="modal" value="close">
-
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
 
+                    <!-- Formulaire UpdatePassword -->
+                    <div class="col-md-5">
+                        <div class="modal fade" id="myModalUpdatePassword">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1>REMPLIR LES CHAMPS</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="formPass">
+                                            <div class="offset-1 col-auto">
+                                                <label for="oldpassword">Inserer votre mot de passe</label><br />
+                                                <input name="oldpassword" type="password" id="oldpassword"
+                                                    required><br />
+                                                <label for="newpassword">Inserer votre nouveau mot de
+                                                    passe</label><br />
+                                                <input name="newpassword" type="password" id="newpassword"
+                                                    required><br />
+                                                </br>
+                                                <button class="btn btn-outline-success my-2 my-sm-0" id="submit_mdp"
+                                                    type="submit">Modifier</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-dark" data-dismiss="modal" value="close">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-
-
         </div>
         </div> <!-- .fullwidth-block -->
 
@@ -353,15 +363,12 @@
     </footer>
 
 
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/plugins.js"></script>
+    <!--   <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/plugins.js"></script>-->
+    <script src="vendor/jquery.js"></script>
     <script src="js/connexion.js"></script>
     <script src="js/app.js"></script>
     <script src="js/teacher.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-    </script>
+    <script src="vendor/bootstrap"></script>
     </header>
 </body>

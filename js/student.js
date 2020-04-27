@@ -1,4 +1,8 @@
-//////////////////GET/affichage des données Utilisateur connecté////////////////////////
+//*****************************************************************************
+//********************************** GET **************************************
+//*****************************************************************************
+
+//****************getCurrentUser************************
 $(document).ready(function () {
     var token = localStorage.getItem('MonToken'); //On récupére le token stocké pour l'authent
     $.ajax({
@@ -22,7 +26,7 @@ $(document).ready(function () {
         },
     });
 
-    ////////////////////GET/affichage des trainings disponible////////////////////////////
+    //****************getAllTraining************************
     $.ajax({
         url: 'https://gestform.ei-bs.eu/training/getAllTraining',
         type: 'get',
@@ -36,10 +40,13 @@ $(document).ready(function () {
         success: function (response) {
             console.log("success");
             $.each(response, function (i, training) {
+
+
+
                 $("#cours").append('<div class="accordion-toggle">' +
                     '<h3>' + training.subject + '</h3><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + training.startTraining.substring(0, 19) + '</span><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + training.endTraining.substring(0, 19) + '</span><br />' +
+                    '<span class= "date"><i class="icon-calendar"></i>' + new Date(training.startTraining.substring(0, 19)).toLocaleString() + '</span><br />' +
+                    '<span class= "date"><i class="icon-calendar"></i>' + new Date(training.endTraining.substring(0, 19)).toLocaleString() + '</span><br />' +
                     //'<p> Contenu du cours: ' + training.description + '</p>' +
                     //'<p> Nombre d\'élèves: ' + training.studentsCount + '</p>' +
                     '<button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining">Afficher</button>' +
@@ -55,7 +62,7 @@ $(document).ready(function () {
 
     });
 
-    ////////////////////GET/affichage d'un TrainingById////////////////////////////////
+    //****************getTrainingById******************************
 
     $(document).on('click', ".btn-success", function (e) {
         e.preventDefault();
@@ -80,8 +87,8 @@ $(document).ready(function () {
 
                 $("h1[name=subject]").empty().append(response.subject);
                 $("p[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
-                $('p[name=start_training]').empty().append(start);
-                $('p[name=end_training]').empty().append(end);
+                $('p[name=start_training]').empty().append(new Date(start).toLocaleString());
+                $('p[name=end_training]').empty().append(new Date(end).toLocaleString());
                 $('p[name=max_student]').empty().append(response.maxStudent);
                 $('p[name=price_per_student]').empty().append(response.pricePerStudent);
                 $('p[name=training_description]').empty().append(response.trainingDescription);
@@ -94,7 +101,43 @@ $(document).ready(function () {
 
     });
 
-    ////////////////////PUT/S'inscrire à un cours////////////////////////////////
+    //*****************************************************************************
+    //********************************** POST *************************************
+    //*****************************************************************************
+
+    //****************addComments******************************
+
+    $("#submit_c").click(function (e) {
+        e.preventDefault();
+
+        console.log($('input[name=user_id]').val());
+        $.ajax({
+            url: 'https://gestform.ei-bs.eu/comments/addComments',
+            type: 'POST',
+            data: {
+                user_id: $('input[name = user_id]').val(),
+                title_comment: $('input[name = title_comment]').val(),
+                body_comment: $('input[name = body_comment]').val(),
+            },
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function () {
+                alert('Commentaire ajouté avec succés !');
+                location.reload(true);
+            },
+            error: function (jqXhr) {
+                alert(jqXhr.responseText);
+            },
+        });
+    });
+
+
+    //*****************************************************************************
+    //********************************** PUT *************************************
+    //*****************************************************************************
+
+    //****************subscribeTraining******************************
 
     $(document).on('click', ".btn-primary", function (e) {
         e.preventDefault();
@@ -129,7 +172,7 @@ $(document).ready(function () {
 
 
 
-    ////////////////////////UPDATE Profil CurrentUser////////////////////////////////
+    //****************updateCurrentUser***************************
     $("#modalUpdateProfil").click(function (e) {
         e.preventDefault();
 
@@ -195,4 +238,46 @@ $(document).ready(function () {
             },
         });
     });
+
+    //****************updatePassword*****************************
+    $("#submit_mdp").click(function (e) {
+        e.preventDefault();
+        $("span[style^='color:red']").empty();
+        if ($("#oldpassword").val().length === 0) {
+            $("#oldpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+        } else if ($("#newpassword").val().length === 0) {
+            $("#newpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+        } else if (!$("#newpassword").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
+            $("#newpassword").after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
+
+        } else {
+
+            data = {
+                "oldPassword": $("input[name=oldpassword]").val(),
+                "newPassword": $('input[name=newpassword]').val(),
+            }
+
+            $.ajax({
+                url: 'https://gestform.ei-bs.eu/user/passwordUpdate',
+                type: 'PUT',
+                dataType: 'json', //type de données qu'on attend en réponse du serveur
+                contentType: "application/json",
+                processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+                data: JSON.stringify(data),
+                headers: {
+                    Authorization: `Bearer ${ token }`
+                },
+
+                success: function () {
+                    alert('Mot de passe modifié avec succés !');
+                    location.reload(true);
+                },
+                error: function (jqXhr) {
+                    alert(jqXhr.responseText);
+                    location.reload(true);
+                },
+            });
+        }
+    });
+
 });
