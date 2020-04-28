@@ -2,20 +2,20 @@
 //*************************** LOGIN *************************************
 //***********************************************************************
 
-$(document).ready(function () {
-    console.log(BACKEND_URL);
-    $("#submit").click(function (e) {
+function login() {
+    $("#submitLogin").click(function (e) {
         e.preventDefault();
-        console.log($('input[name=email]').val());
         var data = {};
         data['email'] = $('input[name = email]').val(); //Recuperation des données formulaire connexion
         data['password'] = $('input[name = password]').val(); //email et password
         if (!(data['email']) || !(data['password'])) {
-            alert("Veuillez saisir un identifiant et un mot de passe !");
-        } else
+            $("#credsMissing").fadeIn();
+        } else {
+            $("#credsMissing").fadeOut();
+            $("#logerror").fadeOut();
             $("#logpending").show();
             $.ajax({
-                url: 'http://gestform/security/login_check', //Request
+                url: BACKEND_URL + 'security/login_check', //Request
                 type: 'POST',
                 dataType: 'json', //type de données qu'on attend en réponse du serveur
                 contentType: "application/json",
@@ -23,43 +23,48 @@ $(document).ready(function () {
                 data: JSON.stringify(data), //Envoi des données en JSON
 
                 success: function (response) {
-                    console.log("success");
                     localStorage.setItem('MonToken', response.token); //On stock la response (token de connexion)
                     $.ajax({
-                        url: 'http://gestform/user/getCurrentUser',
+                        url: BACKEND_URL + 'user/getCurrentUser',
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
                         headers: {
-                            Authorization: `Bearer ${ localStorage.getItem('MonToken') }`
+                            Authorization: `Bearer ${localStorage.getItem('MonToken')}`
                         }, //token dans le header de la requete
 
 
                         success: function (response) {
-                            console.log(response.roles[0]);
-                            dashboardChooser(response.roles[0]);
+                            currentUser = response;
                         },
                         error: function (jqxhr) {
-                            $("#logpending").hide();
-                            $("#logerror").show();
+                            console.log(jqxhr.toString());
                         },
                     });
                 },
 
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $("#logpending").fadeOut();
+                    $("#logerror").fadeIn();
                 },
             });
+        }
     });
-});
+}
 
 //***********************************************************************
 //*************************** LOGOUT ************************************
 //***********************************************************************
 
-$('#disconnect').click(function(e){
-    e.preventDefault();
+function logout(){
+    localStorage.setItem('MonToken', '');
+    console.log("ok");
+    $.ajax({
+        url: BACKEND_URL + 'security/logout',
+        type: 'GET',
+        success : function(){
+            //location.href = "index.html";
+        }
 
-    data = localStorage.setItem('MonToken', '');
-    location.href = "index.html";
-})
+    });
+}

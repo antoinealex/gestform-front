@@ -14,9 +14,8 @@
 	<!-- Loading main css file -->
 	<link rel="stylesheet" href="style.css">
 	<script src="vendor/jquery-3.4.1.min.js"></script>
-	<script src="js/init.js" async></script>
+	<script src="js/init.js"></script>
 </head>
-
 
 <body>
 
@@ -29,17 +28,8 @@
 						<!-- <h1 class="site-title">You stud'</h1> -->
 					</a> <!-- #branding -->
 
-					<div class="main-navigation">
-						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
-						<ul class="menu">
-							<li class="menu-item"><a href="index.html">Accueil</a></li>
-							<li class="menu-item"><a href="admin.html">Interface admin</a></li>
-							<li class="menu-item"><a href="teacher.html">Interface teacher</a></li>
-							<li class="menu-item"><a href="student.html">Interface student</a></li>
-							<li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
-							<li class="menu-item"><a href="export.html">Export</a></li>
-							<li class="menu-item"><a id="disconnect" href="" >Déconnexion</a></li>
-						</ul> <!-- .menu -->
+					<div class="main-navigation" id="menu">
+						<!--Logged in user's menu will be displayed here-->
 					</div> <!-- .main-navigation -->
 
 					<div class="mobile-navigation"></div>
@@ -52,36 +42,11 @@
 		<div class="fullwidth-block">
 			<div class="container">
 				<div class="row">
+					<div id="loader" style="display: none">
+						<img src="images/loading.gif">
+					</div>
 					<div id="loginInterface" class="col-md-4 offset-4">
-						<!-- <div class="boxed-section request-form"> -->
-						<h2 class="section-title text-center">Se connecter</h2>
-						<div class="alert alert-primary"  id="logpending" role="alert" style="display: none;">
-							En cours de connexion
-						</div>
-						<div class="alert alert-success" id="logsuccess" role="alert" style="display: none;">
-							Connecté !
-						</div>
-						<div class="alert alert-danger" id="logerror" role="alert" style="display: none;">
-							Mot de passe ou identifiant invalide !
-						</div>
-
-						<form>
-							<div class="field">
-								<label for="email">Adresse mail :</label>
-								<div class="control"><input type="text" required="required" id="email" name="email"
-										placeholder="example@mail.com"></div>
-							</div>
-							<div class="field">
-								<label for="password">Mot de passe:</label>
-								<div class="control"><input type="password" required="required" id="password"
-										name="password" placeholder="Mot de passe"></div>
-							</div>
-							<div class="field">
-								<div class="control"><input type="submit" id="submit" class="button" value="connection">
-								</div>
-							</div>
-						</form>
-
+						<!--LOGIN FORM WILL BE DISPLAYED HERE IF REQUIRED-->
 					</div>
 					<div id="dashboard" class="col-md-12">
 						<!--- USER DASHBOARD WILL BE DISPLAYED HERE--->
@@ -127,7 +92,7 @@
     <script src="vendor/bootstrap/bootstrap.min.js"></script>
 	<script src="js/plugins.js"></script>
 	<script src="js/app.js"></script>
-	<script src="js/connexion.js"></script>
+	<script src="js/security.js"></script>
 
 
 </body>
