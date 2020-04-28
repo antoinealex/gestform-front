@@ -3,6 +3,7 @@
 //***********************************************************************
 
 $(document).ready(function () {
+    console.log(BACKEND_URL);
     $("#submit").click(function (e) {
         e.preventDefault();
         console.log($('input[name=email]').val());
@@ -12,8 +13,9 @@ $(document).ready(function () {
         if (!(data['email']) || !(data['password'])) {
             alert("Veuillez saisir un identifiant et un mot de passe !");
         } else
+            $("#logpending").show();
             $.ajax({
-                url: 'https://gestform.ei-bs.eu/security/login_check', //Request
+                url: 'http://gestform/security/login_check', //Request
                 type: 'POST',
                 dataType: 'json', //type de données qu'on attend en réponse du serveur
                 contentType: "application/json",
@@ -22,9 +24,9 @@ $(document).ready(function () {
 
                 success: function (response) {
                     console.log("success");
-                    localStorage.setItem('MonToken', response.token); //On stock la response (token de connexion)    
+                    localStorage.setItem('MonToken', response.token); //On stock la response (token de connexion)
                     $.ajax({
-                        url: 'https://gestform.ei-bs.eu/user/getCurrentUser',
+                        url: 'http://gestform/user/getCurrentUser',
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
@@ -35,28 +37,17 @@ $(document).ready(function () {
 
                         success: function (response) {
                             console.log(response.roles[0]);
-                            if (response.roles[0] == "ROLE_ADMIN") {
-                                location.href = 'admin.html';
-                            } else if (response.roles[0] == "ROLE_TEACHER") {
-                                location.href = 'teacher.html';
-                            } else if (response.roles[0] == "ROLE_STUDENT") {
-                                location.href = 'student.html';
-                            } else if (response.roles[0] == null) {
-                                alert('Rôle non défini, merci de contacter l administrateur !')
-                                location.href = 'index.html';
-                            } else
-                                location.href('index.html');
+                            dashboardChooser(response.roles[0]);
                         },
                         error: function (jqxhr) {
-                            alert(jqxhr.responseText);
-                            location.href = 'index.html';
+                            $("#logpending").hide();
+                            $("#logerror").show();
                         },
                     });
                 },
 
                 error: function (jqXhr) {
                     alert(jqXhr.responseText);
-                    location.href = 'index.html';
                 },
             });
     });
