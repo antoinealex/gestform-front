@@ -14,6 +14,16 @@ body {
   line-height: 2;
   font-weight: 300;
 }
+#myTabContent{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+@media (max-width: 925px){
+  #myTabContent{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
 address {
   font-style: normal;
 }
