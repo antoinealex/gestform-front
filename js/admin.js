@@ -48,9 +48,15 @@ $(document).ready(function () {
                             <td>' + new Date(start.substring(0, 19)).toLocaleString() + '</td>\
                             <td>' + new Date(end.substring(0, 19)).toLocaleString() + '</td>\
                             <td>\
-                            <button id=' + training.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetTraining">Afficher</button>\
-                            <button id=' + training.id + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Editer</button>\
-                            <button id=' + training.id + ' type="button" class="deleteTraining btn btn-danger btn-sm">Supprimer</button>\
+                            <button id=' + training.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetTraining">\
+                            <i class="fas fa-eye"></i> Afficher\
+                            </button>\
+                            <button id=' + training.id + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">\
+                            <i class="fas fa-pen"></i> Editer\
+                            </button>\
+                            <button id=' + training.id + ' type="button" class="deleteTraining btn btn-danger btn-sm">\
+                            <i class="fas fa-trash"></i> Supprimer\
+                            </button>\
                             </td>\
                         </tr>\
                     ')
@@ -63,6 +69,9 @@ $(document).ready(function () {
                     "info": true,
                     "autoWidth": false,
                     "responsive": true,
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    }
                 });
             },
             error : function( jqXHR, textStatus, errorThrown ){
@@ -94,9 +103,15 @@ $(document).ready(function () {
                             <td>' + user.firstname + ' ' + user.lastname + '</td>\
                             <td>' + user.roles[0] + '</td>\
                             <td>\
-                            <button id=' + user.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetTraining">Afficher</button>\
-                            <button id=' + user.id + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Editer</button>\
-                            <button id=' + user.id + ' type="button" class="deleteTraining btn btn-danger btn-sm">Supprimer</button>\
+                            <button id=' + user.id + ' type="button" class="getUser btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetUser">\
+                            <i class="fas fa-eye"></i> Afficher\
+                            </button>\
+                            <button id=' + user.id + ' type="button" class="updateUser btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateUser">\
+                            <i class="fas fa-pen"></i> Editer\
+                            </button>\
+                            <button id=' + user.id + ' type="button" class="deleteUser btn btn-danger btn-sm">\
+                            <i class="fas fa-trash"></i> Supprimer\
+                            </button>\
                             </td>\
                         </tr>\
                     ')
@@ -109,6 +124,9 @@ $(document).ready(function () {
                     "info": true,
                     "autoWidth": false,
                     "responsive": true,
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    }
                 });
             },
             error : function( jqXHR, textStatus, errorThrown ){
@@ -141,8 +159,8 @@ $(document).ready(function () {
                 $('p[name=price_per_student]').empty().append(training.pricePerStudent);
                 $('p[name=training_description]').empty().append(training.trainingDescription);
                 $('p[name=subject]').empty().append(training.subject);
-                // $.each(user, function(i, student){
-                //     $('p[name=student_list]').append(student.participants[student.participants["firstname"] + " " + student.participants["lastname"]])
+                // $.each(training, function(i, student){
+                //     $('p[name=student_list]').empty().append(student.participants['fistname'])
                 // })
             },
             error : function( jqXHR, textStatus, errorThrown ){
@@ -274,9 +292,6 @@ $(document).ready(function () {
             
             success: function(training) {
                 console.log(id);
-                // if (training.teacher_id) {
-                //     $("option[name=teacher_name]").val(training.teacher["firstname"] + " " + training.teacher["lastname"]);
-                // };
                 //Formater la date
                 var chnStart= training.startTraining;
                 var start = chnStart.substring(0,19);
@@ -322,8 +337,7 @@ $(document).ready(function () {
                 data: JSON.stringify(trainingData),
                     success: function(){
                         //console.log(training.id);
-                        //location.reload(true);
-        
+                        location.reload(true);
                 },
                 error : function( jqXHR, textStatus, errorThrown ){
                     alert( textStatus, errorThrown );
@@ -356,7 +370,6 @@ $(document).ready(function () {
                 $('input[name=editFirstname]').val(user.firstname);
                 $('input[name=editRoles]').val(user.roles[0]);
                 $('input[name=editEmail]').val(user.email)
-                //$('input[name=password]').val(user.password);
                 $('input[name=editPhone]').val(user.phone);
                 $('input[name=editAddress]').val(user.address);
                 $('input[name=editPostcode]').val(user.postcode);
@@ -377,7 +390,6 @@ $(document).ready(function () {
                 firstname: $('input[name=editFirstname]').val(),
                 roles: $('input[name=editRoles]').val(),
                 email: $('input[name=editEmail]').val(),
-                //password: $('input[name=password]').val(),
                 phone: $('input[name=editPhone]').val(),
                 address: $('input[name=editAddress]').val(),
                 postcode: $('input[name=editPostcode]').val(),
@@ -394,7 +406,7 @@ $(document).ready(function () {
                 data: JSON.stringify(userData),
                     success: function(){
                         console.log(user.id);
-                    //location.reload(true);
+                        location.reload(true);
         
                 },
                 error : function( jqXHR, textStatus, errorThrown ){
@@ -408,10 +420,9 @@ $(document).ready(function () {
     });
 
     ////////////////////////UPDATE Profil CurrentUser////////////////////////////////
-    $("#modalUpdateProfil").click(function (e) {
+    $("#form-tab").click(function (e) {
         e.preventDefault();
 
-        if (confirm("Etes-vous sûr de vouloir modifier votre profil ?")) {
             $.ajax({
                 url: 'https://gestform.ei-bs.eu/user/getCurrentUser',
                 type: 'GET',
@@ -420,9 +431,7 @@ $(document).ready(function () {
                 headers: {
                     Authorization: `Bearer ${ token }`
                 },
-
                 success: function (response) {
-
                     $("input[name=myEmail]").val(response.email);
                     $('input[name=myLastname]').val(response.lastname);
                     $('input[name=myFirstname]').val(response.firstname);
@@ -430,15 +439,11 @@ $(document).ready(function () {
                     $('input[name=myAddress]').val(response.address);
                     $('input[name=myPostcode]').val(response.postcode);
                     $('input[name=myCity]').val(response.city);
-
                 },
                 error: function (jqXhr) {
                     alert(jqXhr.responseText);
                 },
             })
-        } else {
-            location.href = 'teacher.html';
-        }
     });
 
     $("#submit_up").click(function (e) {
