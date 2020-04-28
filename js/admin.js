@@ -36,21 +36,34 @@ $(document).ready(function () {
             success: function(training){
                 console.log("success GET")
                 $.each(training, function(i, training){
-                    var chnStart= training.startTraining;
-                    var start = chnStart.substring(0,19);
-                    var chnEnd= training.endTraining;
-                    var end = chnEnd.substring(0,19);
-                    $('#cours').append('\
-                    <div class="accordion-toggle">' +
-                        '<h3>' + training.subject + '</h3><br />' +
-                        '<span class= "date"><i class="icon-calendar"></i>' + start + '</span><br />' +
-                        '<span class= "date"><i class="icon-calendar"></i>' + end + '</span><br />' +
-                        '<button id=' + training.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetTraining">Afficher</button>' +
-                        '<button id=' + training.id + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Editer</button>' +
-                        '<button id=' + training.id + ' type="button" class="deleteTraining btn btn-danger btn-sm">Supprimer</button><br />' +
-                    '</div>'
-                );
-                })
+                    
+                    var start = training.startTraining;
+                    var end = training.endTraining;
+
+                    $('#trainingList').append('\
+                        <tr>\
+                            <td>' + training.id + '</td>\
+                            <td>' + training.subject + '</td>\
+                            <td>' + training.teacher['firstname'] + ' ' + training.teacher['lastname'] + '</td>\
+                            <td>' + new Date(start.substring(0, 19)).toLocaleString() + '</td>\
+                            <td>' + new Date(end.substring(0, 19)).toLocaleString() + '</td>\
+                            <td>\
+                            <button id=' + training.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetTraining">Afficher</button>\
+                            <button id=' + training.id + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Editer</button>\
+                            <button id=' + training.id + ' type="button" class="deleteTraining btn btn-danger btn-sm">Supprimer</button>\
+                            </td>\
+                        </tr>\
+                    ')
+                });
+                $('#showTraining').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
             },
             error : function( jqXHR, textStatus, errorThrown ){
                 alert( textStatus, errorThrown );
@@ -59,8 +72,9 @@ $(document).ready(function () {
                 console.log( textStatus );
             }
         });
-    });
 
+    });
+    
 
     //****************getAllUser********************
     $(document).ready(function (){
@@ -74,17 +88,28 @@ $(document).ready(function () {
             success: function(user){
                 console.log("success GET")
                 $.each(user, function(i, user){
-                    $('#eleves').append('\
-                    <div class="accordion-toggle">' +
-                        '<h3>' + user.firstname + ' ' + user.lastname + '</h3><br />' +
-                        '<span class="id">id n°:'+ user.id +'</span><br>' +
-                        '<span class="text">'+ user.roles[0] +'</span><br>' +
-                        '<button id=' + user.id + ' type="button" class="getUser btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetUser">Afficher</button>' +
-                        '<button id=' + user.id + ' type="button" class="updateUser btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateUser">Editer</button>' +
-                        '<button id=' + user.id + ' type="button" class="deleteUser btn btn-danger btn-sm">Supprimer</button><br />' +
-                    '</div>'
-                    )
-                })
+                    $('#userList').append('\
+                        <tr>\
+                            <td>' + user.id + '</td>\
+                            <td>' + user.firstname + ' ' + user.lastname + '</td>\
+                            <td>' + user.roles[0] + '</td>\
+                            <td>\
+                            <button id=' + user.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetTraining">Afficher</button>\
+                            <button id=' + user.id + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Editer</button>\
+                            <button id=' + user.id + ' type="button" class="deleteTraining btn btn-danger btn-sm">Supprimer</button>\
+                            </td>\
+                        </tr>\
+                    ')
+                });
+                $('#showUser').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
             },
             error : function( jqXHR, textStatus, errorThrown ){
                 alert( textStatus, errorThrown );
@@ -497,3 +522,8 @@ $(document).ready(function () {
             });
         });
 });
+
+// /************************** dataTable ************************/
+// $(document).ready(function() {
+//     $('#showTraining').DataTable();
+// });

@@ -12,7 +12,16 @@
 		<link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
 		<!-- Loading main css file -->
 		<link rel="stylesheet" href="style.css">
-		
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.css"/>
+		<!-- Loading script file-->
+		<script src="vendor/jquery-3.4.1.min.js"></script>
+		<script src="vendor/bootstrap/bootstrap.min.js"></script>
+		<script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
+		<script src="js/plugins.js"></script>
+		<script src="js/connexion.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/admin.js"></script>		
+
 		
 		<!--[if lt IE 9]>
 		<script src="js/ie-support/html5.js"></script>
@@ -56,41 +65,70 @@
                 </div>
             </header>
         </div>
-
 		<main class="main-content">
-			<div class="fullwidth-block inner-content">
-				<div class="container">
-					<div class="fullwidth-content">
-						<div class="row">
-							<div class="col-md-6">
-								<p class="text-center">
-									<a href="#" class="more button secondary" data-toggle="modal"
-										data-target="#myModalAjoutTraining">Ajouter un Training</a>
-								</p>
-
-								<h2 class="section-title"><i class="icon-calendar-lg"></i>Liste des cours</h2>
-								<div class="accordion" id="cours">
-									<!-- Liste des cours -->
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<p class="text-center">
-									<a href="#" class="more button secondary" data-toggle="modal"
-										data-target="#myModalAddStudent">Ajouter un utilisateur</a>
-								</p>
-
-								<h2 class="section-title"><i class="icon-calendar-lg"></i>Liste des utilisateurs</h2>
-								<div class="accordion" id="eleves">>
-									<!-- Liste des élèves -->
-								</div>
-	
-
-							</div>
-						</div> <!-- row -->
-					</div>
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+				  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTrainings" role="tab" aria-controls="home" aria-selected="true">Cours</a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#allUsers" role="tab" aria-controls="profile" aria-selected="false">Utilisateurs</a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#calendrier" role="tab" aria-controls="contact" aria-selected="false">Calendrier</a>
+				</li>
+			  </ul>
+			  <div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="allTrainings" role="tabpanel" aria-labelledby="home-tab">
+					<p class="text-center">
+						<a href="#" class="more button secondary" data-toggle="modal"
+							data-target="#myModalAjoutTraining">Ajouter un Training</a>
+					</p>
+					<h2 class="section-title"><i class="icon-calendar-lg"></i>Liste des cours</h2>
+					<table id="showTraining" class="table table-bordered table-hover table-striped" style="width:100%">
+						<thead>
+							<tr>
+								<th>id</th>
+								<th>Sujet</th>
+								<th>Professeur</th>
+								<th>Début</th>
+								<th>Fin</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="trainingList">
+							<!-- Liste des cours -->
+						</tbody>
+					</table>
 				</div>
-			</div>
+				<div class="tab-pane fade" id="allUsers" role="tabpanel" aria-labelledby="profile-tab">
+					<p class="text-center">
+						<a href="#" class="more button secondary" data-toggle="modal"
+							data-target="#myModalAddStudent">Ajouter un utilisateur</a>
+					</p>
+					<h2 class="section-title"><i class="icon-calendar-lg"></i>Liste des utilisateurs</h2>
+					<table id="showUser" class="table table-bordered table-hover" style="width:100%">
+						<thead>
+							<tr>
+								<th>id</th>
+								<th>Utilisateur</th>
+								<th>Role</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="userList">
+							<!-- Liste des utilisateurs -->
+						</tbody>
+					</table>
+				</div>
+				<div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">...</div>
+			  </div>
+
+
+
+					
+						
+
+
 			<div class="container">
 				<!-- Formulaire UpdateProfil -->
 				<div class="col-md-5">
@@ -430,12 +468,8 @@
 
 		</footer>
 
-		<script src="vendor/jquery-3.4.1.min.js"></script>
-		<script src="vendor/bootstrap/bootstrap.min.js"></script>
-		<script src="js/plugins.js"></script>
-		<script src="js/connexion.js"></script>
-		<script src="js/app.js"></script>
-		<script src="js/admin.js"></script>
+
+
 
 		
 	</body>
