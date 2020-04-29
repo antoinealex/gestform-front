@@ -1,163 +1,297 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
-		
-		<title>Admin | You Stud</title>
-		<!-- Loading third party fonts -->
-		<link href="vendor/arvo.css" rel="stylesheet" type="text/css">
-		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
-		<!-- Loading main css file -->
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.css"/>
-		<!-- Loading script file-->
-		<script src="vendor/jquery-3.4.1.min.js"></script>
-		<script src="vendor/bootstrap/bootstrap.min.js"></script>
-		<script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
-		<script src="js/plugins.js"></script>
-		<script src="js/connexion.js"></script>
-		<script src="js/app.js"></script>
-		<script src="js/admin.js"></script>		
 
-		
-		<!--[if lt IE 9]>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+
+	<title>Admin | You Stud</title>
+	<!-- Loading third party fonts -->
+	<link href="vendor/arvo.css" rel="stylesheet" type="text/css">
+	<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+	<!-- Loading main css file -->
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.css" />
+	<!-- Loading script file-->
+	<script src="vendor/jquery-3.4.1.min.js"></script>
+	<script src="vendor/bootstrap/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/datatables.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/connexion.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/admin.js"></script>
+
+
+	<!--[if lt IE 9]>
 		<script src="js/ie-support/html5.js"></script>
 		<script src="js/ie-support/respond.js"></script>
 		<![endif]-->
 
-    </head>
-    
-    <body>
-		
-		<div id="site-content">
-			<header class="site-header">
-				<div class="primary-header">
-					<div class="container">
-						<a href="index.html" id="branding">
-							<img src="images/logo_youstud2.png" alt="youstud">
-						</a> <!-- #branding -->
-						
-						<div class="main-navigation">
-							<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
-							<ul class="menu">
-								<li class="menu-item"><a href="index.html">Accueil</a></li>
-								<li class="menu-item"><a href="admin.html">Interface admin</a></li>
-								<li class="menu-item"><a href="teacher.html">Interface teacher</a></li>
-								<li class="menu-item"><a href="student.html">Interface student</a></li>
-                                <li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
-								<li class="menu-item"><a href="#" id="modalUpdateProfil" data-toggle="modal" data-target="#myModalUpdateProfil">Modifier profil</a></li>
-								<li class="menu-item"><a href="export.html">Export</a></li>
-								<li class="menu-item"><a id="disconnect" href="" >Déconnexion</a></li>
-							</ul> <!-- .menu -->
-						</div> <!-- .main-navigation -->
+</head>
 
-						<div class="mobile-navigation"></div>
-					</div> <!-- .container -->
-                </div> <!-- .primary-header -->
+<body>
 
-                <div class="page-title">
-					<div class="container">
-						<h2>Page administrateur</h2>
+	<div id="site-content">
+		<header class="site-header">
+			<div class="primary-header">
+				<div class="container">
+					<a href="index.html" id="branding">
+						<img src="images/logo_youstud2.png" alt="youstud">
+					</a> <!-- #branding -->
+
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item"><a href="index.html">Accueil</a></li>
+							<li class="menu-item"><a href="admin.html">Interface admin</a></li>
+							<li class="menu-item"><a href="teacher.html">Interface teacher</a></li>
+							<li class="menu-item"><a href="student.html">Interface student</a></li>
+							<li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
+							<li class="menu-item"><a href="#" id="modalUpdateProfil" data-toggle="modal"
+									data-target="#myModalUpdateProfil">Modifier profil</a></li>
+							<li class="menu-item"><a href="export.html">Export</a></li>
+							<li class="menu-item"><a id="disconnect" href="">Déconnexion</a></li>
+						</ul> <!-- .menu -->
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+				</div> <!-- .container -->
+			</div> <!-- .primary-header -->
+
+			<div class="page-title">
+				<div class="container">
+					<h2>Page administrateur</h2>
+				</div>
+			</div>
+		</header>
+	</div>
+	<main class="main-content">
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTrainings" role="tab"
+					aria-controls="home" aria-selected="true">Cours</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="profile-tab" data-toggle="tab" href="#allUsers" role="tab"
+					aria-controls="profile" aria-selected="false">Utilisateurs</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="contact-tab" data-toggle="tab" href="#calendrier" role="tab"
+					aria-controls="contact" aria-selected="false">Calendrier</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="allTrainings" role="tabpanel" aria-labelledby="home-tab">
+				<p class="text-center">
+					<a href="#" class="more button secondary" data-toggle="modal"
+						data-target="#myModalAjoutTraining">Ajouter un Training</a>
+				</p>
+				<h2 class="section-title"><i class="icon-calendar-lg"></i>Liste des cours</h2>
+				<table id="showTraining" class="table table-bordered table-hover table-striped" style="width:100%">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>Sujet</th>
+							<th>Professeur</th>
+							<th>Début</th>
+							<th>Fin</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody id="trainingList">
+						<!-- Liste des cours -->
+					</tbody>
+				</table>
+			</div>
+			<div class="tab-pane fade" id="allUsers" role="tabpanel" aria-labelledby="profile-tab">
+				<p class="text-center">
+					<a href="#" class="more button secondary" data-toggle="modal"
+						data-target="#myModalAddStudent">Ajouter un utilisateur</a>
+				</p>
+				<h2 class="section-title"><i class="icon-calendar-lg"></i>Liste des utilisateurs</h2>
+				<table id="showUser" class="table table-bordered table-hover" style="width:100%">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>Utilisateur</th>
+							<th>Role</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody id="userList">
+						<!-- Liste des utilisateurs -->
+					</tbody>
+				</table>
+			</div>
+			<div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">...</div>
+		</div>
+
+
+
+
+
+
+
+		<div class="container">
+			<!-- Formulaire UpdateProfil -->
+			<div class="col-md-5">
+				<div class="modal fade" id="myModalUpdateProfil">
+					<div class="modal-dialog modal-md">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1>REMPLIR LES CHAMPS</h1>
+							</div>
+							<div class="modal-body">
+								<form id="formUp">
+									<div class="offset-1 col-6">
+										<label for="email">Email</label><br />
+										<input name="myEmail" type="email" required><br />
+										<label for="lastname">Nom</label><br />
+										<input name="myLastname" type="text" required><br />
+										<label for="firstname">Prénom</label><br />
+										<input name="myFirstname" type="text" required><br />
+										<label for="phone">Téléphone</label><br />
+										<input name="myPhone" type="tel" required><br />
+										<label for="address">Adresse</label><br />
+										<input name="myAddress" type="text" required><br />
+										<label for="postcode">Code Postal</label><br />
+										<input name="myPostcode" type="text" required><br />
+										<label for="city">Ville</label><br />
+										<input name="myCity" type="text" required><br />
+										</br>
+										<button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"
+											type="submit">Modifier</button>
+									</div>
+								</form>
+
+							</div>
+							<div class="modal-footer">
+								<input class="btn btn-dark" data-dismiss="modal" value="close">
+
+							</div>
+						</div>
 					</div>
-                </div>
-            </header>
-        </div>
-		<main class="main-content">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item">
-				  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTrainings" role="tab" aria-controls="home" aria-selected="true">Cours</a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#allUsers" role="tab" aria-controls="profile" aria-selected="false">Utilisateurs</a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#calendrier" role="tab" aria-controls="contact" aria-selected="false">Calendrier</a>
-				</li>
-			  </ul>
-			  <div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="allTrainings" role="tabpanel" aria-labelledby="home-tab">
-					<p class="text-center">
-						<a href="#" class="more button secondary" data-toggle="modal"
-							data-target="#myModalAjoutTraining">Ajouter un Training</a>
-					</p>
-					<h2 class="section-title"><i class="icon-calendar-lg"></i>Liste des cours</h2>
-					<table id="showTraining" class="table table-bordered table-hover table-striped" style="width:100%">
-						<thead>
-							<tr>
-								<th>id</th>
-								<th>Sujet</th>
-								<th>Professeur</th>
-								<th>Début</th>
-								<th>Fin</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody id="trainingList">
-							<!-- Liste des cours -->
-						</tbody>
-					</table>
 				</div>
-				<div class="tab-pane fade" id="allUsers" role="tabpanel" aria-labelledby="profile-tab">
-					<p class="text-center">
-						<a href="#" class="more button secondary" data-toggle="modal"
-							data-target="#myModalAddStudent">Ajouter un utilisateur</a>
-					</p>
-					<h2 class="section-title"><i class="icon-calendar-lg"></i>Liste des utilisateurs</h2>
-					<table id="showUser" class="table table-bordered table-hover" style="width:100%">
-						<thead>
-							<tr>
-								<th>id</th>
-								<th>Utilisateur</th>
-								<th>Role</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody id="userList">
-							<!-- Liste des utilisateurs -->
-						</tbody>
-					</table>
-				</div>
-				<div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">...</div>
-			  </div>
-
-
-
-					
-						
-
-
-			<div class="container">
-				<!-- Formulaire UpdateProfil -->
+			</div>
+			<div class="row justify-content-between">
+				<!-- Formulaire Afficher Training -->
 				<div class="col-md-5">
-					<div class="modal fade" id="myModalUpdateProfil">
+					<div class="modal fade" id="myModalGetTraining">
 						<div class="modal-dialog modal-md">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h1>REMPLIR LES CHAMPS</h1>
+									<h1>DETAILS DU COURS</h1>
 								</div>
 								<div class="modal-body">
-									<form id="formUp">
+									<form id="formTraining">
 										<div class="offset-1 col-6">
-											<label for="email">Email</label><br />
-											<input name="myEmail" type="email" required><br />
-											<label for="lastname">Nom</label><br />
-											<input name="myLastname" type="text" required><br />
-											<label for="firstname">Prénom</label><br />
-											<input name="myFirstname" type="text" required><br />
-											<label for="phone">Téléphone</label><br />
-											<input name="myPhone" type="tel" required><br />
-											<label for="address">Adresse</label><br />
-											<input name="myAddress" type="text" required><br />
-											<label for="postcode">Code Postal</label><br />
-											<input name="myPostcode" type="text" required><br />
-											<label for="city">Ville</label><br />
-											<input name="myCity" type="text" required><br />
+											<label for="teacher_id">Professeur</label><br />
+											<p name="teacher_id">
+											</p><br />
+											<label for="start_training">Date et heure de début</label><br />
+											<p name="start_training"></p><br />
+											<label for="end_training">Date et heure de fin</label><br />
+											<p name="end_training"></p><br />
+											<label for="max_student">Nombre maximal d'étudiant</label><br />
+											<p name="max_student"></p><br />
+											<label for="price_per_student">Prix/student</label><br />
+											<p name="price_per_student"></p><br />
+											<label for="training_description">Description</label><br />
+											<p name="training_description"></p><br />
+											<label for="subject">Subject</label><br />
+											<p name="subject"></p><br />
+											<!-- <label for="student_list">Liste des inscrits</label><br>
+												<p name="student_list"></p> -->
 											</br>
-											<button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"
-												type="submit">Modifier</button>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<input class="btn btn-dark" data-dismiss="modal" value="close">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Formulaire Ajout Training -->
+				<div class="col-md-5">
+					<div class="modal fade" id="myModalAjoutTraining">
+						<div class="modal-dialog modal-md">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1>AJOUTER UN COURS</h1>
+								</div>
+								<div class="modal-body">
+									<form id="formT">
+										<div class="offset-1 col-6">
+											<label for="teacher_id">TeacherID</label><br />
+											<input name="addTeacher_id" type="text" required><br />
+											<label for="start_training">Debut</label><br />
+											<input name="addStart_training" type="datetime-local" required><br />
+											<label for="end_training">Fin</label><br />
+											<input name="addEnd_training" type="datetime-local" required><br />
+											<label for="max_student">Nombre de student</label><br />
+											<input name="addMax_student" type="text" required><br />
+											<label for="price_per_student">Prix/student</label><br />
+											<input name="addPrice_per_student" type="text" required><br />
+											<label for="training_description">Description</label><br />
+											<input name="addTraining_description" type="text" required><br />
+											<label for="subject">Subject</label><br />
+											<input name="addSubject" type="text" required><br />
+											</br>
+											<button class="btn btn-outline-success my-2 my-sm-0" id="submit_t"
+												type="submit">Ajouter</button>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<input class="btn btn-dark" data-dismiss="modal" value="close">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Editer Training -->
+				<div class="col-md-5">
+					<div class="modal fade" id="myModalUpdateTraining">
+						<div class="modal-dialog modal-md">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1>METTRE A JOUR LE COURS</h1>
+								</div>
+								<div class="modal-body">
+									<form id="formU">
+										<div class="offset-1 col-6">
+											<input type="hidden" name="editTrainingId">
+											<label for="teacher_id">Professeur</label><br />
+											<input type="text" name="editTeacher" required>
+											<!-- <select id="roles" name="selecteur" class="form-control">
+													<option name="teacher_name" value="">Choisir un professeur</option>
+												</select><br /> -->
+											<label for="start_training">Date et heure debut</label><br />
+											<input name="editStart_training" type="datetime-local" id="start_training"
+												required><br />
+											<label for="end_training">Date et heure de fin</label><br />
+											<input name="editEnd_training" type="datetime-local" id="end_training"
+												required><br />
+											<label for="max_student">Nombre maximum d'étudiants</label><br />
+											<input name="editMax_student" type="text" id="max_student" required><br />
+											<label for="price_per_student">Prix par étudiant</label><br />
+											<input name="editPrice_per_student" type="text" id="price_per_student"
+												required><br />
+											<label for="training_description">Description</label><br />
+											<input name="editTraining_description" type="text" id="training_description"
+												required><br />
+											<label for="subject">Sujet</label><br />
+											<input name="editSubject" type="text" id="subject" required><br />
+											</br>
+											<button class="btn btn-outline-success my-2 my-sm-0" id="submit_u"
+												type="submit">Ajouter</button>
 										</div>
 									</form>
 
@@ -169,309 +303,181 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row justify-content-between">
-					<!-- Formulaire Afficher Training -->
+					<!-- Formulaire Afficher User -->
 					<div class="col-md-5">
-						<div class="modal fade" id="myModalGetTraining">
+						<div class="modal fade" id="myModalGetUser">
 							<div class="modal-dialog modal-md">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h1>DETAILS DU COURS</h1>
+										<h1>DETAIL DE L'UTILISATEUR</h1>
 									</div>
 									<div class="modal-body">
-										<form id="formTraining">
+										<form id="formUser">
 											<div class="offset-1 col-6">
-												<label for="teacher_id">Professeur</label><br/>
-												<p name="teacher_id">
-												</p><br/>
-												<label for="start_training">Date et heure de début</label><br/>
-												<p name="start_training"></p><br/>
-												<label for="end_training">Date et heure de fin</label><br/>
-												<p name="end_training"></p><br/>
-												<label for="max_student">Nombre maximal d'étudiant</label><br/>
-												<p name="max_student"></p><br/>
-												<label for="price_per_student">Prix/student</label><br/>
-												<p name="price_per_student"></p><br/>
-												<label for="training_description">Description</label><br/>
-												<p name="training_description"></p><br/>
-												<label for="subject">Subject</label><br/>
-												<p name="subject"></p><br/>
-												<!-- <label for="student_list">Liste des inscrits</label><br>
-												<p name="student_list"></p> -->
+												<label for="nom">Nom et prénom</label><br />
+												<p name="nom"></p><br />
+												<label for="role">Role</label><br />
+												<p name="role"></p><br />
+												<label for="email">Email</label><br />
+												<p name="email"></p><br />
+												<label for="phone">Numéro de téléphone</label><br />
+												<p name="phone"></p><br />
+												<label for="adress">Adresse</label><br />
+												<p name="adress"></p><br />
 												</br>
 											</div>
 										</form>
 									</div>
 									<div class="modal-footer">
 										<input class="btn btn-dark" data-dismiss="modal" value="close">
-	
+
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- Formulaire Ajout Training -->
+					<!-- Formulaire Ajout User -->
 					<div class="col-md-5">
-						<div class="modal fade" id="myModalAjoutTraining">
+						<div class="modal fade" id="myModalAddStudent">
 							<div class="modal-dialog modal-md">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h1>AJOUTER UN COURS</h1>
+										<h1>AJOUTER UN UTILISATEUR</h1>
 									</div>
 									<div class="modal-body">
-										<form id="formT">
+										<form id="formS">
 											<div class="offset-1 col-6">
-												<label for="teacher_id">TeacherID</label><br />
-												<input name="addTeacher_id" type="text" required><br />
-												<label for="start_training">Debut</label><br />
-												<input name="addStart_training" type="datetime-local" required><br />
-												<label for="end_training">Fin</label><br />
-												<input name="addEnd_training" type="datetime-local" required><br />
-												<label for="max_student">Nombre de student</label><br />
-												<input name="addMax_student" type="text" required><br />
-												<label for="price_per_student">Prix/student</label><br />
-												<input name="addPrice_per_student" type="text" required><br />
-												<label for="training_description">Description</label><br />
-												<input name="addTraining_description" type="text" required><br />
-												<label for="subject">Subject</label><br />
-												<input name="addSubject" type="text" required><br />
+												<label for="email">Email</label><br />
+												<input name="addEmail" type="email" id="email" required><br />
+												<label for="roles">Rôle</label><br />
+												<select id="roles" name="addRoles" class="form-control">
+													<option value="ROLE_STUDENT">ROLE_STUDENT</option>
+													<option value="ROLE_TEACHER">ROLE_TEACHER</option>
+												</select><br />
+												<label for="password">Mot de passe</label><br />
+												<input name="addPassword" type="password" id="password" required><br />
+												<label for="lastname">Nom</label><br />
+												<input name="addLastname" type="text" id="lastname" required><br />
+												<label for="firstname">Prénom</label><br />
+												<input name="addFirstname" type="text" id="firstname" required><br />
+												<label for="phone">Téléphone</label><br />
+												<input name="addPhone" type="tel" id="phone" required><br />
+												<label for="address">Adresse</label><br />
+												<input name="addAddress" type="text" id="address" required><br />
+												<label for="postcode">Code Postal</label><br />
+												<input name="addPostcode" type="text" id="postcode" required><br />
+												<label for="city">Ville</label><br />
+												<input name="addCity" type="text" id="city" required><br />
 												</br>
-												<button class="btn btn-outline-success my-2 my-sm-0" id="submit_t"
+												<button class="btn btn-outline-success my-2 my-sm-0" id="submit_s"
 													type="submit">Ajouter</button>
 											</div>
 										</form>
+
 									</div>
 									<div class="modal-footer">
 										<input class="btn btn-dark" data-dismiss="modal" value="close">
-	
+
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- Editer Training -->
+					<!-- Formulaire Editer User -->
 					<div class="col-md-5">
-						<div class="modal fade" id="myModalUpdateTraining">
+						<div class="modal fade" id="myModalUpdateUser">
 							<div class="modal-dialog modal-md">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h1>METTRE A JOUR LE COURS</h1>
+										<h1>METTRE A JOUR L'UTILISATEUR</h1>
 									</div>
 									<div class="modal-body">
-										<form id="formU">
+										<form id="formE">
 											<div class="offset-1 col-6">
-												<input type="hidden" name="editTrainingId">
-												<label for="teacher_id">Professeur</label><br />
-												<input type="text" name="editTeacher" required>
-												<!-- <select id="roles" name="selecteur" class="form-control">
-													<option name="teacher_name" value="">Choisir un professeur</option>
-												</select><br /> -->
-												<label for="start_training">Date et heure debut</label><br />
-												<input name="editStart_training" type="datetime-local" id="start_training"
-													required><br />
-												<label for="end_training">Date et heure de fin</label><br />
-												<input name="editEnd_training" type="datetime-local" id="end_training"
-													required><br />
-												<label for="max_student">Nombre maximum d'étudiants</label><br />
-												<input name="editMax_student" type="text" id="max_student" required><br />
-												<label for="price_per_student">Prix par étudiant</label><br />
-												<input name="editPrice_per_student" type="text" id="price_per_student"
-													required><br />
-												<label for="training_description">Description</label><br />
-												<input name="editTraining_description" type="text" id="training_description"
-													required><br />
-												<label for="subject">Sujet</label><br />
-												<input name="editSubject" type="text" id="subject" required><br />
-												</br>
-												<button class="btn btn-outline-success my-2 my-sm-0" id="submit_u"
-													type="submit">Ajouter</button>
-											</div>
-										</form>
-	
-									</div>
-									<div class="modal-footer">
-										<input class="btn btn-dark" data-dismiss="modal" value="close">
-	
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Formulaire Afficher User -->
-						<div class="col-md-5">
-							<div class="modal fade" id="myModalGetUser">
-								<div class="modal-dialog modal-md">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h1>DETAIL DE L'UTILISATEUR</h1>
-										</div>
-										<div class="modal-body">
-											<form id="formUser">
-												<div class="offset-1 col-6">
-													<label for="nom">Nom et prénom</label><br/>
-													<p name="nom"></p><br/>
-													<label for="role">Role</label><br/>
-													<p name="role"></p><br/>
-													<label for="email">Email</label><br/>
-													<p name="email"></p><br/>
-													<label for="phone">Numéro de téléphone</label><br/>
-													<p name="phone"></p><br/>
-													<label for="adress">Adresse</label><br/>
-													<p name="adress"></p><br/>
-													</br>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<input class="btn btn-dark" data-dismiss="modal" value="close">
-		
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Formulaire Ajout User -->
-						<div class="col-md-5">
-							<div class="modal fade" id="myModalAddStudent">
-								<div class="modal-dialog modal-md">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h1>AJOUTER UN UTILISATEUR</h1>
-										</div>
-										<div class="modal-body">
-											<form id="formS">
-												<div class="offset-1 col-6">
-													<label for="email">Email</label><br />
-													<input name="addEmail" type="email" id="email" required><br />
-													<label for="roles">Rôle</label><br />
-													<select id="roles" name="addRoles" class="form-control">
-														<option value="ROLE_STUDENT">ROLE_STUDENT</option>
-														<option value="ROLE_TEACHER">ROLE_TEACHER</option>
-													</select><br />
-													<label for="password">Mot de passe</label><br />
-													<input name="addPassword" type="password" id="password" required><br />
-													<label for="lastname">Nom</label><br />
-													<input name="addLastname" type="text" id="lastname" required><br />
-													<label for="firstname">Prénom</label><br />
-													<input name="addFirstname" type="text" id="firstname" required><br />
-													<label for="phone">Téléphone</label><br />
-													<input name="addPhone" type="tel" id="phone" required><br />
-													<label for="address">Adresse</label><br />
-													<input name="addAddress" type="text" id="address" required><br />
-													<label for="postcode">Code Postal</label><br />
-													<input name="addPostcode" type="text" id="postcode" required><br />
-													<label for="city">Ville</label><br />
-													<input name="addCity" type="text" id="city" required><br />
-													</br>
-													<button class="btn btn-outline-success my-2 my-sm-0" id="submit_s"
-														type="submit">Ajouter</button>
-												</div>
-											</form>
-	
-										</div>
-										<div class="modal-footer">
-											<input class="btn btn-dark" data-dismiss="modal" value="close">
-	
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Formulaire Editer User -->
-						<div class="col-md-5">
-							<div class="modal fade" id="myModalUpdateUser">
-								<div class="modal-dialog modal-md">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h1>METTRE A JOUR L'UTILISATEUR</h1>
-										</div>
-										<div class="modal-body">
-											<form id="formE">
-												<div class="offset-1 col-6">
-													<input id="a" name="editUserId" type="hidden" required><br />
-													<label for="lastname">Nom</label><br />
-													<input id="b" name="editLastname" type="text" required><br />
-													<label for="firstname">Prénom</label><br />
-													<input id="c" name="editFirstname" type="text" required><br />
-													<label for="roles">Rôle</label><br />
-													<input id="d" type="text" name="editRoles"><br />
-													<!-- <select name="editRoles" class="form-control">
+												<input id="a" name="editUserId" type="hidden" required><br />
+												<label for="lastname">Nom</label><br />
+												<input id="b" name="editLastname" type="text" required><br />
+												<label for="firstname">Prénom</label><br />
+												<input id="c" name="editFirstname" type="text" required><br />
+												<label for="roles">Rôle</label><br />
+												<input id="d" type="text" name="editRoles"><br />
+												<!-- <select name="editRoles" class="form-control">
 														<option value="ROLE_STUDENT">ROLE_STUDENT</option>
 														<option value="ROLE_TEACHER">ROLE_TEACHER</option>
 													</select><br /> -->
-													<label for="email">Email</label><br />
-													<input id="e" name="editEmail" type="email" required><br />
-													<!-- <label for="password">Mot de passe</label><br />
+												<label for="email">Email</label><br />
+												<input id="e" name="editEmail" type="email" required><br />
+												<!-- <label for="password">Mot de passe</label><br />
 													<input name="password" type="password" id="password" required><br /> -->
-													<label for="phone">Téléphone</label><br />
-													<input id="f" name="editPhone" type="tel" required><br />
-													<label for="address">Adresse</label><br />
-													<input id="g" name="editAddress" type="text" required><br />
-													<label for="postcode">Code Postal</label><br />
-													<input id="h" name="editPostcode" type="text" required><br />
-													<label for="city">Ville</label><br />
-													<input id="i" name="editCity" type="text" required><br />
-													</br>
-													<button class="btn btn-outline-success my-2 my-sm-0" id="submit_e"
-														type="submit">Ajouter</button>
-												</div>
-											</form>
-	
-										</div>
-										<div class="modal-footer">
-											<input class="btn btn-dark" data-dismiss="modal" value="close">
-	
-										</div>
+												<label for="phone">Téléphone</label><br />
+												<input id="f" name="editPhone" type="tel" required><br />
+												<label for="address">Adresse</label><br />
+												<input id="g" name="editAddress" type="text" required><br />
+												<label for="postcode">Code Postal</label><br />
+												<input id="h" name="editPostcode" type="text" required><br />
+												<label for="city">Ville</label><br />
+												<input id="i" name="editCity" type="text" required><br />
+												</br>
+												<button class="btn btn-outline-success my-2 my-sm-0" id="submit_e"
+													type="submit">Ajouter</button>
+											</div>
+										</form>
+
+									</div>
+									<div class="modal-footer">
+										<input class="btn btn-dark" data-dismiss="modal" value="close">
+
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-	
 				</div>
-	
-	
+
 			</div>
-			</div> <!-- .fullwidth-block -->
-	
-		</main>
 
-        <footer class="site-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-5">
-						<div class="widget">
-							<h3 class="widget-title">Contactez nous</h3>
-							<address>You Stud' <br>25 rue de Lille <br>59200 tourcoing</address>
 
-							<a href="mailto:contact@you-stud.fr">contact@you-stud.fr</a> <br>
-							<a href="tel:07 70 51 26 85">07 70 51 26 85</a>
-						</div>
+		</div>
+		</div> <!-- .fullwidth-block -->
+
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="widget">
+						<h3 class="widget-title">Contactez nous</h3>
+						<address>You Stud' <br>25 rue de Lille <br>59200 tourcoing</address>
+
+						<a href="mailto:contact@you-stud.fr">contact@you-stud.fr</a> <br>
+						<a href="tel:07 70 51 26 85">07 70 51 26 85</a>
 					</div>
-					<div class="col-md-5">
-						<div class="widget">
-							<h3 class="widget-title">Rejoignez-nous</h3>
-							<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-							<div class="social-links circle">
-								<a href="#"><i class="fa fa-facebook"></i></a>
-								<!-- 
+				</div>
+				<div class="col-md-5">
+					<div class="widget">
+						<h3 class="widget-title">Rejoignez-nous</h3>
+						<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
+						<div class="social-links circle">
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<!-- 
 								<a href="#"><i class="fa fa-twitter"></i></a>
 								 -->
-							</div>
 						</div>
 					</div>
-			
 				</div>
 
-				<div class="copy">Copyright 2020 You Stud. All rights reserved.</div>
 			</div>
 
-		</footer>
+			<div class="copy">Copyright 2020 You Stud. All rights reserved.</div>
+		</div>
+
+	</footer>
 
 
 
 
-		
-	</body>
+
+</body>
 
 </html>
