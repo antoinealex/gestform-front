@@ -29,7 +29,11 @@ $(document).ready(function () {
                         '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTeacher">Afficher</button> <button id=' + i + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Editer</button> <button id=' + i + ' type="button" class="btn btn-danger btn-sm">Supprimer</button><br /></td>' +
                         '</tr>')
                 });
-                $('#tabcours').DataTable();
+                $('#tabcours').DataTable({
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    }
+                });
 
             },
             error: function (jqxhr) {
