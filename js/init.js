@@ -16,6 +16,17 @@ $(document).ready(function() {
                     dashboardChooser(currentUser.roles[0]);
                     $("#userInfo").append("Bonjour "+currentUser.firstname);
                 },
+                error: function() {
+                    $.ajax({
+                        url: "login.html",
+                        type: 'GET',
+                        datatype: "HTML",
+                        success: function (response) {
+                            $("#loginInterface").append(response);
+                            login();
+                        }
+                    });
+                }
             }
         );
     } else {
@@ -52,6 +63,7 @@ function adminDashboard() {
         datatype: "HTML",
         success: function (response) {
             $("#dashboard").append(response);
+            location.hash = 'adminDashboard';
         }
     });
 }

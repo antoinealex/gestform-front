@@ -4,62 +4,39 @@
 
 //****************getCurrentUser************************
 $(document).ready(function () {
-    var token = localStorage.getItem('MonToken'); //On récupére le token stocké pour l'authent
-    $.ajax({
-        url: 'https://gestform.ei-bs.eu/user/getCurrentUser',
-        type: 'get',
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: {
-            Authorization: `Bearer ${ token }`
-        }, //token dans le header de la requete
-
-
-        success: function (response) {
-            console.log("success");
-            $(".page-title h2").append("</br>" + response.lastname + " " + response.firstname);
-
-        },
-        error: function (jqxhr) {
-            alert(jqxhr.responseText);
-            location.href = 'index.html';
-        },
-    });
 
     //****************getAllTraining************************
-    $.ajax({
-        url: 'https://gestform.ei-bs.eu/training/getAllTraining',
-        type: 'get',
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
+    $(document).on('click', '#home-tab', function () {
+        $.ajax({
+            url: BACKEND_URL + 'training/getAllTraining',
+            type: 'get',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
 
 
-        success: function (response) {
-            console.log("success");
-            $.each(response, function (i, training) {
+            success: function (response) {
+                console.log("success");
+
+                $("#cours").empty();
+                $.each(response, function (i, training) {
+                    $("#cours").append('<tr>' +
+                        '<td>' + training.subject + '</td>' +
+                        '<td>' + new Date(training.startTraining.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td>' + new Date(training.endTraining.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td><button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining">Afficher</button><button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Participer</button>' +
+                        '</tr>')
+                });
+                $('#tabcours').DataTable();
+            },
+            error: function (jqxhr) {
+                alert(jqxhr.responseText);
+            },
 
 
-
-                $("#cours").append('<div class="accordion-toggle">' +
-                    '<h3>' + training.subject + '</h3><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + new Date(training.startTraining.substring(0, 19)).toLocaleString() + '</span><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + new Date(training.endTraining.substring(0, 19)).toLocaleString() + '</span><br />' +
-                    //'<p> Contenu du cours: ' + training.description + '</p>' +
-                    //'<p> Nombre d\'élèves: ' + training.studentsCount + '</p>' +
-                    '<button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining">Afficher</button>' +
-                    '<button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Participer</button>' +
-                    '</div>'
-                );
-            });
-        },
-        error: function (jqxhr) {
-            alert(jqxhr.responseText);
-        },
-
-
+        });
     });
 
     //****************getTrainingById******************************
@@ -70,7 +47,7 @@ $(document).ready(function () {
         console.log($(this).attr('id'));
 
         $.ajax({
-            url: 'https://gestform.ei-bs.eu/training/getTrainingById?id=' + $(this).attr('id'),
+            url: BACKEND_URL + 'training/getTrainingById?id=' + $(this).attr('id'),
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json',
@@ -112,7 +89,7 @@ $(document).ready(function () {
 
         console.log($('input[name=user_id]').val());
         $.ajax({
-            url: 'https://gestform.ei-bs.eu/comments/addComments',
+            url: BACKEND_URL + 'comments/addComments',
             type: 'POST',
             data: {
                 user_id: $('input[name = user_id]').val(),
@@ -147,7 +124,7 @@ $(document).ready(function () {
 
         if (confirm("Etes-vous sûr de vouloir participer à ce Training ?")) {
             $.ajax({
-                url: 'https://gestform.ei-bs.eu/student/subscribeTraining',
+                url: BACKEND_URL + 'student/subscribeTraining',
                 type: 'PUT',
                 dataType: 'json', //type de données qu'on attend en réponse du serveur
                 contentType: "application/json",
@@ -178,7 +155,7 @@ $(document).ready(function () {
 
         if (confirm("Etes-vous sûr de vouloir modifier votre profil ?")) {
             $.ajax({
-                url: 'https://gestform.ei-bs.eu/user/getCurrentUser',
+                url: BACKEND_URL + 'user/getCurrentUser',
                 type: 'GET',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -219,7 +196,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: 'https://gestform.ei-bs.eu/user/updateCurrentUser',
+            url: BACKEND_URL + 'user/updateCurrentUser',
             type: 'PUT',
             dataType: 'json', //type de données qu'on attend en réponse du serveur
             contentType: "application/json",
@@ -258,7 +235,7 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: 'https://gestform.ei-bs.eu/user/passwordUpdate',
+                url: BACKEND_URL + 'user/passwordUpdate',
                 type: 'PUT',
                 dataType: 'json', //type de données qu'on attend en réponse du serveur
                 contentType: "application/json",

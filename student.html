@@ -1,297 +1,204 @@
-<!DOCTYPE html>
-<html lang="fr">
+<div class="fullwidth-content">
+    <div class="row">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
-
-    <title>Student | You Stud</title>
-    <!-- Loading third party fonts -->
-    <link href="vendor/arvo.css" rel="stylesheet" type="text/css">
-    <link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
-    <!-- Loading main css file -->
-    <link rel="stylesheet" href="style.css">
-
-    <!--[if lt IE 9]>
-            <script src="js/ie-support/html5.js"></script>
-            <script src="js/ie-support/respond.js"></script>
-            <![endif]-->
-
-</head>
-
-<body>
-
-    <div id="site-content">
-        <header class="site-header">
-            <div class="primary-header">
-                <div class="container">
-                    <a href="index.html" id="branding">
-                        <img src="images/logo_youstud2.png" alt="youstud">
-                    </a> <!-- #branding -->
-
-                    <div class="main-navigation">
-                        <button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
-                        <ul class="menu">
-                            <li class="menu-item"><a href="index.html">Accueil</a></li>
-                            <!-- <li class="menu-item current-menu-item"><a href="course.html">Choisir une matière</a></li>
-                                    <li class="menu-item"><a href="event.html">Calendrier</a></li> -->
-                            <li class="menu-item"><a href="#" id="modalUpdateProfil" data-toggle="modal"
-                                    data-target="#myModalUpdateProfil">Modifier profil</a></li>
-                            <li class="menu-item"><a href="#" id="modalUpdatePassword" data-toggle="modal"
-                                    data-target="#myModalUpdatePassword">Modifier mon mot de passe</a></li>
-                            <li class="menu-item"><a href="export.html">Export</a></li>
-                            <li class="menu-item"><a href="#" id="Deconnexion">Déconnexion</a></li>
-                        </ul> <!-- .menu -->
-                    </div> <!-- .main-navigation -->
-
-                    <div class="mobile-navigation"></div>
-                </div> <!-- .container -->
-            </div> <!-- .primary-header -->
-
-            <div class="page-title">
-                <div class="container">
-                    <h2 class="text-center">Bienvenue sur votre page</h2>
-                </div>
-            </div>
-        </header>
+        <div class="col-md-5">
+            <p class="text-center">
+                <a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAddComment">Déposer
+                    un commentaire</a>
+            </p>
+        </div>
     </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#Trainings" role="tab" aria-controls="home"
+                aria-selected="true">Next Trainings</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#myTrainings" role="tab"
+                aria-controls="profile" aria-selected="false">My Training</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#calendrier" role="tab" aria-controls="contact"
+                aria-selected="false">Calendrier</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="Trainings" role="tabpanel" aria-labelledby="home-tab">
+            <table id="tabcours" class="table table-bordered table-hover table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="cours">
+                    <!-- Liste des cours -->
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="myTrainings" role="tabpanel" aria-labelledby="profile-tab">
+            <table id="tabstudents" class="table table-bordered table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Trainig</th>
+                    </tr>
+                </thead>
+                <tbody id="students">
+                    <!-- Liste des utilisateurs -->
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">...
+        </div>
+    </div>
+</div>
+</div>
+</div> <!-- .fullwidth-block -->
 
-    <main class="main-content">
-        <div class="fullwidth-block inner-content">
-            <div class="container">
-                <div class="fullwidth-content">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <p class="text-center">
-                                <a href="#" class="more button secondary">Choisir un cours</a>
-                            </p>
-                            <h2 class="section-title"><i class="icon-calendar-lg"></i>Cours à venir</h2>
+<div class="container">
+    <div class="row">
+        <!-- AFicher Training -->
+        <div class="col-md-5">
+            <div class="modal fade" id="myModalDisplayTraining">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 name="subject"></h1>
+                        </div>
+                        <div class="modal-body">
 
-                            <div class="accordion" id="cours">
+                            <div class="offset-1 col-6">
+                                <label for="NameTeacher">Professeur</label><br />
+                                <p name="NameTeacher" type="text"></p><br />
+                                <label for="start_training">Debut</label><br />
+                                <p name="start_training" type="datetime-local"></p><br />
+                                <label for="end_training">Fin</label><br />
+                                <p name="end_training" type="datetime-local"></p><br />
+                                <label for="max_student">Nombre maximum de students</label><br />
+                                <p name="max_student" type="text"></p><br />
+                                <label for="price_per_student">Prix/student</label><br />
+                                <p name="price_per_student" type="text">€</p><br />
+                                <label for="training_description">Description</label><br />
+                                <p name="training_description" type="text"></p><br />
 
                             </div>
 
                         </div>
-                        <div class="col-md-5">
-                            <p class="text-center">
-                                <a href="#" class="more button secondary" data-toggle="modal"
-                                    data-target="#myModalAddComment">Déposer un commentaire</a>
-                            </p>
+                        <div class="modal-footer">
+                            <input class="btn btn-dark" data-dismiss="modal" value="close">
 
-                            <h2 class="section-title"><i class="icon-calendar-lg"></i>Vos cours</h2>
-                            <!-- <ul class="posts">
-                                        <li class="post"> -->
-                            <div class="accordion">
-                                <div class="accordion-toggle">
-                                    <h3>Anglais</h3><br><br>
-                                </div>
-                                <div class="accordion-content">
-                                    <p>contenu</p>
-                                </div>
-                            </div>
-                            <div class="accordion">
-                                <div class="accordion-toggle">
-                                    <h3>Mathématique</h3><br><br>
-                                </div>
-                                <div class="accordion-content">
-                                    <p>contenu</p>
-                                </div>
-                            </div>
-                            <div class="accordion">
-                                <div class="accordion-toggle">
-                                    <h3>Physique</h3><br><br>
-                                </div>
-                                <div class="accordion-content">
-                                    <p>contenu</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- .fullwidth-block -->
-
-        <div class="container">
-            <div class="row">
-                <!-- AFicher Training -->
-                <div class="col-md-5">
-                    <div class="modal fade" id="myModalDisplayTraining">
-                        <div class="modal-dialog modal-md">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 name="subject"></h1>
-                                </div>
-                                <div class="modal-body">
-
-                                    <div class="offset-1 col-6">
-                                        <label for="NameTeacher">Professeur</label><br />
-                                        <p name="NameTeacher" type="text"></p><br />
-                                        <label for="start_training">Debut</label><br />
-                                        <p name="start_training" type="datetime-local"></p><br />
-                                        <label for="end_training">Fin</label><br />
-                                        <p name="end_training" type="datetime-local"></p><br />
-                                        <label for="max_student">Nombre maximum de students</label><br />
-                                        <p name="max_student" type="text"></p><br />
-                                        <label for="price_per_student">Prix/student</label><br />
-                                        <p name="price_per_student" type="text">€</p><br />
-                                        <label for="training_description">Description</label><br />
-                                        <p name="training_description" type="text"></p><br />
-
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Formulaire Ajout Commentaire -->
-                <div class="col-md-5">
-                    <div class="modal fade" id="myModalAddComment">
-                        <div class="modal-dialog modal-md">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1>REMPLIR LES CHAMPS</h1>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="formC">
-                                        <div class="offset-1 col-6">
-                                            <label for="user_id">userId</label><br />
-                                            <input name="user_id" type="text" required><br />
-                                            <label for="title_comment">Titre</label><br />
-                                            <input name="title_comment" type="text" required><br />
-                                            <label for="body_comment">Commentaire</label><br />
-                                            <input name="body_comment" type="text" required><br />
-                                            </br>
-                                            <button class="btn btn-outline-success my-2 my-sm-0" id="submit_c"
-                                                type="submit">Ajouter</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Formulaire UpdateProfil -->
-                <div class="col-md-5">
-                    <div class="modal fade" id="myModalUpdateProfil">
-                        <div class="modal-dialog modal-md">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1>REMPLIR LES CHAMPS</h1>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="formUp">
-                                        <div class="offset-1 col-6">
-                                            <label for="email">Email</label><br />
-                                            <input name="email" type="email" required><br />
-                                            <label for="lastname">Nom</label><br />
-                                            <input name="lastname" type="text" required><br />
-                                            <label for="firstname">Prénom</label><br />
-                                            <input name="firstname" type="text" required><br />
-                                            <label for="phone">Téléphone</label><br />
-                                            <input name="phone" type="tel" required><br />
-                                            <label for="address">Adresse</label><br />
-                                            <input name="address" type="text" required><br />
-                                            <label for="postcode">Code Postal</label><br />
-                                            <input name="postcode" type="text" required><br />
-                                            <label for="city">Ville</label><br />
-                                            <input name="city" type="text" required><br />
-                                            </br>
-                                            <button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"
-                                                type="submit">Modifier</button>
-                                        </div>
-                                    </form>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <!-- Formulaire UpdatePassword -->
-                <div class="col-md-5">
-                    <div class="modal fade" id="myModalUpdatePassword">
-                        <div class="modal-dialog modal-md">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1>REMPLIR LES CHAMPS</h1>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="formPass">
-                                        <div class="offset-1 col-auto">
-                                            <label for="oldpassword">Inserer votre mot de passe</label><br />
-                                            <input name="oldpassword" type="password" id="oldpassword" required><br />
-                                            <label for="newpassword">Inserer votre nouveau mot de
-                                                passe</label><br />
-                                            <input name="newpassword" type="password" id="newpassword" required><br />
-                                            </br>
-                                            <button class="btn btn-outline-success my-2 my-sm-0" id="submit_mdp"
-                                                type="submit">Modifier</button>
-                                        </div>
-                                    </form>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <input class="btn btn-dark" data-dismiss="modal" value="close">
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-</body>
-<footer class="site-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="widget">
-                    <h3 class="widget-title">Contactez nous</h3>
-                    <address>You Stud' <br>25 rue de Lille <br>59200 tourcoing</address>
+        <!-- Formulaire Ajout Commentaire -->
+        <div class="col-md-5">
+            <div class="modal fade" id="myModalAddComment">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1>REMPLIR LES CHAMPS</h1>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formC">
+                                <div class="offset-1 col-6">
+                                    <label for="user_id">userId</label><br />
+                                    <input name="user_id" type="text" required><br />
+                                    <label for="title_comment">Titre</label><br />
+                                    <input name="title_comment" type="text" required><br />
+                                    <label for="body_comment">Commentaire</label><br />
+                                    <input name="body_comment" type="text" required><br />
+                                    </br>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_c"
+                                        type="submit">Ajouter</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <input class="btn btn-dark" data-dismiss="modal" value="close">
 
-                    <a href="mailto:contact@you-stud.fr">contact@you-stud.fr</a> <br>
-                    <a href="tel:07 70 51 26 85">07 70 51 26 85</a>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="widget">
-                    <h3 class="widget-title">Rejoignez-nous</h3>
-                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-                    <div class="social-links circle">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- Formulaire UpdateProfil -->
+        <div class="col-md-5">
+            <div class="modal fade" id="myModalUpdateProfil">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1>REMPLIR LES CHAMPS</h1>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formUp">
+                                <div class="offset-1 col-6">
+                                    <label for="email">Email</label><br />
+                                    <input name="email" type="email" required><br />
+                                    <label for="lastname">Nom</label><br />
+                                    <input name="lastname" type="text" required><br />
+                                    <label for="firstname">Prénom</label><br />
+                                    <input name="firstname" type="text" required><br />
+                                    <label for="phone">Téléphone</label><br />
+                                    <input name="phone" type="tel" required><br />
+                                    <label for="address">Adresse</label><br />
+                                    <input name="address" type="text" required><br />
+                                    <label for="postcode">Code Postal</label><br />
+                                    <input name="postcode" type="text" required><br />
+                                    <label for="city">Ville</label><br />
+                                    <input name="city" type="text" required><br />
+                                    </br>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"
+                                        type="submit">Modifier</button>
+                                </div>
+                            </form>
 
+                        </div>
+                        <div class="modal-footer">
+                            <input class="btn btn-dark" data-dismiss="modal" value="close">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-</footer>
 
-<script src="vendor/jquery-3.4.1.min.js"></script>
-<script src="vendor/bootstrap/bootstrap.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="js/connexion.js"></script>
-<script src="js/app.js"></script>
-<script src="js/student.js"></script>
+        <!-- Formulaire UpdatePassword -->
+        <div class="col-md-5">
+            <div class="modal fade" id="myModalUpdatePassword">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1>REMPLIR LES CHAMPS</h1>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formPass">
+                                <div class="offset-1 col-auto">
+                                    <label for="oldpassword">Inserer votre mot de passe</label><br />
+                                    <input name="oldpassword" type="password" id="oldpassword" required><br />
+                                    <label for="newpassword">Inserer votre nouveau mot de
+                                        passe</label><br />
+                                    <input name="newpassword" type="password" id="newpassword" required><br />
+                                    </br>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_mdp"
+                                        type="submit">Modifier</button>
+                                </div>
+                            </form>
 
-</header>
-</body>
+                        </div>
+                        <div class="modal-footer">
+                            <input class="btn btn-dark" data-dismiss="modal" value="close">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
