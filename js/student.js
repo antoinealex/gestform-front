@@ -6,7 +6,7 @@
 $(document).ready(function () {
 
     //****************getAllTraining************************
-    $(document).on('click', '#home-tab', function () {
+    $(document).on('click', '#home', function () {
         $.ajax({
             url: BACKEND_URL + 'training/getAllTraining',
             type: 'get',
@@ -26,10 +26,21 @@ $(document).ready(function () {
                         '<td>' + training.subject + '</td>' +
                         '<td>' + new Date(training.startTraining.substring(0, 19)).toLocaleString() + '</td>' +
                         '<td>' + new Date(training.endTraining.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td><button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining">Afficher</button><button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Participer</button>' +
+                        '<td><button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining">Afficher</button> <button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Participer</button>' +
                         '</tr>')
                 });
-                $('#tabcours').DataTable();
+                $('#tabcours').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    }
+                });
             },
             error: function (jqxhr) {
                 alert(jqxhr.responseText);
