@@ -2,7 +2,7 @@
 //*************************** LOGIN *************************************
 //***********************************************************************
 
-function login() {
+function login(callback) {
     $("#submitLogin").click(function (e) {
         e.preventDefault();
         var data = {};
@@ -36,6 +36,9 @@ function login() {
 
                         success: function (response) {
                             currentUser = response;
+                            console.log("on est ici ;)");
+                            dashboardChooser(currentUser.roles[0]);
+
                         },
                         error: function (jqxhr) {
                             console.log(jqxhr.toString());
