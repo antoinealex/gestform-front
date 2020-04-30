@@ -1,12 +1,13 @@
 //*****************************************************************************
 //********************************** GET **************************************
 //*****************************************************************************
-
+var token = localStorage.getItem('MonToken');
 //****************getCurrentUser************************
 $(document).ready(function () {
 
     //****************getAllTraining************************
-    $(document).on('click', '#home-tab', function () {
+    //$(document).on('click', '#home', function () {
+    $(document).ready(function () {
         $.ajax({
             url: BACKEND_URL + 'training/getAllTraining',
             type: 'get',
@@ -26,13 +27,25 @@ $(document).ready(function () {
                         '<td>' + training.subject + '</td>' +
                         '<td>' + new Date(training.startTraining.substring(0, 19)).toLocaleString() + '</td>' +
                         '<td>' + new Date(training.endTraining.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td><button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining">Afficher</button><button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Participer</button>' +
+                        '<td><button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Participer</button>' +
                         '</tr>')
                 });
-                $('#tabcours').DataTable();
+                $('#tabcours').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    }
+                });
             },
             error: function (jqxhr) {
-                alert(jqxhr.responseText);
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
             },
 
 
@@ -72,7 +85,8 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                alert(jqXhr.responseText);
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
             },
         })
 
@@ -87,12 +101,12 @@ $(document).ready(function () {
     $("#submit_c").click(function (e) {
         e.preventDefault();
 
-        console.log($('input[name=user_id]').val());
+
         $.ajax({
             url: BACKEND_URL + 'comments/addComments',
             type: 'POST',
             data: {
-                user_id: $('input[name = user_id]').val(),
+                user_id: currentUser.id,
                 title_comment: $('input[name = title_comment]').val(),
                 body_comment: $('input[name = body_comment]').val(),
             },
@@ -100,11 +114,13 @@ $(document).ready(function () {
                 Authorization: `Bearer ${ token }`
             },
             success: function () {
-                alert('Commentaire ajouté avec succés !');
-                location.reload(true);
+                $('#successStudent').fadeIn();
+                $('#successStudent').delay(6000).fadeOut();
+                //location.reload(true);
             },
             error: function (jqXhr) {
-                alert(jqXhr.responseText);
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
             },
         });
     });
@@ -135,14 +151,16 @@ $(document).ready(function () {
                 },
 
                 success: function (response) {
-                    alert('Vous avez était inscrit avec succés !');
+                    $('#successStudent').fadeIn();
+                    $('#successStudent').delay(6000).fadeOut();
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $('#errorStudent').fadeIn();
+                    $('#errorStudent').delay(6000).fadeOut();
                 },
             });
         } else {
-            location.href = 'student.html';
+            //location.href = 'student.html';
         }
 
     });
@@ -175,11 +193,13 @@ $(document).ready(function () {
 
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $('#errorStudent').fadeIn();
+                    $('#errorStudent').delay(6000).fadeOut();
                 },
             })
         } else {
-            location.href = 'student.html';
+            location.reload(true);
+            //location.href = 'student.html';
         }
     });
 
@@ -207,11 +227,13 @@ $(document).ready(function () {
             },
 
             success: function () {
-                alert('Informations Modifiées avec succés !');
-                location.reload(true);
+                $('#successStudent').fadeIn();
+                $('#successStudent').delay(6000).fadeOut();
+                //location.reload(true);
             },
             error: function (jqXhr) {
-                alert(jqXhr.responseText);
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
             },
         });
     });
@@ -219,15 +241,17 @@ $(document).ready(function () {
     //****************updatePassword*****************************
     $("#submit_mdp").click(function (e) {
         e.preventDefault();
-        $("span[style^='color:red']").empty();
+
         if ($("#oldpassword").val().length === 0) {
-            $("#oldpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+            $("#credsMissing").fadeIn();
         } else if ($("#newpassword").val().length === 0) {
-            $("#newpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+            $("#credsMissing").fadeIn();
         } else if (!$("#newpassword").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
-            $("#newpassword").after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
+            $("#logerror").fadeIn();
 
         } else {
+            $("#credsMissing").fadeOut();
+            $("#logerror").fadeOut();
 
             data = {
                 "oldPassword": $("input[name=oldpassword]").val(),
@@ -246,12 +270,12 @@ $(document).ready(function () {
                 },
 
                 success: function () {
-                    alert('Mot de passe modifié avec succés !');
-                    location.reload(true);
+                    $('#successUpdatePassword').fadeIn();
+                    //location.reload(true);
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
-                    location.reload(true);
+                    ('#errorUpdatePassword').fadeIn();
+                    //location.reload(true);
                 },
             });
         }

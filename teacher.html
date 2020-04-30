@@ -1,72 +1,71 @@
-<div class="container">
-    <div class="fullwidth-content">
-        <div class="row">
-            <div class="col-md-5">
-                <p class="text-center">
-                    <a href="#" class="more button secondary" data-toggle="modal"
-                        data-target="#myModalAjoutTrainig">Ajouter un Training</a>
-                </p>
-
-            </div>
-            <div class="col-md-5">
-                <p class="text-center">
-                    <a href="#" class="more button secondary" data-toggle="modal"
-                        data-target="#myModalAddStudent">Ajouter un élève</a>
-                </p>
-
-
-
-            </div>
-        </div> <!-- row -->
-
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#MyTrainings" role="tab"
-                    aria-controls="home" aria-selected="true">My trainings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#MyStudents" role="tab"
-                    aria-controls="profile" aria-selected="false">MyStudents</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#calendrier" role="tab"
-                    aria-controls="contact" aria-selected="false">Calendrier</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="MyTrainings" role="tabpanel" aria-labelledby="home-tab">
-                <table id="tabcours" class="table table-bordered table-hover table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Subject</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cours">
-                        <!-- Liste des cours -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="MyStudents" role="tabpanel" aria-labelledby="profile-tab">
-                <table id="tabstudents" class="table table-bordered table-hover" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Trainig</th>
-                        </tr>
-                    </thead>
-                    <tbody id="students">
-                        <!-- Liste des utilisateurs -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">...</div>
-        </div>
-
+<div id="bodyTeacher">
+    <div class="alert alert-danger" id="errorTeacher" role="alert" style="display: none;">
+        Echec !
     </div>
+    <div class="alert alert-success" id="successTeacher" role="alert" style="display: none;">
+        Réussi !
+    </div>
+
+    <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#MyTrainings" role="tab"
+                aria-controls="home" aria-selected="true">Mes cours</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#MyStudents" role="tab" aria-controls="profile"
+                aria-selected="false">Mes élèves</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#calendrier" role="tab" aria-controls="contact"
+                aria-selected="false">Calendrier</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="MyTrainings" role="tabpanel" aria-labelledby="home-tab">
+            <p class="text-center">
+                <a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAjoutTrainig">Ajouter
+                    un
+                    Training</a>
+            </p>
+            <h2 class="section-title">Liste de mes cours</h2>
+            <table id="tabcours" class="table table-bordered table-hover table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="cours">
+                    <!-- Liste des cours -->
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="MyStudents" role="tabpanel" aria-labelledby="profile-tab">
+            <p class="text-center">
+                <a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAddStudent">Ajouter
+                    un
+                    élève</a>
+            </p>
+            <h2 class="section-title">Liste de mes élèves</h2>
+            <table id="tabstudents" class="table table-bordered table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Training</th>
+                    </tr>
+                </thead>
+                <tbody id="students">
+                    <!-- Liste des utilisateurs -->
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    </div>
+
+</div>
 </div>
 
 <!-- datatable -->
@@ -113,6 +112,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Formulaire Ajout Training -->
         <div class="col-md-5">
             <div class="modal fade" id="myModalAjoutTrainig">
@@ -124,8 +124,6 @@
                         <div class="modal-body">
                             <form id="formT">
                                 <div class="offset-1 col-6">
-                                    <label for="teacher_id">TeacherID</label><br />
-                                    <input name="teacher_id" type="text" required><br />
                                     <label for="start_training">Debut</label><br />
                                     <input name="start_training" type="datetime-local" required><br />
                                     <label for="end_training">Fin</label><br />
@@ -290,7 +288,22 @@
                         <div class="modal-header">
                             <h1>REMPLIR LES CHAMPS</h1>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" id="inputMdp">
+                            <div class="alert alert-success" id="successUpdatePassword" role="alert"
+                                style="display: none;">
+                                Mot de passe modifié avec succés !
+                            </div>
+                            <div class="alert alert-danger" id="errorUpdatePassword" role="alert"
+                                style="display: none;">
+                                Echec ! Veulliez recommencer !
+                            </div>
+                            <div class="alert alert-danger" id="logerror" role="alert" style="display: none;">
+                                Mot de passe ou identifiant invalide ! (6 caractéres minimum dont: [a-b] et [0-9])
+                            </div>
+
+                            <div class="alert alert-warning" id="credsMissing" role="alert" style="display: none;">
+                                Veuillez saisir votre identifiant et votre mot de passe !
+                            </div>
                             <form id="formPass">
                                 <div class="offset-1 col-auto">
                                     <label for="oldpassword">Inserer votre mot de passe</label><br />
@@ -313,6 +326,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 

@@ -5,20 +5,22 @@
 //****************getAllTraining********************
 $(document).ready(function (){
 
-    $.ajax({
-        url: BACKEND_URL + "training/getAllTraining",
-        type: 'GET',
-        datatype: 'JSON',
-        contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        success: function(training){
-            console.log("success GET")
-            $.each(training, function(i, training){
-                
-                var start = training.startTraining;
-                var end = training.endTraining;
+        $.ajax({
+            url: BACKEND_URL + "training/getAllTraining",
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function (training) {
+                console.log("success GET")
+                $.each(training, function (i, training) {
 
-                $('#trainingList').append('\
+                    var start = training.startTraining;
+                    var end = training.endTraining;
+
+                    $('#trainingList').append('\
                     <tr>\
                         <td>' + training.id + '</td>\
                         <td>' + training.subject + '</td>\
@@ -65,16 +67,18 @@ $(document).ready(function (){
 //****************getAllUser********************
 $(document).ready(function (){
 
-    $.ajax({
-        url: BACKEND_URL + "admin/getAllUser",
-        type: 'GET',
-        datatype: 'JSON',
-        contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        success: function(user){
-            console.log("success GET")
-            $.each(user, function(i, user){
-                $('#userList').append('\
+        $.ajax({
+            url: BACKEND_URL + "admin/getAllUser",
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function (user) {
+                console.log("success GET")
+                $.each(user, function (i, user) {
+                    $('#userList').append('\
                     <tr>\
                         <td>' + user.id + '</td>\
                         <td>' + user.firstname + ' ' + user.lastname + '</td>\
@@ -200,14 +204,14 @@ $("#addNewTraining").click(function (){
                     $('select[name=addTeacher]').append('\
                     <option name="newTeacher" value="' + user.id + '">' + user.firstname + ' ' + user.lastname + '</option>\
                     ')
-                }
-            });
-        }
-    });
-    //POST
-    $("#submit_t").click(function (){
-        event.preventDefault();
-        data = {};
+                    }
+                });
+            }
+        });
+        //POST
+        $("#submit_t").click(function () {
+            event.preventDefault();
+            data = {};
 
         $.ajax({
             url: BACKEND_URL + "training/addTraining",
@@ -310,37 +314,41 @@ $(document).on('click',".updateTraining", function (){
 event.preventDefault();
 var id = $(this).attr('id');
 
-    $.ajax({
-        url: BACKEND_URL + "training/getTrainingById?id=" + id,
-        type: 'GET',
-        datatype: 'JSON',
-        contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        
-        success: function(training) {
-            console.log(id);
-            //Formater la date
-            var chnStart= training.startTraining;
-            var start = chnStart.substring(0,19);
-            var chnEnd= training.endTraining;
-            var end = chnEnd.substring(0,19);
-            
-            $('input[name=editTrainingId]').val(training.id)
-            $('select[name=teacherSelect]').empty().append('\
+        $.ajax({
+            url: BACKEND_URL + "training/getTrainingById?id=" + id,
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+
+            success: function (training) {
+                console.log(id);
+                //Formater la date
+                var chnStart = training.startTraining;
+                var start = chnStart.substring(0, 19);
+                var chnEnd = training.endTraining;
+                var end = chnEnd.substring(0, 19);
+
+                $('input[name=editTrainingId]').val(training.id)
+                $('select[name=teacherSelect]').empty().append('\
             <option name="teacher_name" value="' + training.teacher['id'] + '">' + training.teacher['firstname'] + ' ' + training.teacher['lastname'] + '</option>\
             ')
-            //Call ajax pour récupérer les teachers
-            $.ajax({
-                url: BACKEND_URL + "admin/getAllUser",
-                type: 'GET',
-                datatype: 'JSON',
-                contentType: "application/json",
-                headers: { Authorization: `Bearer ${ token }`},
-                success: function(user){
-                    console.log("success GET")
-                    $.each(user, function(i, user){
-                        if (user.roles[0] === "ROLE_TEACHER") {
-                            $('select[name=teacherSelect]').append('\
+                //Call ajax pour récupérer les teachers
+                $.ajax({
+                    url: BACKEND_URL + "admin/getAllUser",
+                    type: 'GET',
+                    datatype: 'JSON',
+                    contentType: "application/json",
+                    headers: {
+                        Authorization: `Bearer ${ token }`
+                    },
+                    success: function (user) {
+                        console.log("success GET")
+                        $.each(user, function (i, user) {
+                            if (user.roles[0] === "ROLE_TEACHER") {
+                                $('select[name=teacherSelect]').append('\
                             <option name="teacher_name" value="' + user.id + '">' + user.firstname + ' ' + user.lastname + '</option>\
                             ')
                         }
@@ -398,8 +406,8 @@ var id = $(this).attr('id');
                 </div>\
             ').delay(5000).fadeOut(400);
             },
-            complete : function( jqXHR, textStatus ){
-                //console.log( JSON.stringify(trainingData) );
+            complete: function (jqXHR, textStatus) {
+                console.log(textStatus);
             }
         });
     });
@@ -440,22 +448,12 @@ var id = $(this).attr('id');
     });
     $(document).on('click',"#submit_e", function (){
         event.preventDefault();
-        userData = {
-            id: $('input[name=editUserId]').val(),
-            lastname: $('input[name=editLastname]').val(),
-            firstname: $('input[name=editFirstname]').val(),
-            roles: $('select[name=editRoles]').val(),
-            email: $('input[name=editEmail]').val(),
-            phone: $('input[name=editPhone]').val(),
-            address: $('input[name=editAddress]').val(),
-            postcode: $('input[name=editPostcode]').val(),
-            city: $('input[name=editCity]').val()
-        };
-        console.log(userData)
+        var id = $(this).attr('id');
+
         $.ajax({
-            url: BACKEND_URL + "admin/updateUser",
-            type: 'PUT',
-            dataType: 'json', //text
+            url: BACKEND_URL + "admin/getUserByID?id=" + id,
+            type: 'GET',
+            datatype: 'JSON',
             contentType: "application/json",
             processData: false,
             headers: { Authorization: `Bearer ${ token }`},
@@ -476,8 +474,8 @@ var id = $(this).attr('id');
                     </div>\
                 ').delay(5000).fadeOut(400);
             },
-            complete : function( jqXHR, textStatus ){
-                console.log( textStatus );
+            complete: function (jqXHR, textStatus) {
+                console.log(textStatus);
             }
         });
     });
@@ -522,16 +520,16 @@ data = {
     "city": $('input[name=myCity]').val()
 }
 
-    $.ajax({
-        url: BACKEND_URL + "user/updateCurrentUser",
-        type: 'PUT',
-        dataType: 'json', //type de données qu'on attend en réponse du serveur
-        contentType: "application/json",
-        processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
-        data: JSON.stringify(data),
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
+        $.ajax({
+            url: BACKEND_URL + "user/updateCurrentUser",
+            type: 'PUT',
+            dataType: 'json', //type de données qu'on attend en réponse du serveur
+            contentType: "application/json",
+            processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+            data: JSON.stringify(data),
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
 
         success: function () {
             $('.alertMessage').empty().append('\
