@@ -1,13 +1,13 @@
 //*****************************************************************************
 //********************************** GET **************************************
 //*****************************************************************************
-
+var token = localStorage.getItem('MonToken');
 //****************getCurrentUser************************
 $(document).ready(function () {
 
     //****************getMyTrainings*****************************
-    $(document).on('click', '#home-tab', function () {
-
+    //$(document).on('click', '#home-tab', function () {
+    $(document).ready(function () {
         $.ajax({
             url: BACKEND_URL + 'teacher/getMyTrainings',
             type: 'get',
@@ -20,20 +20,25 @@ $(document).ready(function () {
 
             success: function (response) {
                 console.log("success");
-                $("#cours").empty();
+                //$("#cours").empty();
                 $.each(response, function (i, training) {
                     $("#cours").append('<tr>' +
                         '<td>' + training.subject + '</td>' +
                         '<td>' + new Date(training.startDatetime).toLocaleString() + '</td>' +
                         '<td>' + new Date(training.endDatetime).toLocaleString() + '</td>' +
-                        '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTeacher">Afficher</button> <button id=' + i + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Editer</button> <button id=' + i + ' type="button" class="btn btn-danger btn-sm">Supprimer</button><br /></td>' +
+                        '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTeacher"><i class="fas fa-eye"></i> Afficher</button> <button id=' + i + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Editer</button> <button id=' + i + ' type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Supprimer</button><br /></td>' +
                         '</tr>')
                 });
-                $('#tabcours').DataTable();
+                $('#tabcours').DataTable({
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    }
+                });
 
             },
             error: function (jqxhr) {
-                alert(jqxhr.responseText);
+                $('#errorTeacher').fadeIn();
+                $('#errorTeacher').delay(6000).fadeOut();
             },
 
 
@@ -70,15 +75,16 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                alert(jqXhr.responseText);
+                $('#errorTeacher').fadeIn();
+                $('#errorTeacher').delay(6000).fadeOut();
             },
         });
 
     });
 
     //****************getTrainingById (pour récuperer les Students)***********************
-    $(document).on('click', "#profile-tab", function (e) {
-
+    //$(document).on('click', "#profile-tab", function (e) {
+    $(document).ready(function () {
         $.ajax({
             url: BACKEND_URL + 'teacher/getMyTrainings',
             type: 'get',
@@ -91,7 +97,7 @@ $(document).ready(function () {
 
             success: function (response) {
                 console.log("success");
-                $("#students").empty();
+                //$("#students").empty();
                 $.each(response, function (i, training) {
                     $.ajax({
 
@@ -112,7 +118,7 @@ $(document).ready(function () {
                                     '<td>' + student.firstname + '</td>' +
                                     '<td>' + student.lastname + '</td>' +
                                     '<td>' + response.subject + '</td>' +
-                                    //'<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTeacher">Afficher</button></td>' +
+                                    //'<td><button id=' + student.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayStudent">Afficher</button></td>' +
                                     '</tr>')
 
                             });
@@ -121,14 +127,16 @@ $(document).ready(function () {
 
                         },
                         error: function (jqxhr) {
-                            alert(jqxhr.responseText);
+                            $('#errorTeacher').fadeIn();
+                            $('#errorTeacher').delay(6000).fadeOut();
                         },
                     });
                 });
             },
 
             error: function (jqxhr) {
-                alert(jqxhr.responseText);
+                $('#errorTeacher').fadeIn();
+                $('#errorTeacher').delay(6000).fadeOut();
             },
         });
 
@@ -140,15 +148,15 @@ $(document).ready(function () {
 
 
     //****************addTraining**************************
-    $(document).on('click', "#submit_training", function (e) {
+    $("#submit_training").click(function (e) {
         e.preventDefault();
 
-        console.log($('input[name=teacher_id]').val());
+        console.log(currentUser.id);
         $.ajax({
             url: BACKEND_URL + 'training/addTraining',
             type: 'POST',
             data: {
-                teacher_id: $('input[name = teacher_id]').val(),
+                teacher_id: currentUser.id,
                 start_training: $('input[name = start_training]').val(),
                 end_training: $('input[name = end_training]').val(),
                 max_student: $('input[name = max_student]').val(),
@@ -160,11 +168,13 @@ $(document).ready(function () {
                 Authorization: `Bearer ${ token }`
             },
             success: function () {
-                alert('Training Ajouté avec succés !');
-                //location.reload(true);
+                $('#successTeacher').fadeIn();
+                $('#successTeacher').delay(6000).fadeOut();
+                location.reload(true);
             },
             error: function (jqXhr) {
-                alert(jqXhr.responseText);
+                $('#errorTeacher').fadeIn();
+                $('#errorTeacher').delay(6000).fadeOut();
             },
         });
     });
@@ -204,12 +214,14 @@ $(document).ready(function () {
 
                 success: function (jqXhr) {
                     //alert(jqXhr.responseText);
-                    alert('Student ajouté avec succés !');
+                    $('#successTeacher').fadeIn();
+                    $('#successTeacher').delay(6000).fadeOut();
 
                     //location.reload(true);
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $('#errorTeacher').fadeIn();
+                    $('#errorTeacher').delay(6000).fadeOut();
                     //location.reload(true);
                 },
             });
@@ -234,10 +246,13 @@ $(document).ready(function () {
                 },
 
                 success: function (response) {
+                    $('#successTeacher').fadeIn();
+                    $('#successTeacher').delay(6000).fadeOut();
                     //location.reload(true);
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $('#errorTeacher').fadeIn();
+                    $('#errorTeacher').delay(6000).fadeOut();
                 },
             });
         }
@@ -303,21 +318,25 @@ $(document).ready(function () {
                             },
 
                             success: function () {
-                                alert('Training Modifié avec succés !');
+                                $('#successTeacher').fadeIn();
+                                $('#successTeacher').delay(6000).fadeOut();
                                 //location.reload(true);
                             },
                             error: function (jqXhr) {
-                                alert(jqXhr.responseText);
+                                $('#errorTeacher').fadeIn();
+                                $('#errorTeacher').delay(6000).fadeOut();
                             },
                         });
                     });
 
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $('#errorTeacher').fadeIn();
+                    $('#errorTeacher').delay(6000).fadeOut();
                 },
             });
         } else {
+            location.reload(true);
             //location.href = 'teacher.html';
         }
     });
@@ -326,7 +345,7 @@ $(document).ready(function () {
 
     //****************updateCurrentUser*****************************
     $(document).on('click', "#modalUpdateProfil", function (e) {
-        e.preventDefault();
+        //e.preventDefault();
 
         if (confirm("Etes-vous sûr de vouloir modifier votre profil ?")) {
             $.ajax({
@@ -372,21 +391,26 @@ $(document).ready(function () {
                             },
 
                             success: function () {
-                                alert('Informations Modifiées avec succés !');
-                                location.reload(true);
+                                $('#successTeacher').fadeIn();
+                                $('#successTeacher').delay(6000).fadeOut();
+                                //location.reload(true);
                             },
                             error: function (jqXhr) {
-                                alert(jqXhr.responseText);
+                                $('#errorTeacher').fadeIn();
+                                $('#errorTeacher').delay(6000).fadeOut();
                             },
                         });
                     });
 
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $('#errorTeacher').fadeIn();
+                    $('#errorTeacher').delay(6000).fadeOut();
                 },
             });
         } else {
+            location.reload(true);
+            //$('#bodyTeacher').reload(' #bodyTeacher');
             //location.href = 'teacher.html';
         }
     });
@@ -396,15 +420,18 @@ $(document).ready(function () {
     //****************updatePassword*****************************
     $("#submit_mdp").click(function (e) {
         e.preventDefault();
-        $("span[style^='color:red']").empty();
+
         if ($("#oldpassword").val().length === 0) {
-            $("#oldpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+            $("#credsMissing").fadeIn();
         } else if ($("#newpassword").val().length === 0) {
-            $("#newpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+            $("#credsMissing").fadeIn();
         } else if (!$("#newpassword").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
-            $("#newpassword").after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
+            $("#logerror").fadeIn();
 
         } else {
+            $("#credsMissing").fadeOut();
+            $("#logerror").fadeOut();
+
             data = {
                 "oldPassword": $("input[name=oldpassword]").val(),
                 "newPassword": $('input[name=newpassword]').val(),
@@ -422,11 +449,14 @@ $(document).ready(function () {
                 },
 
                 success: function () {
-                    alert('Mot de passe modifié avec succés !');
-                    location.reload(true);
+                    $('#successUpdatePassword').fadeIn();
+                    //location.reload(true);
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $('#errorUpdatePassword').fadeIn();
+                    //$('#formPass').load('teacher.html #inputMdp');
+
+                    //alert(jqXhr.responseText);
                     //location.reload(true);
                 },
             });

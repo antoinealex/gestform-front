@@ -1,45 +1,26 @@
-//////////////////GET/affichage des données Utilisateur connecté////////////////////////
-$(document).ready(function () {
-    
-    $.ajax({
-        url: BACKEND_URL + "user/getCurrentUser",
-        type: 'get',
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: {
-            Authorization: `Bearer ${ token }`
-        }, //token dans le header de la requete
-        success: function (response) {
-            console.log("success");
-            $(".page-title h2").append("</br>" + response.lastname + " " + response.firstname);
-        },
-        error: function (jqxhr) {
-            alert(jqxhr.responseText);
-            location.href('index.html');
-        },
-    });
+//*****************************************************************************
+//********************************** GET **************************************
+//*****************************************************************************
 
-    //*****************************************************************************
-    //********************************** GET **************************************
-    //*****************************************************************************
+//****************getAllTraining********************
+$(document).ready(function (){
 
-    //****************getAllTraining********************
-    $(document).ready(function (){
+        $.ajax({
+            url: BACKEND_URL + "training/getAllTraining",
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function (training) {
+                console.log("success GET")
+                $.each(training, function (i, training) {
 
-    $.ajax({
-        url: BACKEND_URL + "training/getAllTraining",
-        type: 'GET',
-        datatype: 'JSON',
-        contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        success: function(training){
-            console.log("success GET")
-            $.each(training, function(i, training){
-                
-                var start = training.startTraining;
-                var end = training.endTraining;
+                    var start = training.startTraining;
+                    var end = training.endTraining;
 
-                $('#trainingList').append('\
+                    $('#trainingList').append('\
                     <tr>\
                         <td>' + training.id + '</td>\
                         <td>' + training.subject + '</td>\
@@ -80,23 +61,24 @@ $(document).ready(function () {
             console.log( textStatus );
         }
     });
+});
 
-    });
 
+//****************getAllUser********************
+$(document).ready(function (){
 
-    //****************getAllUser********************
-    $(document).ready(function (){
-
-    $.ajax({
-        url: BACKEND_URL + "admin/getAllUser",
-        type: 'GET',
-        datatype: 'JSON',
-        contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        success: function(user){
-            console.log("success GET")
-            $.each(user, function(i, user){
-                $('#userList').append('\
+        $.ajax({
+            url: BACKEND_URL + "admin/getAllUser",
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function (user) {
+                console.log("success GET")
+                $.each(user, function (i, user) {
+                    $('#userList').append('\
                     <tr>\
                         <td>' + user.id + '</td>\
                         <td>' + user.firstname + ' ' + user.lastname + '</td>\
@@ -135,12 +117,12 @@ $(document).ready(function () {
             console.log( textStatus );
         }
     });
-    });
+});
 
-    //****************getTrainingById********************
-    $(document).on('click',".getTraining", function (){
-    event.preventDefault();
-    var id = $(this).attr('id');
+//****************getTrainingById********************
+$(document).on('click',".getTraining", function (){
+event.preventDefault();
+var id = $(this).attr('id');
 
     $.ajax({
         url: BACKEND_URL + "training/getTrainingById?id=" + id,
@@ -169,12 +151,12 @@ $(document).ready(function () {
             console.log( textStatus );
         }
     });
-    });
+});
 
-    //****************getUSerById********************
-    $(document).on('click',".getUser", function (){
-    event.preventDefault();
-    var id = $(this).attr('id');
+//****************getUSerById********************
+$(document).on('click',".getUser", function (){
+event.preventDefault();
+var id = $(this).attr('id');
 
     $.ajax({
         url: BACKEND_URL + "admin/getUserByID?id=" + id,
@@ -198,16 +180,17 @@ $(document).ready(function () {
             console.log( textStatus );
         }
     });
-    });
+});
 
-    //******************************************************************************
-    //********************************** POST **************************************
-    //******************************************************************************
+//******************************************************************************
+//********************************** POST **************************************
+//******************************************************************************
 
-    //****************addTraining********************
+//****************addTraining********************
 
+$("#addNewTraining").click(function (){
+    
     //récupération des teachers
-    $("#addNewTraining").click(function (){
     $.ajax({
         url: BACKEND_URL + "admin/getAllUser",
         type: 'GET',
@@ -221,14 +204,14 @@ $(document).ready(function () {
                     $('select[name=addTeacher]').append('\
                     <option name="newTeacher" value="' + user.id + '">' + user.firstname + ' ' + user.lastname + '</option>\
                     ')
-                }
-            });
-        }
-    });
-    //POST
-    $("#submit_t").click(function (){
-        event.preventDefault();
-        data = {};
+                    }
+                });
+            }
+        });
+        //POST
+        $("#submit_t").click(function () {
+            event.preventDefault();
+            data = {};
 
         $.ajax({
             url: BACKEND_URL + "training/addTraining",
@@ -243,98 +226,129 @@ $(document).ready(function () {
                 training_description: $('input[name=addTraining_description]').val(),
                 subject: $('input[name=addSubject]').val()
             },
-                success: function(){
-                    alert('Le cours a été ajouté avec succés !');
-                    location.reload(true);
-                    //$('.courses').load("../gestform-front/course.html .courses") //insert la page entiere dans la div
-
+            success: function(){
+                //location.reload(true);
+                $('alertAddTraining').empty().append('\
+                    <div class="alert alert-success alert-dismissible" id="successOp" role="alert"">\
+                        Opération réalisée avec succès\
+                    </div>\
+                ').delay(5000).fadeOut(400);
             },
             error : function( jqXHR, textStatus, errorThrown ){
-                alert( textStatus, errorThrown );
+                console.log( textStatus, errorThrown );
+                $('alertAddTraining').empty().append('\
+                    <div class="alert alert-danger alert-dismissible" id="errorOp" role="alert"">\
+                        Une erreur est survenue\
+                    </div>\
+                ').delay(5000).fadeOut(400);
             },
             complete : function( jqXHR, textStatus ){
                 console.log( textStatus );
             }
         });
     });
-    });
+});
 
-    //****************addUser********************
-    $("#submit_s").click(function (){
-    event.preventDefault();
-    data = {};
+//****************addUser********************
+$("#submit_s").click(function (){
+event.preventDefault();
+$("span[style^='color:red']").empty();
+    if ($("#email").val().length === 0) {
+        $("#email").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+    } else if (!$("#email").val().match(/^[a-zA-Z0-9\.\-_]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/i)) { //Regex validation mail
+        $("#email").after('<span style="color:red"> Mail invalide !</span>');
+    } else if ($("#password").val().length === 0) {
+        $("#password").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+    } else if (!$("#password").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
+        $("#password").after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
 
-    $.ajax({
-        url: BACKEND_URL + "admin/createUser",
-        type: 'POST',
-        headers: { Authorization: `Bearer ${ token }`},
-        data: {
-            email: $('input[name=addEmail]').val(),
-            roles: $('select[name=addRoles]').val(),
-            password: $('input[name=addPassword]').val(),
-            lastname: $('input[name=addLastname]').val(),
-            firstname: $('input[name=addFirstname]').val(),
-            phone: $('input[name=addPhone]').val(),
-            address: $('input[name=addAddress]').val(),
-            postcode: $('input[name=addPostcode]').val(),
-            city: $('input[name=addCity]').val()
-        },
+    } else {
+        data = {};
+
+        $.ajax({
+            url: BACKEND_URL + "admin/createUser",
+            type: 'POST',
+            headers: { Authorization: `Bearer ${ token }`},
+            data: {
+                email: $('input[name=addEmail]').val(),
+                roles: $('select[name=addRoles]').val(),
+                password: $('input[name=addPassword]').val(),
+                lastname: $('input[name=addLastname]').val(),
+                firstname: $('input[name=addFirstname]').val(),
+                phone: $('input[name=addPhone]').val(),
+                address: $('input[name=addAddress]').val(),
+                postcode: $('input[name=addPostcode]').val(),
+                city: $('input[name=addCity]').val()
+            },
             success: function(){
-                alert('L\'utilisateur a été ajouté avec succés !');
+                $('.alertAddUser').empty().append('\
+                    <div class="alert alert-success alert-dismissible" id="successOp" role="alert"">\
+                        Opération réalisée avec succès\
+                    </div>\
+                ').delay(5000).fadeOut(400);
                 //location.reload(true);
                 //$('.courses').load("../gestform-front/course.html .courses") //insert la page entiere dans la div
+            },
+            error : function( jqXHR, textStatus, errorThrown ){
+                console.log( textStatus, errorThrown );
+                $('.alertAddUser').empty().append('\
+                    <div class="alert alert-danger alert-dismissible" id="errorOp" role="alert"">\
+                        Une erreur est survenue\
+                    </div>\
+                ').delay(5000).fadeOut(400);
+            },
+            complete : function( jqXHR, textStatus ){
+                console.log( textStatus );
+            }
+        });
+    }
+});
 
-        },
-        error : function( jqXHR, textStatus, errorThrown ){
-            alert( textStatus, errorThrown );
-        },
-        complete : function( jqXHR, textStatus ){
-            console.log( textStatus );
-        }
-    });
-    });
+//*****************************************************************************
+//********************************** PUT **************************************
+//*****************************************************************************
 
-    //*****************************************************************************
-    //********************************** PUT **************************************
-    //*****************************************************************************
+//****************updateTraining********************
 
-    //****************updateTraining********************
+$(document).on('click',".updateTraining", function (){
+event.preventDefault();
+var id = $(this).attr('id');
 
-    $(document).on('click',".updateTraining", function (){
-    event.preventDefault();
-    var id = $(this).attr('id');
+        $.ajax({
+            url: BACKEND_URL + "training/getTrainingById?id=" + id,
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
 
-    $.ajax({
-        url: BACKEND_URL + "training/getTrainingById?id=" + id,
-        type: 'GET',
-        datatype: 'JSON',
-        contentType: "application/json",
-        headers: { Authorization: `Bearer ${ token }`},
-        
-        success: function(training) {
-            console.log(id);
-            //Formater la date
-            var chnStart= training.startTraining;
-            var start = chnStart.substring(0,19);
-            var chnEnd= training.endTraining;
-            var end = chnEnd.substring(0,19);
-            
-            $('input[name=editTrainingId]').val(training.id)
-            $('select[name=teacherSelect]').empty().append('\
+            success: function (training) {
+                console.log(id);
+                //Formater la date
+                var chnStart = training.startTraining;
+                var start = chnStart.substring(0, 19);
+                var chnEnd = training.endTraining;
+                var end = chnEnd.substring(0, 19);
+
+                $('input[name=editTrainingId]').val(training.id)
+                $('select[name=teacherSelect]').empty().append('\
             <option name="teacher_name" value="' + training.teacher['id'] + '">' + training.teacher['firstname'] + ' ' + training.teacher['lastname'] + '</option>\
             ')
-            //Call ajax pour récupérer les teachers
-            $.ajax({
-                url: BACKEND_URL + "admin/getAllUser",
-                type: 'GET',
-                datatype: 'JSON',
-                contentType: "application/json",
-                headers: { Authorization: `Bearer ${ token }`},
-                success: function(user){
-                    console.log("success GET")
-                    $.each(user, function(i, user){
-                        if (user.roles[0] === "ROLE_TEACHER") {
-                            $('select[name=teacherSelect]').append('\
+                //Call ajax pour récupérer les teachers
+                $.ajax({
+                    url: BACKEND_URL + "admin/getAllUser",
+                    type: 'GET',
+                    datatype: 'JSON',
+                    contentType: "application/json",
+                    headers: {
+                        Authorization: `Bearer ${ token }`
+                    },
+                    success: function (user) {
+                        console.log("success GET")
+                        $.each(user, function (i, user) {
+                            if (user.roles[0] === "ROLE_TEACHER") {
+                                $('select[name=teacherSelect]').append('\
                             <option name="teacher_name" value="' + user.id + '">' + user.firstname + ' ' + user.lastname + '</option>\
                             ')
                         }
@@ -376,25 +390,34 @@ $(document).ready(function () {
             processData: false,
             headers: { Authorization: `Bearer ${ token }`},
             data: JSON.stringify(trainingData),
-                success: function(){
-                    //console.log(training.id);
-                    location.reload(true);
+            success: function(){
+                $('.alertUpdateTraining').empty().append('\
+                    <div class="alert alert-success alert-dismissible" id="successOp" role="alert"">\
+                        Opération réalisée avec succès\
+                    </div>\
+                ').delay(5000).fadeOut(400);                
+            // location.reload(true);
             },
             error : function( jqXHR, textStatus, errorThrown ){
-                alert( textStatus, errorThrown );
+                console.log( textStatus, errorThrown );
+            $('.alertUpdateTraining').append('\
+                <div class="alert alert-danger alert-dismissible" id="errorOp" role="alert"">\
+                    Une erreur est survenue\
+                </div>\
+            ').delay(5000).fadeOut(400);
             },
-            complete : function( jqXHR, textStatus ){
-                //console.log( JSON.stringify(trainingData) );
+            complete: function (jqXHR, textStatus) {
+                console.log(textStatus);
             }
         });
     });
-    });
+});
 
-    //****************updateUser********************
+//****************updateUser********************
 
-    $(document).on('click',".updateUser", function (){
-    event.preventDefault();
-    var id = $(this).attr('id');
+$(document).on('click',".updateUser", function (){
+event.preventDefault();
+var id = $(this).attr('id');
 
     $.ajax({
         url: BACKEND_URL + "admin/getUserByID?id=" + id,
@@ -425,146 +448,196 @@ $(document).ready(function () {
     });
     $(document).on('click',"#submit_e", function (){
         event.preventDefault();
-        userData = {
-            id: $('input[name=editUserId]').val(),
-            lastname: $('input[name=editLastname]').val(),
-            firstname: $('input[name=editFirstname]').val(),
-            roles: $('select[name=editRoles]').val(),
-            email: $('input[name=editEmail]').val(),
-            phone: $('input[name=editPhone]').val(),
-            address: $('input[name=editAddress]').val(),
-            postcode: $('input[name=editPostcode]').val(),
-            city: $('input[name=editCity]').val()
-        };
-        console.log(userData)
+        var id = $(this).attr('id');
+
         $.ajax({
-            url: BACKEND_URL + "admin/updateUser",
-            type: 'PUT',
-            dataType: 'json', //text
+            url: BACKEND_URL + "admin/getUserByID?id=" + id,
+            type: 'GET',
+            datatype: 'JSON',
             contentType: "application/json",
             processData: false,
             headers: { Authorization: `Bearer ${ token }`},
             data: JSON.stringify(userData),
-                success: function(){
-                    console.log(user.id);
-                    location.reload(true);
-
+            success: function(){
+                console.log(user.id);
+                $('.alertUpdateUser').empty().append('\
+                    <div class="alert alert-success alert-dismissible" id="successOp" role="alert"">\
+                        Opération réalisée avec succès\
+                    </div>\
+                ').delay(5000).fadeOut(400);
             },
             error : function( jqXHR, textStatus, errorThrown ){
-                alert( textStatus, errorThrown );
+                console.log( textStatus, errorThrown );
+                $('.alertUpdateUser').empty().append('\
+                    <div class="alert alert-danger alert-dismissible" id="errorOp" role="alert"">\
+                        Une erreur est survenue\
+                    </div>\
+                ').delay(5000).fadeOut(400);
             },
-            complete : function( jqXHR, textStatus ){
-                console.log( textStatus );
+            complete: function (jqXHR, textStatus) {
+                console.log(textStatus);
             }
         });
     });
-    });
+});
 
-    ////////////////////////UPDATE Profil CurrentUser////////////////////////////////
-    $("#form-tab").click(function (e) {
-    e.preventDefault();
-
-        $.ajax({
-            url: BACKEND_URL + "user/getCurrentUser",
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
-            success: function (response) {
-                $("input[name=myEmail]").val(response.email);
-                $('input[name=myLastname]').val(response.lastname);
-                $('input[name=myFirstname]').val(response.firstname);
-                $('input[name=myPhone]').val(response.phone);
-                $('input[name=myAddress]').val(response.address);
-                $('input[name=myPostcode]').val(response.postcode);
-                $('input[name=myCity]').val(response.city);
-            },
-            error: function (jqXhr) {
-                alert(jqXhr.responseText);
-            },
-        })
-    });
-
-    $("#submit_up").click(function (e) {
-    e.preventDefault();
-    data = {
-        "email": $("input[name=myEmail]").val(),
-        "lastname": $('input[name=myLastname]').val(),
-        "firstname": $('input[name=myFirstname]').val(),
-        "phone": $('input[name=myPhone]').val(),
-        "address": $('input[name=myAddress]').val(),
-        "postcode": $('input[name=myPostcode]').val(),
-        "city": $('input[name=myCity]').val()
-    }
+//****************update currentUser ********************
+$("#modalUpdateProfil").click(function (e) {
+e.preventDefault();
 
     $.ajax({
-        url: BACKEND_URL + "user/updateCurrentUser",
-        type: 'PUT',
-        dataType: 'json', //type de données qu'on attend en réponse du serveur
-        contentType: "application/json",
-        processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
-        data: JSON.stringify(data),
+        url: BACKEND_URL + "user/getCurrentUser",
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
         headers: {
             Authorization: `Bearer ${ token }`
         },
-
-        success: function () {
-            alert('Informations Modifiées avec succés !');
-            location.reload(true);
+        success: function (response) {
+            $("input[name=myEmail]").val(response.email);
+            $('input[name=myLastname]').val(response.lastname);
+            $('input[name=myFirstname]').val(response.firstname);
+            $('input[name=myPhone]').val(response.phone);
+            $('input[name=myAddress]').val(response.address);
+            $('input[name=myPostcode]').val(response.postcode);
+            $('input[name=myCity]').val(response.city);
         },
         error: function (jqXhr) {
             alert(jqXhr.responseText);
         },
-    });
-    });
+    })
+});
 
-    //******************************************************************************
-    //********************************** DELETE ************************************
-    //******************************************************************************
+$("#submit_up").click(function (e) {
+e.preventDefault();
+data = {
+    "email": $("input[name=myEmail]").val(),
+    "lastname": $('input[name=myLastname]').val(),
+    "firstname": $('input[name=myFirstname]').val(),
+    "phone": $('input[name=myPhone]').val(),
+    "address": $('input[name=myAddress]').val(),
+    "postcode": $('input[name=myPostcode]').val(),
+    "city": $('input[name=myCity]').val()
+}
 
-    //****************deleteTraining********************
-    $(document).on('click',".deleteTraining", function (){
-        event.preventDefault();
-        
-        $(this).text('Chargement');
         $.ajax({
-            url: BACKEND_URL + "admin/deleteTraining?id=" + $(this).attr('id'),
-            type: 'DELETE',
-            headers: { Authorization: `Bearer ${ token }`},
-            
-            success: function(response) {
+            url: BACKEND_URL + "user/updateCurrentUser",
+            type: 'PUT',
+            dataType: 'json', //type de données qu'on attend en réponse du serveur
+            contentType: "application/json",
+            processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+            data: JSON.stringify(data),
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+
+        success: function () {
+            $('.alertMessage').empty().append('\
+                <div class="alert alert-success alert-dismissible" id="successOp" role="alert"">\
+                    Opération réalisée avec succès\
+                </div>\
+            ').delay(5000).fadeOut(400);
+        },
+        error: function (jqXhr) {
+            console.log(jqXhr.responseText);
+            $('.alertMessage').empty().append('\
+                <div class="alert alert-danger alert-dismissible" id="errorOp" role="alert"">\
+                    Une erreur est survenue\
+                </div>\
+            ').delay(5000).fadeOut(400);
+        },
+    });
+});
+
+//****************updatePassword*****************************
+$("#submit_mdp").click(function (e) {
+    e.preventDefault();
+    $("span[style^='color:red']").empty();
+    if ($("#oldpassword").val().length === 0) {
+        $("#oldpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+    } else if ($("#newpassword").val().length === 0) {
+        $("#newpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+    } else if (!$("#newpassword").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
+        $("#newpassword").after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
+
+    } else {
+
+        data = {
+            "oldPassword": $("input[name=oldpassword]").val(),
+            "newPassword": $('input[name=newpassword]').val(),
+        }
+
+        $.ajax({
+            url: BACKEND_URL + 'user/passwordUpdate',
+            type: 'PUT',
+            dataType: 'json', //type de données qu'on attend en réponse du serveur
+            contentType: "application/json",
+            processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+            data: JSON.stringify(data),
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+
+            success: function () {
+                alert('Mot de passe modifié avec succés !');
                 location.reload(true);
             },
-            error : function( jqXHR, textStatus, errorThrown ){
-                alert( textStatus, errorThrown );
-            },
-            complete : function( jqXHR, textStatus ){
-                console.log( textStatus );
-            }
-        });
-    });
-
-    //****************deleteUser********************
-    $(document).on('click',".deleteUser", function (){
-        event.preventDefault();
-        
-        $(this).text('Chargement');
-        $.ajax({
-            url: BACKEND_URL + "admin/deleteUser?id=" + $(this).attr('id'),
-            type: 'DELETE',
-            headers: { Authorization: `Bearer ${ token }`},
-            
-            success: function(response) {
+            error: function (jqXhr) {
+                alert(jqXhr.responseText);
                 location.reload(true);
             },
-            error : function( jqXHR, textStatus, errorThrown ){
-                alert( textStatus, errorThrown );
-            },
-            complete : function( jqXHR, textStatus ){
-                console.log( textStatus );
-            }
         });
+    }
+});
+
+//******************************************************************************
+//********************************** DELETE ************************************
+//******************************************************************************
+
+//****************deleteTraining********************
+$(document).on('click',".deleteTraining", function (){
+    event.preventDefault();
+    
+    $(this).text('Chargement');
+    $.ajax({
+        url: BACKEND_URL + "admin/deleteTraining?id=" + $(this).attr('id'),
+        type: 'DELETE',
+        headers: { Authorization: `Bearer ${ token }`},
+        
+        success: function(response) {
+            //$('#showTraining').load(location.href + " #showTraining", "")
+            //$(this).fadeOut();
+            $('#successOp').fadeIn(400).delay(5000).fadeOut(400);
+        },
+        error : function( jqXHR, textStatus, errorThrown ){
+            console.log( textStatus, errorThrown );
+            $('#errorOp').fadeIn(400).delay(5000).fadeOut(400);
+        },
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
+        }
+    });
+});
+
+//****************deleteUser********************
+$(document).on('click',".deleteUser", function (){
+    event.preventDefault();
+    
+    $(this).text('Chargement');
+    $.ajax({
+        url: BACKEND_URL + "admin/deleteUser?id=" + $(this).attr('id'),
+        type: 'DELETE',
+        headers: { Authorization: `Bearer ${ token }`},
+        
+        success: function(response) {
+            $('#successOp').fadeIn(400).delay(5000).fadeOut(400);
+        },
+        error : function( jqXHR, textStatus, errorThrown ){
+            $('#errorOp').fadeIn(400).delay(5000).fadeOut(400);
+            console.log( textStatus, errorThrown );
+        },
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
+        }
     });
 });
