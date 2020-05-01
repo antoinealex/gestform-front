@@ -75,6 +75,7 @@ function teacherDashboard() {
         datatype: "HTML",
         success: function (response) {
             $("#dashboard").append(response);
+            location.hash = 'teacherDashboard';
         }
     });
 }
@@ -86,6 +87,7 @@ function studentDashboard() {
         datatype: "HTML",
         success: function (response) {
             $("#dashboard").append(response);
+            location.hash = 'studentDashboard';
         }
     });
 }
