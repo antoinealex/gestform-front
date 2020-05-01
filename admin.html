@@ -36,7 +36,7 @@
 			<a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAddStudent">Ajouter un utilisateur</a>
 		</p>
 		<h2 class="section-title">Liste des utilisateurs</h2>
-		<!--  -->
+		<!-- Alert -->
 		<div class="alert alert-success alert-dismissible" id="successOp" role="alert" style="display: none;">
 			Opération réalisée avec succès
 		</div>
@@ -241,7 +241,7 @@
 					<div class="modal-dialog modal-md">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h2>Détails du cours</h2>
+								<h2>Détails de l'utilisateur</h2>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
@@ -290,6 +290,7 @@
 										<select id="roles" name="addRoles" class="form-control">
 											<option value="ROLE_STUDENT">Etudiant</option>
 											<option value="ROLE_TEACHER">Professeur</option>
+											<option value="ROLE_ADMIN">Admin</option>
 										</select><br />
 										<label for="password">Mot de passe</label><br />
 										<input name="addPassword" type="password" id="password" required><br />
@@ -341,6 +342,7 @@
 										<select name="editRoles" class="form-control">
 											<option value="ROLE_STUDENT">Etudiant</option>
 											<option value="ROLE_TEACHER">Professeur</option>
+											<option value="ROLE_ADMIN">Admin</option>
 										</select><br />
 										<label for="email">Email</label><br />
 										<input id="e" name="editEmail" type="email" required><br />
@@ -377,7 +379,22 @@
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
-							<div class="modal-body">
+							<div class="modal-body" id="inputMdp">
+								<div class="alert alert-success" id="successUpdatePassword" role="alert"
+									style="display: none;">
+									Mot de passe modifié avec succés !
+								</div>
+								<div class="alert alert-danger" id="errorUpdatePassword" role="alert"
+									style="display: none;">
+									Echec ! Veuillez recommencer !
+								</div>
+								<div class="alert alert-danger" id="logerror" role="alert" style="display: none;">
+									Mot de passe ou identifiant invalide ! (6 caractéres minimum dont: [a-b] et [0-9])
+								</div>
+	
+								<div class="alert alert-warning" id="credsMissing" role="alert" style="display: none;">
+									Veuillez saisir votre identifiant et votre mot de passe !
+								</div>
 								<form id="formPass">
 									<div class="offset-1 col-auto">
 										<label for="oldpassword">Inserer votre mot de passe</label><br />
@@ -390,7 +407,6 @@
 											type="submit">Modifier</button>
 									</div>
 								</form>
-	
 							</div>
 						</div>
 					</div>
