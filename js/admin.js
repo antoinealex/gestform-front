@@ -1,3 +1,95 @@
+function refreshUser() {
+    $.ajax({
+        url: BACKEND_URL + "admin/getAllUser",
+        type: 'GET',
+        datatype: 'JSON',
+        contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+        success: function (user) {
+            console.log("success GET")
+            $.each(user, function (i, user) {
+                $('#userList').append('\
+                    <tr>\
+                        <td>' + user.id + '</td>\
+                        <td>' + user.firstname + ' ' + user.lastname + '</td>\
+                        <td>' + user.roles[0] + '</td>\
+                        <td>\
+                        <button id=' + user.id + ' type="button" class="getUser btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetUser">\
+                        <i class="fas fa-eye"></i> Afficher\
+                        </button>\
+                        <button id=' + user.id + ' type="button" class="updateUser btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateUser">\
+                        <i class="fas fa-pen"></i> Editer\
+                        </button>\
+                        <button id=' + user.id + ' type="button" class="deleteUser btn btn-danger btn-sm">\
+                        <i class="fas fa-trash"></i> Supprimer\
+                        </button>\
+                        </td>\
+                    </tr>\
+                ')
+            });
+        },
+        error : function( jqXHR, textStatus, errorThrown ){
+            alert( textStatus, errorThrown );
+        },
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
+        }
+    });
+}
+
+function refreshTraining() {
+    $(document).ready(function (){
+
+        $.ajax({
+            url: BACKEND_URL + "training/getAllTraining",
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function (training) {
+                console.log("success GET")
+                $.each(training, function (i, training) {
+
+                    var start = training.startTraining;
+                    var end = training.endTraining;
+
+                    $('#trainingList').append('\
+                    <tr>\
+                        <td>' + training.id + '</td>\
+                        <td>' + training.subject + '</td>\
+                        <td>' + training.teacher['firstname'] + ' ' + training.teacher['lastname'] + '</td>\
+                        <td>' + new Date(start.substring(0, 19)).toLocaleString() + '</td>\
+                        <td>' + new Date(end.substring(0, 19)).toLocaleString() + '</td>\
+                        <td>\
+                        <button id=' + training.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalGetTraining">\
+                        <i class="fas fa-eye"></i> Afficher\
+                        </button>\
+                        <button id=' + training.id + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">\
+                        <i class="fas fa-pen"></i> Editer\
+                        </button>\
+                        <button id=' + training.id + ' type="button" class="deleteTraining btn btn-danger btn-sm">\
+                        <i class="fas fa-trash"></i> Supprimer\
+                        </button>\
+                        </td>\
+                    </tr>\
+                    ')
+                });
+            },
+            error : function( jqXHR, textStatus, errorThrown ){
+                alert( textStatus, errorThrown );
+            },
+            complete : function( jqXHR, textStatus ){
+                console.log( textStatus );
+            }
+        });
+    });
+}
+
+
 //*****************************************************************************
 //********************************** GET **************************************
 //*****************************************************************************
@@ -134,8 +226,8 @@ var id = $(this).attr('id');
         success: function(training) {
             console.log(id);
             $("p[name=teacher_id]").empty().append(training.teacher["firstname"] + " " + training.teacher["lastname"]);
-            $('p[name=start_training]').empty().append(training.startTraining);
-            $('p[name=end_training]').empty().append(training.endTraining);
+            $('p[name=start_training]').empty().append(new Date(training.startTraining.substring(0, 19)).toLocaleString());
+            $('p[name=end_training]').empty().append(new Date(training.endTraining.substring(0, 19)).toLocaleString());
             $('p[name=max_student]').empty().append(training.maxStudent);
             $('p[name=price_per_student]').empty().append(training.pricePerStudent);
             $('p[name=training_description]').empty().append(training.trainingDescription);
@@ -233,6 +325,8 @@ $("#addNewTraining").click(function (){
                         Opération réalisée avec succès\
                     </div>\
                 ').delay(5000).fadeOut(400);
+                // Replace tab
+                $('#trainingList').load(location.href + " #trainingList", refreshTraining())
             },
             error : function( jqXHR, textStatus, errorThrown ){
                 console.log( textStatus, errorThrown );
@@ -296,6 +390,8 @@ $("span[style^='color:red']").empty();
                         Une erreur est survenue\
                     </div>\
                 ').delay(5000).fadeOut(400);
+                // replace tab
+                $('#userList').load(location.href + " #userList", refreshUser())
             },
             complete : function( jqXHR, textStatus ){
                 console.log( textStatus );
@@ -395,8 +491,9 @@ var id = $(this).attr('id');
                     <div class="alert alert-success alert-dismissible" id="successOp" role="alert"">\
                         Opération réalisée avec succès\
                     </div>\
-                ').delay(5000).fadeOut(400);                
-            // location.reload(true);
+                ').delay(5000).fadeOut(400);           
+                // Replace tab
+                $('#trainingList').load(location.href + " #trainingList", refreshTraining())        
             },
             error : function( jqXHR, textStatus, errorThrown ){
                 console.log( textStatus, errorThrown );
@@ -465,6 +562,8 @@ var id = $(this).attr('id');
                         Opération réalisée avec succès\
                     </div>\
                 ').delay(5000).fadeOut(400);
+                // replace tab
+                $('#userList').load(location.href + " #userList", refreshUser())
             },
             error : function( jqXHR, textStatus, errorThrown ){
                 console.log( textStatus, errorThrown );
@@ -608,6 +707,8 @@ $(document).on('click',".deleteTraining", function (){
             //$('#showTraining').load(location.href + " #showTraining", "")
             //$(this).fadeOut();
             $('#successOp').fadeIn(400).delay(5000).fadeOut(400);
+            // Replace tab
+            $('#trainingList').load(location.href + " #trainingList", refreshTraining()) 
         },
         error : function( jqXHR, textStatus, errorThrown ){
             console.log( textStatus, errorThrown );
@@ -631,6 +732,8 @@ $(document).on('click',".deleteUser", function (){
         
         success: function(response) {
             $('#successOp').fadeIn(400).delay(5000).fadeOut(400);
+            // replace tab
+            $('#userList').load(location.href + " #userList", refreshUser())
         },
         error : function( jqXHR, textStatus, errorThrown ){
             $('#errorOp').fadeIn(400).delay(5000).fadeOut(400);
