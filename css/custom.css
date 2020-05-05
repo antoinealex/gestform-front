@@ -1,0 +1,11 @@
+/* LOGIN */
+#loginForm input{
+    width: 100%;
+}
+
+#submitLogin {
+    display: block;
+    margin: auto;
+    width: 66% !important;
+}
+
