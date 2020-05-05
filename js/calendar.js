@@ -3,10 +3,9 @@ function showCalendar() {
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         plugins: [ 'dayGrid', 'list', 'interaction', 'timeGrid', 'bootstrap' ],
-        
+        themeSystem: 'bootstrap',
         defaultView: 'timeGridWeek',
-        themeSysthem: true,
-        titleFormat: { 
+        titleFormat: {
             month: 'long',
             year: 'numeric',
             day: 'numeric',
@@ -53,7 +52,7 @@ function showCalendar() {
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
                         }, success: function (response) {
-                                successCallback(response);
+                            successCallback(response);
                         }
                     });
                 },
@@ -67,11 +66,7 @@ function showCalendar() {
             data['id'] = info.event.id;
             data['start'] = calendar.formatIso(info.event.start);
             data['end'] = calendar.formatIso(info.event.end);
-            if(info.event.extendedProps.type == "dateEvent"){
-                var myURL = BACKEND_URL +  "calendar/updateCurrentUserEventFC";
-            }else if(info.event.extendedProps.type == "training"){
-                var myURL = BACKEND_URL +  "training/updateTrainingFC";
-            }
+            var myURL = BACKEND_URL + "calendar/updateCurrentUserEventFC";
             $.ajax({
                 url: myURL,
                 type:"PUT",

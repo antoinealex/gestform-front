@@ -1,4 +1,4 @@
-let BACKEND_URL = "http://gestform.ei-bs.eu/";
+let BACKEND_URL = "http://gestform/";
 let isConnected = false;
 let currentUser;
 
