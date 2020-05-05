@@ -26,7 +26,6 @@ function showCalendar() {
             list:     'Liste'
         },
         firstDay: 1,
-        
         eventSources:[
             {
                 events: function (info, successCallback, failureCallback) {
@@ -61,14 +60,12 @@ function showCalendar() {
         editable: true,
         
         eventResize: function(info, event){
-            var myURL;
             var data = {};
             data['id'] = info.event.id;
             data['start'] = calendar.formatIso(info.event.start);
             data['end'] = calendar.formatIso(info.event.end);
-            var myURL = BACKEND_URL + "calendar/updateCurrentUserEventFC";
             $.ajax({
-                url: myURL,
+                url: BACKEND_URL + "calendar/updateCurrentUserEventFC",
                 type:"PUT",
                 dataType: 'json',
                 preventData: false,

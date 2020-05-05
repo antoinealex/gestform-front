@@ -1,7 +1,6 @@
-let BACKEND_URL = "http://gestform/";
+let BACKEND_URL = "http://gestform.ei-bs.eu/";
 let isConnected = false;
 let currentUser;
-
 
 $(document).ready(function () {
     $("#loader").fadeOut;
