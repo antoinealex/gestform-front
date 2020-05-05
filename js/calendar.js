@@ -1,120 +1,125 @@
-$(document).ready(function() {
-    var token = localStorage.getItem('MonToken');
-    var calendar = $('#calendar').fullCalendar({
-        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-        dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
-        dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
-        editable:true,
-        header:{
-            left:'prev,next today',
-            center:'title',
-            right:'month,agendaWeek,agendaDay'
+function showCalendar() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'dayGrid', 'list', 'interaction', 'timeGrid', 'bootstrap' ],
+        
+        defaultView: 'timeGridWeek',
+        themeSysthem: true,
+        titleFormat: { 
+            month: 'long',
+            year: 'numeric',
+            day: 'numeric',
+            weekday: 'long'
         },
-        eventSources: [
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+        },
+        timeZone: 'local',
+        locale: 'fr',
+        buttonText: {
+            today:    'Aujourd\'hui',
+            month:    'Mois',
+            week:     'Semaine',
+            day:      'Jour',
+            list:     'Liste'
+        },
+        firstDay: 1,
+        
+        eventSources:[
             {
-                url:"https://gestform.ei-bs.eu/calendar/getCurrentUserEvents",
-                headers:{
-                    //'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
-                    Authorization:  `Bearer ${ token }`
-                }
+                events: function (info, successCallback, failureCallback) {
+                    $.ajax({
+                        url: BACKEND_URL + "calendar/getCurrentUserEvents",
+                        type: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
+                        }, success: function (response) {
+                                successCallback(response);
+                        }
+                    })
+                },
+            },
+            {
+                editable: false,
+                selectable: false,
+                selectHelper: false,
+                events: function (info, successCallback, failureCallback) {
+                    $.ajax({
+                        url: BACKEND_URL + "training/getAllTrainingFC",
+                        type: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
+                        }, success: function (response) {
+                                successCallback(response);
+                        }
+                    });
+                },
             }
         ],
-        selectable:true,
-        selectHelper:true,
-        select: function(start, end, allDay)
-        {
-            var title = prompt("Saisir le titre de votre evenement");
-            var description = prompt("Saisir la description de votre event");
-            if(title){
-                var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-                $.ajax({
-                    url:"https://gestform.ei-bs.eu/calendar/newUserEvent",
-                    type:"POST",
-                    headers:{
-                        //'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
-                        Authorization:  `Bearer ${ token }` 
-                    },
-                    data:{title:title, start:start, end:end, description:description},
-                    success:function()
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("evenement ajoute avec succes");
-                    }
-                });
-            }
-        },
-        editable:true,
-        eventResize:function(event)
-        {
+        editable: true,
+        
+        eventResize: function(info, event){
+            var myURL;
             var data = {};
-            data['id'] = event.id;
-            data['start'] = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-            data['end'] = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+            data['id'] = info.event.id;
+            data['start'] = calendar.formatIso(info.event.start);
+            data['end'] = calendar.formatIso(info.event.end);
+            if(info.event.extendedProps.type == "dateEvent"){
+                var myURL = BACKEND_URL +  "calendar/updateCurrentUserEventFC";
+            }else if(info.event.extendedProps.type == "training"){
+                var myURL = BACKEND_URL +  "training/updateTrainingFC";
+            }
             $.ajax({
-                url:"https://gestform.ei-bs.eu/calendar/updateCurrentUserEventFC",
+                url: myURL,
                 type:"PUT",
                 dataType: 'json',
                 preventData: false,
                 headers:{
-                    //'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
-                    Authorization:  `Bearer ${ token }` 
+                    'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
                 },
                 data: JSON.stringify(data),
                 success:function(){
-                    calendar.fullCalendar('refetchEvents');
+                    var refetch = calendar.refetchEvents();
                     alert('evenement mise a jour');
                 }
             });
         },
 
-        eventDrop:function(event)
+        eventDrop:function(info)
         {
             var data = {};
-            data['id'] = event.id;
-            data['start'] = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-            data['end'] = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+            data['id'] = info.event.id;
+            data['start'] = calendar.formatIso(info.event.start);
+            data['end'] = calendar.formatIso(info.event.end);
             $.ajax({
-                url:"https://gestform.ei-bs.eu/calendar/updateCurrentUserEventFC",
+                url: BACKEND_URL + "calendar/updateCurrentUserEventFC",
                 type:"PUT",
                 dataType: 'json',
                 preventData: false,
                 headers:{
-                    //'Authorization': 'Bearer ' + localStorage.getItem('MonToken'),
-                    Authorization:  `Bearer ${ token }` 
+                    'Authorization': 'Bearer ' + localStorage.getItem('MonToken'),
                 },
                 data: JSON.stringify(data),
                 success:function()
                 {
-                    calendar.fullCalendar('refetchEvents');
+                    var refetch = calendar.refetchEvents();
                     alert("evenement mise a jour");
                 }
             });
         },
 
-        eventClick:function(event)
-        {
-            if(confirm("Etes-vous sûr de vouloir supprimer cet evenement ?"))
-            {
-                var data = {};
-                data['eventId'] = event.id;
-                $.ajax({
-                    url:"https://gestform.ei-bs.eu/calendar/deleteCurrentUserEventFC",
-                    type:"DELETE",
-                    dataType: 'json',
-                    preventData: false,
-                    headers:{
-                        Authorization:  `Bearer ${ token }` 
-                    },
-                    data: JSON.stringify(data),
-                    success:function()
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Evenement supprimé !");
-                    }
-                });
-            }
-        },
+        eventClick:function(info, jsEvent, view) {
+            $('#modalTitle').html(info.event.title );
+            $('#eventStart').html('<strong>Début</strong> : ' + new Date(info.event.start).toLocaleString());
+            $('#eventEnd').html('<strong>Fin</strong> : ' + new Date(info.event.end).toLocaleString());
+            $('#eventDescription').html('<strong>Description</strong> : ' + info.event.extendedProps.description);
+            $('#calendarModal').modal();
+        }
     });
-});
+    calendar.render();
+}
+
+$(document).ready(showCalendar());
