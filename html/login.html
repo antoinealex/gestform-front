@@ -1,0 +1,63 @@
+<!-- Alerts settings -->
+<div class="alert alert-primary"  id="logpending" role="alert" style="display: none;">
+  En cours de connexion <img src="../gestform-front-2/AdminLTE/dist/img/loading.gif" style="max-height: 30px">
+</div>
+
+<div class="alert alert-success" id="logsuccess" role="alert" style="display: none;">
+  Connecté !
+</div>
+
+<div class="alert alert-danger" id="logerror" role="alert" style="display: none;">
+  Mot de passe ou identifiant invalide !
+</div>
+
+<div class="alert alert-warning" id="credsMissing" role="alert" style="display: none;">
+  Veuillez saisir votre identifiant et votre mot de passe !
+</div>
+
+<div class="login-box">
+  <div class="login-logo">
+    <a href="#"><b>You</b>Stud'</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Formulaire de connexion</p>
+
+      <form id="loginForm">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" name="email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" name="password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+
+          <!-- /.col -->
+          <div class="col-4">
+            <button class="control btn btn-primary" type="submit" id="submitLogin">connexion</button>
+            <!-- <div class="control"><input type="submit" id="submitLogin" class="button" value="connexion"> -->
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <p class="mb-1">
+        <a href="forgot-password.html">Mot de passe oublié</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<script src="../js/init.js"></script>
+<script src="../js/security.js"></script>

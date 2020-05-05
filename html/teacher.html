@@ -1,0 +1,366 @@
+
+
+
+<!-- Tab content -->
+<section class="tab-content">
+    <div class="card tab-pane fade show active" id="MyTrainings" role="tabpanel" aria-labelledby="home-tab">
+      <div class="card-header">
+        <h3 class="card-title">Liste de mes cours</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="tabcours" class="table table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>Sujet</th>
+            <th>Début</th>
+            <th>Fin</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody id="cours">
+            <!-- Training list -->
+          </tbody>
+          <tfoot>
+          <tr>
+            <th>Sujet</th>
+            <th>Début</th>
+            <th>Fin</th>
+            <th>Actions</th>
+          </tr>
+          </tfoot>
+        </table>
+  
+        <!-- Formulaire Ajout Training -->
+        <br>
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Ajouter un cours</h3>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form id="formT">
+            <div class="offset-1 col-8">
+              <div class="form-group">
+                <label for="start_training">Debut</label>
+                <input class="form-control" name="start_training" type="datetime-local" required>
+              </div>
+              <div class="form-group">
+                <label for="end_training">Fin</label>
+                <input class="form-control" name="end_training" type="datetime-local" required>
+              </div>
+              <div class="form-group">
+                <label for="max_student">Nombre de student</label>
+                <input class="form-control" name="max_student" type="text" required>
+              </div>
+              <div class="form-group">
+                <label for="price_per_student">Prix/student</label>
+                <input class="form-control" name="price_per_student" type="text" required>
+              </div>
+              <div class="form-group">
+                <label for="training_description">Description</label>
+                <input class="form-control" name="training_description" type="textarea" required>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input class="form-control" name="subject" type="text" required>
+              </div>
+              <button class="btn btn-primary" id="submit_training" type="submit">Ajouter</button>
+            </div>
+          </form>
+        </div>
+        <br>
+        <!-- Alert -->
+        <div class="alert alert-danger" id="errorTeacher" role="alert" style="display: none;">
+            Echec !
+        </div>
+        <div class="alert alert-success" id="successTeacher" role="alert" style="display: none;">
+            Réussi !
+        </div>
+      </div>
+      <!-- /.card-body -->
+  
+  
+    </div>
+    <!-- /.card -->
+  
+    <div class="card tab-pane fade" id="MyStudents" role="tabpanel" aria-labelledby="user-tab">
+      <div class="card-header">
+        <h3 class="card-title">Liste de mes élèves</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="tabstudents" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Cours</th>
+          </tr>
+          </thead>
+          <tbody id="students">
+          <!-- userList -->
+          </tfoot>
+        </table>
+  
+        <!-- Formulaire Ajout User -->
+        <br>
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Ajouter un étudiant</h3>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form id="formS">
+            <div class="offset-1 col-8">
+              <div>
+                <label for="email">Email</label>
+                <input class="form-control" name="email" type="email" id="email" required>
+              </div>  
+              <div>
+                <label for="roles">Rôle</label>
+                <select id="roles" name="roles" class="form-control">
+                    <option value="ROLE_STUDENT">Etudiant</option>
+                    <option value="ROLE_TEACHER">Professeur</option>
+                </select><br/>
+              </div>  
+              <div>
+                <label for="password">Mot de passe</label>
+                <input class="form-control" name="password" type="password" id="password" required>
+              </div>  
+              <div>
+                <label for="lastname">Nom</label>
+                <input class="form-control" name="lastname" type="text" id="lastname" required>
+              </div>  
+              <div>
+                <label for="firstname">Prénom</label>
+                <input class="form-control" name="firstname" type="text" id="firstname" required>
+              </div>  
+              <div>
+                <label for="phone">Téléphone</label>
+                <input class="form-control" name="phone" type="tel" id="phone" required>
+              </div>  
+              <div>
+                <label for="address">Adresse</label>
+                <input class="form-control" name="address" type="text" id="address" required>
+              </div>  
+              <div>
+                <label for="postcode">Code Postal</label>
+                <input class="form-control" name="postcode" type="text" id="postcode" required>
+              </div>  
+              <div>
+                <label for="city">Ville</label>
+                <input class="form-control" name="city" type="text" id="city" required>
+              </div>  
+              </br>
+              <button class="btn btn-primary" id="submit_s" type="submit">Ajouter</button>
+            </div>
+          </form>
+  
+        </div>
+        <br>
+        <div class="alert alert-danger" id="errorUser" role="alert" style="display: none;">
+            Echec !
+        </div>
+        <div class="alert alert-success" id="successUser" role="alert" style="display: none;">
+            Réussi !
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+    <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
+      <p>En construction</p>
+    </div>
+    
+    <!-- Formulaire UpdateProfil -->
+    <div class="card tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
+      <div class="card-header">
+        <h3 class="card-title">Informations personnelles</h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+      <form id="formUp">
+        <div class="card-body">
+          <div class="offset-1 col-8">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input name="myEmail" type="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="lastname">Nom</label>
+              <input name="myLastname" type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="firstname">Prénom</label>
+              <input name="myFirstname" type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Numéro de téléphone</label>
+              <input name="myPhone" type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="address">Adresse</label>
+              <input name="myAddress" type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="postcode">Code postal</label>
+              <input name="myPostcode" type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="city">Ville</label>
+              <input name="myCity" type="text" class="form-control" required>
+            </div>
+            <!-- /.card-body -->
+            <button type="submit" class="btn btn-primary" id="submit_up">Mettre à jour</button>
+          </div>
+        </div>
+        <br>
+        <div class="alert alert-danger" id="errorAcount" role="alert" style="display: none;">
+            Echec !
+        </div>
+        <div class="alert alert-success" id="successAcount" role="alert" style="display: none;">
+            Réussi !
+        </div>
+      </form>
+    </div>
+  
+    </div>
+    <!-- Formulaire UpdatePassword -->
+    <!-- Alert invalid password -->
+    <div class="alert alert-danger" id="logerror" role="alert" style="display: none;">
+      Mot de passe ou identifiant invalide ! (6 caractéres minimum dont: [a-b] et [0-9])
+    </div>
+    <div class="alert alert-warning" id="credsMissing" role="alert" style="display: none;">
+      Veuillez saisir votre identifiant et votre mot de passe !
+    </div>
+  
+    <div class="card tab-pane fade" id="updatePass" role="tabpanel" aria-labelledby="password-tab">
+      <div class="card-header">
+        <h3 class="card-title">Modifier mon mot de passe</h3>
+      </div>
+      <!-- form updatePassword-->
+      <form id="formPass">
+        <div class="card-body">
+          <div class="offset-1 col-8">
+            <div class="form-group">
+              <label for="oldpassword">Inserer votre mot de passe</label>
+              <div class="input-group mb-3">
+                <input name="oldpassword" type="password" id="oldpassword" class="form-control" placeholder="Ancien mot de passe" required>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="newpassword">Inserer votre nouveau mot de passe</label>
+              <div class="input-group mb-3">
+                <input name="newpassword" type="password" id="newpassword" class="form-control" placeholder="Nouveau mot de passe" required>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                </div>
+              </div>  
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit_mdp">Mettre à jour</button>
+          </div>
+        </div>  
+        <br>
+        <div class="alert alert-success" id="successUpdatePassword" role="alert" style="display: none;">
+            Mot de passe modifié avec succés !
+        </div>
+        <div class="alert alert-danger" id="errorUpdatePassword" role="alert" style="display: none;">
+            Echec ! Veuillez recommencer !
+        </div>
+      </form>
+    </div>
+  </section>
+  <!-- /.tab-content -->
+  
+  <!-- Modal content -->
+  <div class="container">
+    <div class="row justify-content-between">
+      <!-- Formulaire Afficher Training -->
+      <div class="col-md-5">
+        <div class="modal fade" id="myModalDisplayTeacher">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2>Détails du cours</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="formTraining">
+                  <div class="offset-1 col-6">
+                    <label for="training_id"><strong>Id</strong></label><br/>
+                    <p name="training_id">
+                    </p><br/>
+                    <label for="start_training"><strong>Date et heure de début</strong></label><br/>
+                    <p name="start_training"></p><br/>
+                    <label for="end_training"><strong>Date et heure de fin</strong></label><br/>
+                    <p name="end_training"></p><br/>
+                    <label for="max_student"><strong>Nombre maximum d'étudiant</strong></label><br/>
+                    <p name="max_student"></p><br/>
+                    <label for="price_per_student"><strong>Prix par étudiant</strong></label><br/>
+                    <p name="price_per_student"></p><br/>
+                    <label for="training_description"><strong>Description</strong></label><br/>
+                    <p name="training_description"></p><br/>
+                    <label for="subject"><strong>Sujet</strong></label><br/>
+                    <p name="subject"></p><br/>
+                    <!-- <label for="student_list">Liste des inscrits</label><br>
+                    <p name="student_list"></p> -->
+                    </br>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Editer Training -->
+      <div class="col-md-5">
+        <div class="modal fade" id="myModalUpdateTraining">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2>Mettre à jour le cours</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="formU">
+                  <div class="offset-1 col-6">
+                    <input class="form-control" type="hidden" name="editTrainingId">
+                    <label for="start_training">Date et heure debut</label><br/>
+                    <input class="form-control" name="editStart_training" type="datetime-local" id="start_training" required><br/>
+                    <label for="end_training">Date et heure de fin</label><br/>
+                    <input class="form-control" name="editEnd_training" type="datetime-local" id="end_training" required><br/>
+                    <label for="max_student">Nombre maximum d'étudiants</label><br/>
+                    <input class="form-control" name="editMax_student" type="text" id="max_student" required><br/>
+                    <label for="price_per_student">Prix par étudiant</label><br/>
+                    <input class="form-control" name="editPrice_per_student" type="text" id="price_per_student" required><br/>
+                    <label for="training_description">Description</label><br/>
+                    <input class="form-control" name="editTraining_description" type="textarea" id="training_description" required><br/>
+                    <label for="subject">Sujet</label><br/>
+                    <input class="form-control" name="editSubject" type="text" id="subject" required><br/>
+                    </br>
+                    <button class="btn btn-primary my-2 my-sm-0" id="submit_u" type="submit">Mettre à jour</button>
+                  </div>
+                </form>
+              </div>
+              <div class="alertUpdateTraining">
+                <!-- Success or fail -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/teacher.js"></script>

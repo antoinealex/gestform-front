@@ -1,76 +1,90 @@
 //*****************************************************************************
 //********************************** GET **************************************
 //*****************************************************************************
+var token = localStorage.getItem('MonToken');
+
+//****************getMenu************************
+$(document).ready(function(){
+    $('#TrainingMenu').append('\
+        <a class="nav-link active" id="training-tab" data-toggle="tab" href="#Trainings" role="tab" aria-controls="Trainings" aria-selected="true">\
+            <i class="fas fa-school nav-icon"></i>\
+            <p>Participer à un cours</p>\
+        </a>\
+    ');
+    $('#UserMenu').append('\
+        <a class="nav-link" id="user-tab" data-toggle="tab" href="#myTrainings" role="tab" aria-controls="myTrainings" aria-selected="false">\
+            <i class="fas fa-users nav-icon"></i>\
+            <p>Mes cours</p>\
+        </a>\
+    ');
+    $('#CalendarMenu').append('\
+        <a class="nav-link" id="calendar-tab" data-toggle="tab" href="#calendar" role="tab" aria-controls="calendar" aria-selected="false">\
+            <i class="fas fa-calendar nav-icon"></i>\
+            <p>Calendrier</p>\
+        </a>\
+    ');
+});
 
 //****************getCurrentUser************************
 $(document).ready(function () {
-    var token = localStorage.getItem('MonToken'); //On récupére le token stocké pour l'authent
-    $.ajax({
-        url: 'https://gestform.ei-bs.eu/user/getCurrentUser',
-        type: 'get',
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: {
-            Authorization: `Bearer ${ token }`
-        }, //token dans le header de la requete
-
-
-        success: function (response) {
-            console.log("success");
-            $(".page-title h2").append("</br>" + response.lastname + " " + response.firstname);
-
-        },
-        error: function (jqxhr) {
-            alert(jqxhr.responseText);
-            location.href = 'index.html';
-        },
-    });
 
     //****************getAllTraining************************
-    $.ajax({
-        url: 'https://gestform.ei-bs.eu/training/getAllTraining',
-        type: 'get',
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
+    //$(document).on('click', '#home', function () {
+    $(document).ready(function () {
+        $.ajax({
+            url: BACKEND_URL + 'training/getAllTraining',
+            type: 'get',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
 
 
-        success: function (response) {
-            console.log("success");
-            $.each(response, function (i, training) {
+            success: function (response) {
+                console.log("success");
+
+                $("#cours").empty();
+                $.each(response, function (i, training) {
+                    $("#cours").append('<tr>' +
+                        '<td>' + training.subject + '</td>' +
+                        '<td>' + new Date(training.startTraining.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td>' + new Date(training.endTraining.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td><button id=' + training.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button>'+
+                        '<button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Participer</button>' +
+                        '</tr>')
+                });
+                $('#tabcours').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    }
+                });
+            },
+            error: function (jqxhr) {
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
+            },
 
 
-
-                $("#cours").append('<div class="accordion-toggle">' +
-                    '<h3>' + training.subject + '</h3><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + new Date(training.startTraining.substring(0, 19)).toLocaleString() + '</span><br />' +
-                    '<span class= "date"><i class="icon-calendar"></i>' + new Date(training.endTraining.substring(0, 19)).toLocaleString() + '</span><br />' +
-                    //'<p> Contenu du cours: ' + training.description + '</p>' +
-                    //'<p> Nombre d\'élèves: ' + training.studentsCount + '</p>' +
-                    '<button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining">Afficher</button>' +
-                    '<button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining">Participer</button>' +
-                    '</div>'
-                );
-            });
-        },
-        error: function (jqxhr) {
-            alert(jqxhr.responseText);
-        },
-
-
+        });
     });
 
     //****************getTrainingById******************************
 
-    $(document).on('click', ".btn-success", function (e) {
+    $(document).on('click', ".getTraining", function (e) {
         e.preventDefault();
 
         console.log($(this).attr('id'));
 
         $.ajax({
-            url: 'https://gestform.ei-bs.eu/training/getTrainingById?id=' + $(this).attr('id'),
+            url: BACKEND_URL + 'training/getTrainingById?id=' + $(this).attr('id'),
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json',
@@ -85,7 +99,7 @@ $(document).ready(function () {
                 var chnEnd = response.endTraining;
                 var end = chnEnd.substring(0, 19);
 
-                $("h1[name=subject]").empty().append(response.subject);
+                // $("h1[name=subject]").empty().append(response.subject);
                 $("p[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
                 $('p[name=start_training]').empty().append(new Date(start).toLocaleString());
                 $('p[name=end_training]').empty().append(new Date(end).toLocaleString());
@@ -95,7 +109,8 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                alert(jqXhr.responseText);
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
             },
         })
 
@@ -110,12 +125,12 @@ $(document).ready(function () {
     $("#submit_c").click(function (e) {
         e.preventDefault();
 
-        console.log($('input[name=user_id]').val());
+
         $.ajax({
-            url: 'https://gestform.ei-bs.eu/comments/addComments',
+            url: BACKEND_URL + 'comments/addComments',
             type: 'POST',
             data: {
-                user_id: $('input[name = user_id]').val(),
+                user_id: currentUser.id,
                 title_comment: $('input[name = title_comment]').val(),
                 body_comment: $('input[name = body_comment]').val(),
             },
@@ -123,11 +138,13 @@ $(document).ready(function () {
                 Authorization: `Bearer ${ token }`
             },
             success: function () {
-                alert('Commentaire ajouté avec succés !');
-                location.reload(true);
+                $('#successStudent').fadeIn();
+                $('#successStudent').delay(6000).fadeOut();
+                //location.reload(true);
             },
             error: function (jqXhr) {
-                alert(jqXhr.responseText);
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
             },
         });
     });
@@ -147,7 +164,7 @@ $(document).ready(function () {
 
         if (confirm("Etes-vous sûr de vouloir participer à ce Training ?")) {
             $.ajax({
-                url: 'https://gestform.ei-bs.eu/student/subscribeTraining',
+                url: BACKEND_URL + 'student/subscribeTraining',
                 type: 'PUT',
                 dataType: 'json', //type de données qu'on attend en réponse du serveur
                 contentType: "application/json",
@@ -158,14 +175,16 @@ $(document).ready(function () {
                 },
 
                 success: function (response) {
-                    alert('Vous avez était inscrit avec succés !');
+                    $('#successStudent').fadeIn();
+                    $('#successStudent').delay(6000).fadeOut();
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $('#errorStudent').fadeIn();
+                    $('#errorStudent').delay(6000).fadeOut();
                 },
             });
         } else {
-            location.href = 'student.html';
+            //location.href = 'student.html';
         }
 
     });
@@ -173,12 +192,12 @@ $(document).ready(function () {
 
 
     //****************updateCurrentUser***************************
-    $("#modalUpdateProfil").click(function (e) {
+    $(document).ready(function (e) {
         e.preventDefault();
 
         if (confirm("Etes-vous sûr de vouloir modifier votre profil ?")) {
             $.ajax({
-                url: 'https://gestform.ei-bs.eu/user/getCurrentUser',
+                url: BACKEND_URL + 'user/getCurrentUser',
                 type: 'GET',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -188,38 +207,40 @@ $(document).ready(function () {
 
                 success: function (response) {
 
-                    $("input[name=email]").val(response.email);
-                    $('input[name=lastname]').val(response.lastname);
-                    $('input[name=firstname]').val(response.firstname);
-                    $('input[name=phone]').val(response.phone);
-                    $('input[name=address]').val(response.address);
-                    $('input[name=postcode]').val(response.postcode);
-                    $('input[name=city]').val(response.city);
+                    $("input[name=myEmail]").val(response.email);
+                    $('input[name=myLastname]').val(response.lastname);
+                    $('input[name=myFirstname]').val(response.firstname);
+                    $('input[name=myPhone]').val(response.phone);
+                    $('input[name=myAddress]').val(response.address);
+                    $('input[name=myPostcode]').val(response.postcode);
+                    $('input[name=myCity]').val(response.city);
 
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
+                    $('#errorStudent').fadeIn();
+                    $('#errorStudent').delay(6000).fadeOut();
                 },
             })
         } else {
-            location.href = 'student.html';
+            location.reload(true);
+            //location.href = 'student.html';
         }
     });
 
     $("#submit_up").click(function (e) {
         e.preventDefault();
         data = {
-            "email": $("input[name=email]").val(),
-            "lastname": $('input[name=lastname]').val(),
-            "firstname": $('input[name=firstname]').val(),
-            "phone": $('input[name=phone]').val(),
-            "address": $('input[name=address]').val(),
-            "postcode": $('input[name=postcode]').val(),
-            "city": $('input[name=city]').val()
+            "email": $("input[name=myEmail]").val(),
+            "lastname": $('input[name=myLastname]').val(),
+            "firstname": $('input[name=myFirstname]').val(),
+            "phone": $('input[name=myPhone]').val(),
+            "address": $('input[name=myAddress]').val(),
+            "postcode": $('input[name=myPostcode]').val(),
+            "city": $('input[name=myCity]').val()
         }
 
         $.ajax({
-            url: 'https://gestform.ei-bs.eu/user/updateCurrentUser',
+            url: BACKEND_URL + 'user/updateCurrentUser',
             type: 'PUT',
             dataType: 'json', //type de données qu'on attend en réponse du serveur
             contentType: "application/json",
@@ -230,11 +251,13 @@ $(document).ready(function () {
             },
 
             success: function () {
-                alert('Informations Modifiées avec succés !');
-                location.reload(true);
+                $('#successStudent').fadeIn();
+                $('#successStudent').delay(6000).fadeOut();
+                //location.reload(true);
             },
             error: function (jqXhr) {
-                alert(jqXhr.responseText);
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
             },
         });
     });
@@ -242,15 +265,17 @@ $(document).ready(function () {
     //****************updatePassword*****************************
     $("#submit_mdp").click(function (e) {
         e.preventDefault();
-        $("span[style^='color:red']").empty();
+
         if ($("#oldpassword").val().length === 0) {
-            $("#oldpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+            $("#credsMissing").fadeIn();
         } else if ($("#newpassword").val().length === 0) {
-            $("#newpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
+            $("#credsMissing").fadeIn();
         } else if (!$("#newpassword").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
-            $("#newpassword").after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
+            $("#logerror").fadeIn();
 
         } else {
+            $("#credsMissing").fadeOut();
+            $("#logerror").fadeOut();
 
             data = {
                 "oldPassword": $("input[name=oldpassword]").val(),
@@ -258,7 +283,7 @@ $(document).ready(function () {
             }
 
             $.ajax({
-                url: 'https://gestform.ei-bs.eu/user/passwordUpdate',
+                url: BACKEND_URL + 'user/passwordUpdate',
                 type: 'PUT',
                 dataType: 'json', //type de données qu'on attend en réponse du serveur
                 contentType: "application/json",
@@ -269,12 +294,12 @@ $(document).ready(function () {
                 },
 
                 success: function () {
-                    alert('Mot de passe modifié avec succés !');
-                    location.reload(true);
+                    $('#successUpdatePassword').fadeIn();
+                    //location.reload(true);
                 },
                 error: function (jqXhr) {
-                    alert(jqXhr.responseText);
-                    location.reload(true);
+                    ('#errorUpdatePassword').fadeIn();
+                    //location.reload(true);
                 },
             });
         }

@@ -1,0 +1,53 @@
+<!-- Sidebar -->
+<div class="sidebar" >
+  <!-- Sidebar user panel (optional) -->
+  <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+    </div>
+    <div class="info" >
+      <a href="#" class="d-block" id="helloUser"></a>
+    </div>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <li id="TrainingMenu" class="nav-item">
+        <!-- Trainings menu -->
+      </li>
+      <li id="UserMenu" class="nav-item">
+        <!-- Users menu -->
+      </li>
+      <li id="CalendarMenu" class="nav-item">
+        <!-- Calendar menu -->
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="account-tab" data-toggle="tab" href="#account" role="tab" aria-controls="account" aria-selected="false">
+          <i class="fas fa-user nav-icon"></i>
+          <p>Informations personnelles</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="password-tab" data-toggle="tab" href="#updatePass" role="tab" aria-controls="password" aria-selected="false">
+          <i class="fas fa-lock nav-icon"></i>
+          <p>Modifier mon mot de passe</p>
+        </a>
+      </li>
+      <li id="disconnect" class="nav-item">
+        <a class="nav-link" href="" class="nav-link">
+          <i class="fas fa-sign-out-alt nav-icon"></i>
+          <p>Déconnexion</p>
+        </a>
+      </li>
+  </nav>
+  <!-- /.sidebar-menu -->
+</div>
+<!-- /.sidebar -->
+
+      
+<script>
+  $("#disconnect").click(function (e) {
+      e.preventDefault;
+      logout();
+  });
+</script>
