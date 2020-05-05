@@ -14,35 +14,6 @@ body {
   line-height: 2;
   font-weight: 300;
 }
-/*.modal-content{
-  display: none;
-  width: 100%;
-  position: relative;
-  margin: 0 auto;
-  padding: 8px;
-  padding-top: 30px;
-  box-shadow: 8px 8px 12px #333;
-  opacity: 0;
-}
-.modal-bg{
-  background-color: #333;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  opacity: 0.5;
-  /* display: none;
-}
-.modal-close{
-  color: red;
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  cursor: pointer;
-  opacity: 0;
-}*/
 address {
   font-style: normal;
 }
@@ -736,14 +707,15 @@ form select {
   overflow: hidden;
   border-top: 1px solid #d8ddd4;
 }
+/*
 .accordion .accordion-toggle {
   position: relative;
   padding: 10px  30px 10px 0;
-}
+} */
 .accordion .accordion-toggle h3 {
-  display: inline-block;
+  /* display: inline-block;
   margin: 0 20px 0 0;
-  vertical-align: middle;
+  vertical-align: middle; */
   color: #719d51;
   font-weight: 400;
   font-size: 18px;
@@ -758,7 +730,7 @@ form select {
   font-size: 14px;
   font-size: 0.875rem;
 }
-.accordion .accordion-toggle:after {
+/* .accordion .accordion-toggle:after {
   content: "\f107";
   font-family: "FontAwesome";
   text-align: center;
@@ -771,7 +743,7 @@ form select {
   border-radius: 50%;
   background: #e1e7db;
   cursor: pointer;
-}
+} */
 .accordion.expanded .accordion-toggle:after {
   content: "\f106";
   line-height: 1.8;

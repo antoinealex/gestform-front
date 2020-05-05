@@ -7,20 +7,46 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 
 	<title>You stud'</title>
+
+	<link rel="stylesheet" href="vendor/fullcalendar/core/main.css">
+	<link rel="stylesheet" href="vendor/fullcalendar/daygrid/main.css">
+	<link rel="stylesheet" href="vendor/fullcalendar/timegrid/main.css">
+	<link rel="stylesheet" href="vendor/fullcalendar/list/main.css">
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 	<!-- Loading third party fonts -->
-    <link href="vendor/arvo.css" rel="stylesheet" type="text/css">
-    <link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+	<link href="vendor/arvo.css" rel="stylesheet" type="text/css">
+	<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 	<!-- Loading main css file -->
 	<link rel="stylesheet" href="style.css">
-
-	<!--[if lt IE 9]>
-		<script src="js/ie-support/html5.js"></script>
-		<script src="js/ie-support/respond.js"></script>
-		<![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap.css">
+	<link rel="stylesheet" href="vendor/fullcalendar/core/main.css">
+	<link rel="stylesheet" href="vendor/fullcalendar/daygrid/main.css">
+	<link rel="stylesheet" href="vendor/fullcalendar/timegrid/main.css">
+	<link rel="stylesheet" href="vendor/fullcalendar/list/main.css">
+	<link rel="stylesheet" href="vendor/jquery-ui.css">
+	<link href='vendor/fontawesome.all.css' rel='stylesheet'>
+	<link rel="stylesheet" href="vendor/fullcalendar/bootstrap/main.css">
+	<!-- Loading script file -->
+	<script src="vendor/jquery-3.4.1.min.js"></script>
+	<script src="vendor/jquery-ui.js"></script>
+	<script src="vendor/bootstrap/bootstrap.min.js"></script>
+	<script src="vendor/popper.min.js"></script>
+	<script src='js/fontawesome.js'></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+	<script src="js/dataTables.bootstrap4.min.js"></script>
+	<script src="vendor/fullcalendar/core/main.js"></script>
+	<script src="vendor/fullcalendar/moment/main.js"></script>
+	<script src="vendor/fullcalendar/daygrid/main.js"></script>
+	<script src="vendor/fullcalendar/timegrid/main.js"></script>
+	<script src="vendor/fullcalendar/list/main.js"></script>
+	<script src="vendor/fullcalendar/interaction/main.js"></script>
+	<script src="js/init.js"></script>
 
 </head>
-
 
 <body>
 
@@ -33,51 +59,13 @@
 						<!-- <h1 class="site-title">You stud'</h1> -->
 					</a> <!-- #branding -->
 
-					<div class="main-navigation">
-						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
-						<ul class="menu">
-							<li class="menu-item"><a href="index.html">Accueil</a></li>
-							<li class="menu-item"><a href="admin.html">Interface admin</a></li>
-							<li class="menu-item"><a href="teacher.html">Interface teacher</a></li>
-							<li class="menu-item"><a href="student.html">Interface student</a></li>
-							<li class="menu-item"><a href="dashboard.html">Calendrier</a></li>
-							<li class="menu-item"><a href="export.html">Export</a></li>
-							<li class="menu-item"><a id="disconnect" href="" >Déconnexion</a></li>
-						</ul> <!-- .menu -->
+					<div class="main-navigation" id="menu">
+						<!--Logged in user's menu will be displayed here-->
 					</div> <!-- .main-navigation -->
 
 					<div class="mobile-navigation"></div>
 				</div> <!-- .container -->
 			</div> <!-- .primary-header -->
-
-			<div class="home-slider">
-				<div class="container">
-					<div class="slider">
-						<ul class="slides">
-							<li>
-								<div class="slide-caption">
-									<h2 class="slide-title">Qui sommes nous ?<br></h2>
-									You STUD' est né de l'association d'un professeur de Mathématiques et d'un
-									professeur de Sciences Physiques. L'objectif est d'accompagner les élèves dans leur
-									cursus scolaire.<br>
-									BUT : répondre aux besoins des élèves.<br>
-									BESOINS : Remédiation - Renforcement - Approfondissement - Méthodologie.<br>
-									PAR QUI : professeurs de l’éducation nationale .<br>
-									COMMENT : en groupe de niveaux (5-6 élèves).<br>
-									NIVEAU : de la primaire aux études supérieures.<br>
-									MATIÈRES :
-									- Mathématiques et Sciences Physiques (collège, lycée et niveau supérieur).
-									- Aides aux devoirs, Mathématiques et Français (primaires).<br>
-									FILIÈRES : Générale - Technologique - Professionnelle.<br><br>
-									<!-- <a href="#" class="button primary large">En savoir plus</a> -->
-								</div>
-								<!-- <img src="dummy/kid.png" alt=""> -->
-							</li>
-
-						</ul> <!-- .slides -->
-					</div> <!-- .slider -->
-				</div><!-- .container -->
-			</div> <!-- .home-slider -->
 		</header>
 	</div>
 
@@ -85,67 +73,14 @@
 		<div class="fullwidth-block">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-4">
-						<h2 class="section-title"><i class="icon-calendar-lg"></i>Commentaires</h2>
-						<ul class="posts">
-							<li class="post">
-								<h3 class="entry-title"><a href="#">Des cours au top</a></h3>
-								<span class="date"><i class="icon-calendar"></i> 6 APR 2014</span>
-								<!-- <span class="location"><i class="icon-map-marker"></i>Yankee Stadium</span> -->
-							</li>
-							<li class="post">
-								<h3 class="entry-title"><a href="#">Des supers profs</a></h3>
-								<span class="date"><i class="icon-calendar"></i> 6 APR 2014</span>
-								<!-- <span class="location"><i class="icon-map-marker"></i>Yankee Stadium</span> -->
-							</li>
-
-						</ul>
-						<p class="text-center">
-							<a href="#" class="more button secondary">Voir plus de commentaires</a>
-						</p>
+					<div id="loader" style="display: none">
+						<img src="images/loading.gif">
 					</div>
-					<div class="col-md-4">
-						<h2 class="section-title"><i class="icon-book"></i> Cours</h2>
-						<ul class="posts">
-							<li class="post">
-								<h3 class="entry-title"><a href="#">Cours de mathématiques</a></h3>
-								<span class="date"><i class="icon-calendar"></i> 6 APR 2014</span>
-								<span class="time"><i class="icon-clock"></i>1:00pm-2:00pm</span>
-
-							</li>
-							<li class="post">
-								<h3 class="entry-title"><a href="#">Cours de Français</a></h3>
-								<span class="date"><i class="icon-calendar"></i> 6 APR 2014</span>
-								<span class="time"><i class="icon-clock"></i>1:00pm-2:00pm</span>
-
-							</li>
-
-						</ul>
-						<p class="text-center">
-							<a href="#" class="more button secondary">Détails des cours</a>
-						</p>
+					<div id="loginInterface" class="col-md-4 offset-4">
+						<!--LOGIN FORM WILL BE DISPLAYED HERE IF REQUIRED-->
 					</div>
-					<div class="col-md-4">
-						<!-- <div class="boxed-section request-form"> -->
-						<h2 class="section-title text-center">Se connecter</h2>
-						<form>
-							<div class="field">
-								<label for="email">Adresse mail :</label>
-								<div class="control"><input type="text" required="required" id="email" name="email"
-										placeholder="example@mail.com"></div>
-							</div>
-							<div class="field">
-								<label for="password">Mot de passe:</label>
-								<div class="control"><input type="password" required="required" id="password"
-										name="password" placeholder="Mot de passe"></div>
-							</div>
-							<div class="field">
-								<div class="control"><input type="submit" id="submit" class="button" value="connection">
-								</div>
-							</div>
-						</form>
-						<!-- </div> -->
-						<!-- .boxed-section .request-form -->
+					<div id="dashboard" class="col-md-12">
+						<!--- USER DASHBOARD WILL BE DISPLAYED HERE-->
 					</div>
 				</div> <!-- .row -->
 			</div>
@@ -177,33 +112,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div class="col-md-3">
-						<div class="widget">
-							<h3 class="widget-title">Featured students</h3>
-							<ul class="student-list">
-								<li><a href="#">
-										<img src="dummy/student-sm-1.jpg" alt="" class="avatar">
-										<span class="fn">Sarah Branson</span>
-										<span class="average">Average: 4,9</span>
-									</a></li>
-								<li><a href="#">
-										<img src="dummy/student-sm-2.jpg" alt="" class="avatar">
-										<span class="fn">Dorothy Smith</span>
-										<span class="average">Average: 4,9</span>
-									</a></li>
-							</ul>
-						</div>
-					</div> -->
-				<!-- <div class="col-md-3">
-						<div class="widget">
-							<h3 class="widget-title">Newsletter</h3>
-							<p>Aspernatur, rerum. Impedit, deleniti suscipit</p>
-							<form action="#" class="subscribe">
-								<input type="email" placeholder="Email Address...">
-								<input type="submit" class="light" value="Subscribe">
-							</form>
-						</div>
-					</div> -->
 			</div>
 
 			<div class="copy">Copyright 2020 You Stud. All rights reserved.</div>
@@ -211,12 +119,11 @@
 
 	</footer>
 
-    <script src="vendor/jquery-3.4.1.min.js"></script>
-    <script src="vendor/bootstrap/bootstrap.min.js"></script>
+
+
 	<script src="js/plugins.js"></script>
 	<script src="js/app.js"></script>
-	<script src="js/connexion.js"></script>
-
+	<script src="js/security.js"></script> 
 
 </body>
 
