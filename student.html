@@ -66,36 +66,37 @@
 
 <div class="container">
     <div class="row">
+<<<<<<< HEAD
         <!-- Afficher Training disponible -->
+=======
+        <!-- Afficher Training -->
+>>>>>>> ea7694d9c111e3bc3d946e60bc64960a07b321c5
         <div class="col-md-5">
             <div class="modal fade" id="myModalDisplayTraining">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 name="subject"></h1>
+                            <h2 name="subject">Détails du cours</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
                         <div class="modal-body">
 
                             <div class="offset-1 col-6">
-                                <label for="NameTeacher">Professeur</label><br />
-                                <p name="NameTeacher" type="text"></p><br />
-                                <label for="start_training">Debut</label><br />
-                                <p name="start_training" type="datetime-local"></p><br />
-                                <label for="end_training">Fin</label><br />
-                                <p name="end_training" type="datetime-local"></p><br />
-                                <label for="max_student">Nombre maximum de students</label><br />
-                                <p name="max_student" type="text"></p><br />
-                                <label for="price_per_student">Prix/student</label><br />
-                                <p name="price_per_student" type="text">€</p><br />
-                                <label for="training_description">Description</label><br />
-                                <p name="training_description" type="text"></p><br />
-
+                                <label for="NameTeacher"><strong>Professeur</strong></label><br/>
+                                <p name="NameTeacher" type="text"></p><br/>
+                                <label for="start_training"><strong>Début</strong></label><br/>
+                                <p name="start_training" type="datetime-local"></p><br/>
+                                <label for="end_training"><strong>Fin</strong></label><br/>
+                                <p name="end_training" type="datetime-local"></p><br/>
+                                <label for="max_student"><strong>Nombre maximum d'étudiants'</strong></label><br/>
+                                <p name="max_student" type="text"></p><br/>
+                                <label for="price_per_student"><strong>Prix du cours</strong></label><br/>
+                                <p name="price_per_student" type="text">€</p><br/>
+                                <label for="training_description"><strong>Description</strong></label><br/>
+                                <p name="training_description" type="text"></p><br/>
                             </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <input class="btn btn-dark" data-dismiss="modal" value="close">
-
                         </div>
                     </div>
                 </div>
@@ -137,7 +138,10 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1>REMPLIR LES CHAMPS</h1>
+                            <h2>Ajouter un commentaire</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <form id="formC">
@@ -152,10 +156,6 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <input class="btn btn-dark" data-dismiss="modal" value="close">
-
-                        </div>
                     </div>
                 </div>
             </div>
@@ -166,7 +166,10 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1>REMPLIR LES CHAMPS</h1>
+                            <h2>Informations personnelles</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <form id="formUp">
@@ -186,15 +189,11 @@
                                     <label for="city">Ville</label><br />
                                     <input name="city" type="text" required><br />
                                     </br>
-                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"
-                                        type="submit">Modifier</button>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"type="submit">
+                                        Modifier
+                                    </button>
                                 </div>
                             </form>
-
-                        </div>
-                        <div class="modal-footer">
-                            <input class="btn btn-dark" data-dismiss="modal" value="close">
-
                         </div>
                     </div>
                 </div>
@@ -209,7 +208,10 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1>REMPLIR LES CHAMPS</h1>
+                            <h2>Modifier mon mot de passe</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
                         <div class="modal-body" id="inputMdp">
                             <div class="alert alert-success" id="successUpdatePassword" role="alert"
@@ -218,7 +220,7 @@
                             </div>
                             <div class="alert alert-danger" id="errorUpdatePassword" role="alert"
                                 style="display: none;">
-                                Echec ! Veulliez recommencer !
+                                Echec ! Veuillez recommencer !
                             </div>
                             <div class="alert alert-danger" id="logerror" role="alert" style="display: none;">
                                 Mot de passe ou identifiant invalide ! (6 caractéres minimum dont: [a-b] et [0-9])
@@ -239,10 +241,6 @@
                                         type="submit">Modifier</button>
                                 </div>
                             </form>
-
-                        </div>
-                        <div class="modal-footer">
-                            <input class="btn btn-dark" data-dismiss="modal" value="close">
                         </div>
                     </div>
                 </div>

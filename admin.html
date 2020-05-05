@@ -10,48 +10,58 @@
 	</li>
 </ul>
 <div class="tab-content" id="myTabContent">
-<div class="tab-pane fade show active" id="allTrainings" role="tabpanel" aria-labelledby="home-tab">
-	<p class="text-center">
-		<a id="addNewTraining" href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAjoutTraining">Ajouter un Training</a>
-	</p>
-	<h2 class="section-title">Liste des cours</h2>
-	<table id="showTraining" class="table table-bordered table-hover table-striped" style="width:100%">
-		<thead>
-			<tr>
-				<th>id</th>
-				<th>Sujet</th>
-				<th>Professeur</th>
-				<th>Début</th>
-				<th>Fin</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody id="trainingList">
-			<!-- Liste des cours -->
-		</tbody>
-	</table>
+	<div class="tab-pane fade show active" id="allTrainings" role="tabpanel" aria-labelledby="home-tab">
+		<p class="text-center"><br>
+			<a id="addNewTraining" href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAjoutTraining">Ajouter un Training</a>
+		</p>
+		<h2 class="section-title">Liste des cours</h2>
+		<table id="showTraining" class="table table-bordered table-hover table-striped" style="width:100%">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Sujet</th>
+					<th>Professeur</th>
+					<th>Début</th>
+					<th>Fin</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody id="trainingList">
+				<!-- Training list -->
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane fade" id="allUsers" role="tabpanel" aria-labelledby="profile-tab">
+		<p class="text-center"><br>
+			<a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAddStudent">Ajouter un utilisateur</a>
+		</p>
+		<h2 class="section-title">Liste des utilisateurs</h2>
+		<!-- Alert -->
+		<div class="alert alert-success alert-dismissible" id="successOp" role="alert" style="display: none;">
+			Opération réalisée avec succès
+		</div>
+		<div class="alert alert-danger alert-dismissible" id="errorOp" role="alert" style="display: none;">
+			Une erreur est survenue
+		</div>
+		<table id="showUser" class="table table-bordered table-hover" style="width:100%">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Utilisateur</th>
+					<th>Role</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody id="userList">
+				<!-- User list -->
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">
+		<p>En construction</p>
+	</div>
 </div>
-<div class="tab-pane fade" id="allUsers" role="tabpanel" aria-labelledby="profile-tab">
-	<p class="text-center">
-		<a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAddStudent">Ajouter un utilisateur</a>
-	</p>
-	<h2 class="section-title">Liste des utilisateurs</h2>
-	<table id="showUser" class="table table-bordered table-hover" style="width:100%">
-		<thead>
-			<tr>
-				<th>id</th>
-				<th>Utilisateur</th>
-				<th>Role</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody id="userList">
-			<!-- Liste des utilisateurs -->
-		</tbody>
-	</table>
-</div>
-<div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">...</div>
-</div>
+
 <div class="container">
 	<!-- Formulaire UpdateProfil -->
 	<div class="col-md-5">
@@ -59,7 +69,10 @@
 			<div class="modal-dialog modal-md">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1>REMPLIR LES CHAMPS</h1>
+						<h2>Informations personnelles</h2>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
 					</div>
 					<div class="modal-body">
 						<form id="formUp">
@@ -84,9 +97,8 @@
 						</form>
 
 					</div>
-					<div class="modal-footer">
-						<input class="btn btn-dark" data-dismiss="modal" value="Fermer">
-
+					<div class="alertMessage">
+						<!-- Success or fail -->
 					</div>
 				</div>
 			</div>
@@ -99,35 +111,34 @@
 				<div class="modal-dialog modal-md">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h1>DETAILS DU COURS</h1>
+							<h2>Détails du cours</h2>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
 						</div>
 						<div class="modal-body">
 							<form id="formTraining">
 								<div class="offset-1 col-6">
-									<label for="teacher_id">Professeur</label><br/>
+									<label for="teacher_id"><strong>Professeur</strong></label><br/>
 									<p name="teacher_id">
 									</p><br/>
-									<label for="start_training">Date et heure de début</label><br/>
+									<label for="start_training"><strong>Date et heure de début</strong></label><br/>
 									<p name="start_training"></p><br/>
-									<label for="end_training">Date et heure de fin</label><br/>
+									<label for="end_training"><strong>Date et heure de fin</strong></label><br/>
 									<p name="end_training"></p><br/>
-									<label for="max_student">Nombre maximal d'étudiant</label><br/>
+									<label for="max_student"><strong>Nombre maximal d'étudiant</strong></label><br/>
 									<p name="max_student"></p><br/>
-									<label for="price_per_student">Prix/student</label><br/>
+									<label for="price_per_student"><strong>Prix/student</strong></label><br/>
 									<p name="price_per_student"></p><br/>
-									<label for="training_description">Description</label><br/>
+									<label for="training_description"><strong>Description</strong></label><br/>
 									<p name="training_description"></p><br/>
-									<label for="subject">Subject</label><br/>
+									<label for="subject"><strong>Subject</strong></label><br/>
 									<p name="subject"></p><br/>
 									<!-- <label for="student_list">Liste des inscrits</label><br>
 									<p name="student_list"></p> -->
 									</br>
 								</div>
 							</form>
-						</div>
-						<div class="modal-footer">
-							<input class="btn btn-dark" data-dismiss="modal" value="Fermer">
-
 						</div>
 					</div>
 				</div>
@@ -139,7 +150,10 @@
 				<div class="modal-dialog modal-md">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h1>AJOUTER UN COURS</h1>
+							<h2>Ajouter un cours</h2>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
 						</div>
 						<div class="modal-body">
 							<form id="formT">
@@ -166,9 +180,8 @@
 								</div>
 							</form>
 						</div>
-						<div class="modal-footer">
-							<input class="btn btn-dark" data-dismiss="modal" value="Fermer">
-
+						<div class="alertAddTraining">
+							<!-- Success or fail -->
 						</div>
 					</div>
 				</div>
@@ -180,7 +193,10 @@
 				<div class="modal-dialog modal-md">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h1>METTRE A JOUR LE COURS</h1>
+							<h2>Mettre à jour le cours</h2>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
 						</div>
 						<div class="modal-body">
 							<form id="formU">
@@ -208,14 +224,13 @@
 									<input name="editSubject" type="text" id="subject" required><br />
 									</br>
 									<button class="btn btn-outline-success my-2 my-sm-0" id="submit_u"
-										type="submit">Ajouter</button>
+										type="submit">Mettre à jour</button>
 								</div>
 							</form>
 
 						</div>
-						<div class="modal-footer">
-							<input class="btn btn-dark" data-dismiss="modal" value="Fermer">
-
+						<div class="alertUpdateTraining">
+							<!-- Success or fail -->
 						</div>
 					</div>
 				</div>
@@ -226,28 +241,30 @@
 					<div class="modal-dialog modal-md">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h1>DETAIL DE L'UTILISATEUR</h1>
+								<h2>Détails de l'utilisateur</h2>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
 							</div>
 							<div class="modal-body">
 								<form id="formUser">
 									<div class="offset-1 col-6">
-										<label for="nom">Nom et prénom</label><br/>
+										<label for="nom"><strong>Nom et prénom</strong></label><br/>
 										<p name="nom"></p><br/>
-										<label for="role">Role</label><br/>
+										<label for="role"><strong>Rôle</strong></label><br/>
 										<p name="role"></p><br/>
-										<label for="email">Email</label><br/>
+										<label for="email"><strong>Email</strong></label><br/>
 										<p name="email"></p><br/>
-										<label for="phone">Numéro de téléphone</label><br/>
+										<label for="phone"><strong>Téléphone</strong></label><br/>
 										<p name="phone"></p><br/>
-										<label for="adress">Adresse</label><br/>
+										<label for="adress"><strong>Adresse</strong></label><br/>
 										<p name="adress"></p><br/>
 										</br>
 									</div>
 								</form>
 							</div>
-							<div class="modal-footer">
-								<input class="btn btn-dark" data-dismiss="modal" value="Fermer">
-
+							<div class="alertMessage">
+								<!-- Success or fail -->
 							</div>
 						</div>
 					</div>
@@ -259,7 +276,10 @@
 					<div class="modal-dialog modal-md">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h1>AJOUTER UN UTILISATEUR</h1>
+								<h2>Ajouter un utilisateur</h2>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
 							</div>
 							<div class="modal-body">
 								<form id="formS">
@@ -268,8 +288,9 @@
 										<input name="addEmail" type="email" id="email" required><br />
 										<label for="roles">Rôle</label><br />
 										<select id="roles" name="addRoles" class="form-control">
-											<option value="ROLE_STUDENT">ROLE_STUDENT</option>
-											<option value="ROLE_TEACHER">ROLE_TEACHER</option>
+											<option value="ROLE_STUDENT">Etudiant</option>
+											<option value="ROLE_TEACHER">Professeur</option>
+											<option value="ROLE_ADMIN">Admin</option>
 										</select><br />
 										<label for="password">Mot de passe</label><br />
 										<input name="addPassword" type="password" id="password" required><br />
@@ -291,9 +312,8 @@
 								</form>
 
 							</div>
-							<div class="modal-footer">
-								<input class="btn btn-dark" data-dismiss="modal" value="Fermer">
-
+							<div class="alertAddUser">
+								<!-- Success or fail -->
 							</div>
 						</div>
 					</div>
@@ -305,7 +325,10 @@
 					<div class="modal-dialog modal-md">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h1>METTRE A JOUR L'UTILISATEUR</h1>
+								<h2>Mettre à jour l'utilisateur</h2>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
 							</div>
 							<div class="modal-body">
 								<form id="formE">
@@ -317,8 +340,9 @@
 										<input id="c" name="editFirstname" type="text" required><br />
 										<label for="roles">Rôle</label><br />
 										<select name="editRoles" class="form-control">
-											<option value="ROLE_STUDENT">ROLE_STUDENT</option>
-											<option value="ROLE_TEACHER">ROLE_TEACHER</option>
+											<option value="ROLE_STUDENT">Etudiant</option>
+											<option value="ROLE_TEACHER">Professeur</option>
+											<option value="ROLE_ADMIN">Admin</option>
 										</select><br />
 										<label for="email">Email</label><br />
 										<input id="e" name="editEmail" type="email" required><br />
@@ -332,13 +356,57 @@
 										<input id="i" name="editCity" type="text" required><br />
 										</br>
 										<button class="btn btn-outline-success my-2 my-sm-0" id="submit_e"
-											type="submit">Ajouter</button>
+											type="submit">Mettre à jour</button>
 									</div>
 								</form>
 
 							</div>
-							<div class="modal-footer">
-								<input class="btn btn-dark" data-dismiss="modal" value="Fermer">
+							<div class="alertUpdateUser">
+								<!-- Success or fail -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Formulaire UpdatePassword -->
+			<div class="col-md-5">
+				<div class="modal fade" id="myModalUpdatePassword">
+					<div class="modal-dialog modal-md">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h2>Modifier mon mot de passe</h2>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body" id="inputMdp">
+								<div class="alert alert-success" id="successUpdatePassword" role="alert"
+									style="display: none;">
+									Mot de passe modifié avec succés !
+								</div>
+								<div class="alert alert-danger" id="errorUpdatePassword" role="alert"
+									style="display: none;">
+									Echec ! Veuillez recommencer !
+								</div>
+								<div class="alert alert-danger" id="logerror" role="alert" style="display: none;">
+									Mot de passe ou identifiant invalide ! (6 caractéres minimum dont: [a-b] et [0-9])
+								</div>
+	
+								<div class="alert alert-warning" id="credsMissing" role="alert" style="display: none;">
+									Veuillez saisir votre identifiant et votre mot de passe !
+								</div>
+								<form id="formPass">
+									<div class="offset-1 col-auto">
+										<label for="oldpassword">Inserer votre mot de passe</label><br />
+										<input name="oldpassword" type="password" id="oldpassword" required><br />
+										<label for="newpassword">Inserer votre nouveau mot de
+											passe</label><br />
+										<input name="newpassword" type="password" id="newpassword" required><br />
+										</br>
+										<button class="btn btn-outline-success my-2 my-sm-0" id="submit_mdp"
+											type="submit">Modifier</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -349,3 +417,4 @@
 </div>
 </div> <!-- .fullwidth-block -->
 <script src="js/admin.js"></script>
+
