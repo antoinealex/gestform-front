@@ -1,3 +1,11 @@
+<!-- Alert Training -->
+<div class="alert alert-danger" id="errorAdmin" role="alert" style="display: none;">
+	<p>Une erreur est survenue</p>
+</div>
+<div class="alert alert-success" id="successAdmin" role="alert" style="display: none;">
+	<p>Opération réalisée avec succès</p>
+</div>
+<!-- Dynamic menu -->
 <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab" role="tablist">
 	<li class="nav-item">
 		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTrainings" role="tab" aria-controls="home" aria-selected="true">Cours</a>
@@ -9,11 +17,13 @@
 		<a class="nav-link" id="contact-tab" data-toggle="tab" href="#calendrier" role="tab" aria-controls="contact" aria-selected="false">Calendrier</a>
 	</li>
 </ul>
+<!-- tabs -->
 <div class="tab-content" id="myTabContent">
 	<div class="tab-pane fade show active" id="allTrainings" role="tabpanel" aria-labelledby="home-tab">
 		<p class="text-center"><br>
 			<a id="addNewTraining" href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAjoutTraining">Ajouter un Training</a>
 		</p>
+		<!-- Training tab -->
 		<h2 class="section-title">Liste des cours</h2>
 		<table id="showTraining" class="table table-bordered table-hover table-striped" style="width:100%">
 			<thead>
@@ -35,14 +45,8 @@
 		<p class="text-center"><br>
 			<a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAddStudent">Ajouter un utilisateur</a>
 		</p>
+		<!-- User tab -->
 		<h2 class="section-title">Liste des utilisateurs</h2>
-		<!-- Alert -->
-		<div class="alert alert-success alert-dismissible" id="successOp" role="alert" style="display: none;">
-			Opération réalisée avec succès
-		</div>
-		<div class="alert alert-danger alert-dismissible" id="errorOp" role="alert" style="display: none;">
-			Une erreur est survenue
-		</div>
 		<table id="showUser" class="table table-bordered table-hover" style="width:100%">
 			<thead>
 				<tr>
@@ -57,20 +61,21 @@
 			</tbody>
 		</table>
 	</div>
+	<!-- Calendar -->
 	<div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">
 		<p>En construction</p>
 	</div>
 </div>
-
+<!-- Modal -->
 <div class="container">
-	<!-- Formulaire UpdateProfil -->
+	<!-- UpdateProfil form -->
 	<div class="col-md-5">
 		<div class="modal fade" id="myModalUpdateProfil">
 			<div class="modal-dialog modal-md">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h2>Informations personnelles</h2>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<button id="modalUpProfilClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 					</div>
@@ -151,7 +156,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h2>Ajouter un cours</h2>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<button id="modalAddTrClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
 						</div>
@@ -194,7 +199,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h2>Mettre à jour le cours</h2>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<button id="modalUpTrClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
 						</div>
@@ -277,7 +282,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<h2>Ajouter un utilisateur</h2>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<button id="modalAddUserClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
@@ -326,7 +331,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<h2>Mettre à jour l'utilisateur</h2>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<button id="modalUpUserClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
@@ -375,7 +380,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<h2>Modifier mon mot de passe</h2>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<button id="modalUpPassClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
