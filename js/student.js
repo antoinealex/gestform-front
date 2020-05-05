@@ -5,11 +5,11 @@ var token = localStorage.getItem('MonToken');
 //****************getCurrentUser************************
 $(document).ready(function () {
 
-    //****************getAllTraining************************
+    //****************getTrainings************************
     //$(document).on('click', '#home', function () {
     $(document).ready(function () {
         $.ajax({
-            url: BACKEND_URL + 'training/getAllTraining',
+            url: BACKEND_URL + 'public/getTrainings',
             type: 'get',
             dataType: 'json',
             contentType: 'application/json',
@@ -25,10 +25,10 @@ $(document).ready(function () {
                 $.each(response, function (i, training) {
                     $("#cours").append('<tr>' +
                         '<td>' + training.subject + '</td>' +
-                        '<td>' + new Date(training.startTraining.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td>' + new Date(training.endTraining.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td><button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Participer</button>' +
-                        '</tr>')
+                        '<td>' + new Date(training.start.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td>' + new Date(training.end.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td><button id=' + training.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Participer</button></td>' +
+                        '</tr>');
                 });
                 $('#tabcours').DataTable({
                     "paging": true,
@@ -39,7 +39,7 @@ $(document).ready(function () {
                     "autoWidth": false,
                     "responsive": true,
                     "language": {
-                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                        "url": "vendor/datatable.french.json"
                     }
                 });
             },
@@ -60,7 +60,7 @@ $(document).ready(function () {
         console.log($(this).attr('id'));
 
         $.ajax({
-            url: BACKEND_URL + 'training/getTrainingById?id=' + $(this).attr('id'),
+            url: BACKEND_URL + 'public/getTrainingById?id=' + $(this).attr('id'),
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json',
@@ -69,26 +69,115 @@ $(document).ready(function () {
             },
 
             success: function (response) {
-                var chnStart = response.startTraining;
+                var chnStart = response.start;
                 var start = chnStart.substring(0, 19);
 
-                var chnEnd = response.endTraining;
+                var chnEnd = response.end;
                 var end = chnEnd.substring(0, 19);
 
                 $("h1[name=subject]").empty().append(response.subject);
-                $("p[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
+                //$("p[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
                 $('p[name=start_training]').empty().append(new Date(start).toLocaleString());
                 $('p[name=end_training]').empty().append(new Date(end).toLocaleString());
-                $('p[name=max_student]').empty().append(response.maxStudent);
-                $('p[name=price_per_student]').empty().append(response.pricePerStudent);
-                $('p[name=training_description]').empty().append(response.trainingDescription);
+                //$('p[name=max_student]').empty().append(response.maxStudent);
+                //$('p[name=price_per_student]').empty().append(response.pricePerStudent);
+                $('p[name=training_description]').empty().append(response.description);
 
             },
             error: function (jqXhr) {
                 $('#errorStudent').fadeIn();
                 $('#errorStudent').delay(6000).fadeOut();
             },
-        })
+        });
+
+    });
+
+    //****************getMyTrainings******************************
+
+    //$(document).on('click', ".btn-success", function (e) {
+    $(document).ready(function () {
+
+
+        //console.log($(this).attr('id'));
+
+        $.ajax({
+            url: BACKEND_URL + 'student/getMyTrainings',
+            type: 'get',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+
+
+            success: function (response) {
+                console.log("success");
+
+                $("#students").empty();
+                $.each(response, function (i, training) {
+                    $("#students").append('<tr>' +
+                        '<td>' + training.subject + '</td>' +
+                        '<td>' + new Date(training.startDatetime.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td>' + new Date(training.endDatetime.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" id="MonCours" data-toggle="modal" data-target="#myModalDisplayMyTraining"><i class="fas fa-eye"></i> Afficher</button></td>' +
+                        '</tr>');
+                });
+                $('#tabstudents').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "language": {
+                        "url": "vendor/datatable.french.json"
+                    }
+                });
+            },
+            error: function (jqxhr) {
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
+            },
+
+
+        });
+
+    });
+
+    $(document).on('click', ".btn-success", function (e) {
+        e.preventDefault();
+
+        console.log($(this).attr('id'));
+
+        $.ajax({
+            url: BACKEND_URL + 'public/getTrainingById?id=' + $(this).attr('id'),
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+
+            success: function (response) {
+                var chnStart = response.start;
+                var start = chnStart.substring(0, 19);
+
+                var chnEnd = response.end;
+                var end = chnEnd.substring(0, 19);
+
+                $("h1[name=Subject]").empty().append(response.subject);
+                //$("p[name=Teacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
+                $('p[name=startTraining]').empty().append(new Date(start).toLocaleString());
+                $('p[name=endTraining]').empty().append(new Date(end).toLocaleString());
+                $('p[name=trainingDescription]').empty().append(response.description);
+
+            },
+            error: function (jqXhr) {
+                $('#errorStudent').fadeIn();
+                $('#errorStudent').delay(6000).fadeOut();
+            },
+        });
 
     });
 
@@ -153,6 +242,9 @@ $(document).ready(function () {
                 success: function (response) {
                     $('#successStudent').fadeIn();
                     $('#successStudent').delay(6000).fadeOut();
+                    table = $('#tabstudents').DataTable();
+                    table.destroy();
+                    RefreshTab();
                 },
                 error: function (jqXhr) {
                     $('#errorStudent').fadeIn();
@@ -282,3 +374,51 @@ $(document).ready(function () {
     });
 
 });
+
+//*******************************FONCTIONS**************************************
+function RefreshTab() {
+
+    $.ajax({
+        url: BACKEND_URL + 'student/getMyTrainings',
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+
+
+        success: function (response) {
+            console.log("success");
+
+            $("#students").empty();
+            $.each(response, function (i, training) {
+                $("#students").append('<tr>' +
+                    '<td>' + training.subject + '</td>' +
+                    '<td>' + new Date(training.startDatetime.substring(0, 19)).toLocaleString() + '</td>' +
+                    '<td>' + new Date(training.endDatetime.substring(0, 19)).toLocaleString() + '</td>' +
+                    '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" id="MonCours" data-toggle="modal" data-target="#myModalDisplayMyTraining"><i class="fas fa-eye"></i> Afficher</button></td>' +
+                    '</tr>');
+            });
+            $('#tabstudents').DataTable({
+                "retrieve": true,
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "url": "vendor/datatable.french.json"
+                }
+            });
+        },
+        error: function (jqxhr) {
+            $('#errorStudent').fadeIn();
+            $('#errorStudent').delay(6000).fadeOut();
+        },
+
+
+    });
+}

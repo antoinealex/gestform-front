@@ -20,7 +20,7 @@ $(document).ready(function () {
 
             success: function (response) {
                 console.log("success");
-                //$("#cours").empty();
+                $("#cours").empty();
                 $.each(response, function (i, training) {
                     $("#cours").append('<tr>' +
                         '<td>' + training.subject + '</td>' +
@@ -30,8 +30,15 @@ $(document).ready(function () {
                         '</tr>')
                 });
                 $('#tabcours').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
                     "language": {
-                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                        "url": "vendor/datatable.french.json"
                     }
                 });
 
@@ -97,11 +104,11 @@ $(document).ready(function () {
 
             success: function (response) {
                 console.log("success");
-                //$("#students").empty();
+                $("#students").empty();
                 $.each(response, function (i, training) {
                     $.ajax({
 
-                        url: 'https://gestform.ei-bs.eu/training/getTrainingById?id=' + i,
+                        url: BACKEND_URL + 'training/getTrainingById?id=' + i,
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
@@ -122,7 +129,22 @@ $(document).ready(function () {
                                     '</tr>')
 
                             });
-                            $('#tabstudents').DataTable();
+
+                            // table = $('#tabstudents').DataTable();
+                            // //table.destroy();
+                            // $('#tabstudents').DataTable({
+                            //     "retrieve": true,
+                            //     "paging": true,
+                            //     "lengthChange": true,
+                            //     "searching": true,
+                            //     "ordering": true,
+                            //     "info": true,
+                            //     "autoWidth": false,
+                            //     "responsive": true,
+                            //     "language": {
+                            //         "url": "vendor/datatable.french.json"
+                            //     }
+                            // });
 
 
                         },
@@ -170,7 +192,10 @@ $(document).ready(function () {
             success: function () {
                 $('#successTeacher').fadeIn();
                 $('#successTeacher').delay(6000).fadeOut();
-                location.reload(true);
+                //location.reload(true);
+                table = $('#tabcours').DataTable();
+                table.destroy();
+                RefreshTab();
             },
             error: function (jqXhr) {
                 $('#errorTeacher').fadeIn();
@@ -321,6 +346,9 @@ $(document).ready(function () {
                                 $('#successTeacher').fadeIn();
                                 $('#successTeacher').delay(6000).fadeOut();
                                 //location.reload(true);
+                                table = $('#tabcours').DataTable();
+                                table.destroy();
+                                RefreshTab();
                             },
                             error: function (jqXhr) {
                                 $('#errorTeacher').fadeIn();
@@ -463,3 +491,51 @@ $(document).ready(function () {
         }
     });
 });
+
+//*******************************FONCTIONS**************************************
+function RefreshTab() {
+
+    $.ajax({
+        url: BACKEND_URL + 'teacher/getMyTrainings',
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+
+
+        success: function (response) {
+            console.log("success");
+            $("#cours").empty();
+            $.each(response, function (i, training) {
+                $("#cours").append('<tr>' +
+                    '<td>' + training.subject + '</td>' +
+                    '<td>' + new Date(training.startDatetime).toLocaleString() + '</td>' +
+                    '<td>' + new Date(training.endDatetime).toLocaleString() + '</td>' +
+                    '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTeacher"><i class="fas fa-eye"></i> Afficher</button> <button id=' + i + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Editer</button> <button id=' + i + ' type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Supprimer</button><br /></td>' +
+                    '</tr>')
+            });
+            $('#tabcours').DataTable({
+                //"retrieve": true,
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "url": "vendor/datatable.french.json"
+                }
+            });
+
+        },
+        error: function (jqxhr) {
+            $('#errorTeacher').fadeIn();
+            $('#errorTeacher').delay(6000).fadeOut();
+        },
+
+
+    });
+}
