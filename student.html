@@ -4,6 +4,12 @@
 <div class="alert alert-success" id="successStudent" role="alert" style="display: none;">
     Réussi !
 </div>
+<div class="alert alert-success" id="successUpdatePassword" role="alert" style="display: none;">
+    Mot de passe modifié avec succés !
+</div>
+<div class="alert alert-danger" id="errorUpdatePassword" role="alert" style="display: none;">
+    Echec ! Veuillez recommencer !
+</div>
 
 
 <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab" role="tablist">
@@ -37,7 +43,7 @@
                 </tr>
             </thead>
             <tbody id="cours">
-                <!-- Liste des cours -->
+                <!-- Liste des cours disponible -->
             </tbody>
         </table>
     </div>
@@ -46,13 +52,14 @@
         <table id="tabstudents" class="table table-bordered table-hover" style="width:100%">
             <thead>
                 <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Trainig</th>
+                    <th>Matiére</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="students">
-                <!-- Liste des utilisateurs -->
+                <!-- Liste de mes Trainings -->
             </tbody>
         </table>
     </div>
@@ -65,7 +72,7 @@
 
 <div class="container">
     <div class="row">
-        <!-- Afficher Training -->
+        <!-- Afficher Training disponible -->
         <div class="col-md-5">
             <div class="modal fade" id="myModalDisplayTraining">
                 <div class="modal-dialog modal-md">
@@ -79,19 +86,49 @@
                         <div class="modal-body">
 
                             <div class="offset-1 col-6">
-                                <label for="NameTeacher"><strong>Professeur</strong></label><br/>
-                                <p name="NameTeacher" type="text"></p><br/>
-                                <label for="start_training"><strong>Début</strong></label><br/>
-                                <p name="start_training" type="datetime-local"></p><br/>
-                                <label for="end_training"><strong>Fin</strong></label><br/>
-                                <p name="end_training" type="datetime-local"></p><br/>
-                                <label for="max_student"><strong>Nombre maximum d'étudiants'</strong></label><br/>
-                                <p name="max_student" type="text"></p><br/>
-                                <label for="price_per_student"><strong>Prix du cours</strong></label><br/>
-                                <p name="price_per_student" type="text">€</p><br/>
-                                <label for="training_description"><strong>Description</strong></label><br/>
-                                <p name="training_description" type="text"></p><br/>
+                                <label for="NameTeacher"><strong>Professeur</strong></label><br />
+                                <p name="NameTeacher" type="text"></p><br />
+                                <label for="start_training"><strong>Début</strong></label><br />
+                                <p name="start_training" type="datetime-local"></p><br />
+                                <label for="end_training"><strong>Fin</strong></label><br />
+                                <p name="end_training" type="datetime-local"></p><br />
+                                <label for="max_student"><strong>Nombre maximum d'étudiants'</strong></label><br />
+                                <p name="max_student" type="text"></p><br />
+                                <label for="price_per_student"><strong>Prix du cours</strong></label><br />
+                                <p name="price_per_student" type="text">€</p><br />
+                                <label for="training_description"><strong>Description</strong></label><br />
+                                <p name="training_description" type="text"></p><br />
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Afficher mes Trainings -->
+        <div class="col-md-5">
+            <div class="modal fade" id="myModalDisplayMyTraining">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 name="Subject"></h1>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="offset-1 col-6">
+                                <label for="Teacher">Professeur</label><br />
+                                <p name="Teacher" type="text"></p><br />
+                                <label for="startTraining">Debut</label><br />
+                                <p name="startTraining" type="datetime-local"></p><br />
+                                <label for="endTraining">Fin</label><br />
+                                <p name="endTraining" type="datetime-local"></p><br />
+                                <label for="trainingDescription">Description</label><br />
+                                <p name="trainingDescription" type="text"></p><br />
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <input class="btn btn-dark" data-dismiss="modal" value="close">
+
                         </div>
                     </div>
                 </div>
@@ -104,7 +141,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2>Ajouter un commentaire</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" id="myModalAddCommentClose" data-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
@@ -154,7 +192,7 @@
                                     <label for="city">Ville</label><br />
                                     <input name="city" type="text" required><br />
                                     </br>
-                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"type="submit">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_up" type="submit">
                                         Modifier
                                     </button>
                                 </div>
@@ -174,7 +212,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2>Modifier mon mot de passe</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" id="myModalUpdatePasswordClose" data-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
