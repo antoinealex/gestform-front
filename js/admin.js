@@ -1,3 +1,4 @@
+var token = localStorage.getItem('MonToken');
 //*****************************************************************************
 //********************************** GET **************************************
 //*****************************************************************************
@@ -79,7 +80,7 @@ $(document).ready(function (){
             },
             success: function (user) {
                 console.log("success GET")
-                $('#trainingList').empty();
+                $('#userList').empty();
                 $.each(user, function (i, user) {
                     $('#userList').append('\
                     <tr>\
@@ -396,8 +397,8 @@ var id = $(this).attr('id');
             data: JSON.stringify(trainingData),
             success: function(){
                 //Success alert
-                $('#successAdmin').fadeIn();
-                $('#successAdmin').delay(6000).fadeOut();          
+                $('#successAdmin').fadeIn(400);
+                $('#successAdmin').delay(6000).fadeOut(400);          
                 // Replace tab
                 $('#showTraining').DataTable().destroy();
                 refreshTraining();
@@ -451,20 +452,30 @@ var id = $(this).attr('id');
             console.log( textStatus );
         }
     });
-    $(document).on('click',"#submit_e", function (){
+    $("#formE").on('click',"#submit_e", function (){
         event.preventDefault();
-        var id = $(this).attr('id');
+        var userData = {
+            id: $('input[name=editUserId]').val(),
+            lastname: $('input[name=editLastname]').val(),
+            firstname: $('input[name=editFirstname]').val(),
+            roles: $('select[name=editRoles]').val(),
+            email: $('input[name=editEmail]').val(),
+            phone: $('input[name=editPhone]').val(),
+            address: $('input[name=editAddress]').val(),
+            postcode: $('input[name=editPostcode]').val(),
+            city: $('input[name=editCity]').val()
+        };
 
         $.ajax({
-            url: BACKEND_URL + "admin/getUserByID?id=" + id,
-            type: 'GET',
+            url: BACKEND_URL + "admin/updateUser",
+            type: 'PUT',
             datatype: 'JSON',
             contentType: "application/json",
             processData: false,
             headers: { Authorization: `Bearer ${ token }`},
             data: JSON.stringify(userData),
+
             success: function(){
-                console.log(user.id);
                 //Success alert
                 $('#successAdmin').fadeIn(400);
                 $('#successAdmin').delay(6000).fadeOut(400);   
@@ -679,7 +690,7 @@ function refreshUser() {
         },
         success: function (user) {
             console.log("success GET")
-            $('#trainingList').empty();
+            $('#userList').empty();
             $.each(user, function (i, user) {
                 $('#userList').append('\
                     <tr>\
