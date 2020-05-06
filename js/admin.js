@@ -293,7 +293,7 @@ $("span[style^='color:red']").empty();
                 $('#showUser').DataTable().destroy();
                 refreshUser();
                 //closing modal
-                $('.modalAddUserClose').trigger('click');
+                $('#modalAddUserClose').trigger('click');
 
             },
             error : function( jqXHR, textStatus, errorThrown ){
