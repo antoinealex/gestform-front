@@ -63,7 +63,30 @@
                 </tbody>
             </table>
         </div>
-        <div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        <div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">
+            <br>
+            <br>
+            <br>
+            <div id="calendar"></div>
+            <div id="calendarModal" class="modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="modalTitle" class="modal-title" style="position: relative; top: 0px; left: 0px;"></h4>
+                        </div>
+                        <div id="modalBody" class="modal-body">
+                            <p id="eventStart"></p>
+                            <p id="eventEnd"></p>
+                            <p id="eventDescription"></p>
+                            <p id="eventType"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -325,3 +348,4 @@
 </div>
 
 <script src="js/teacher.js"></script>
+<script src="js/calendar.js"></script>
