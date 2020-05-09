@@ -1,3 +1,11 @@
+<!-- Alert Training -->
+<div class="alert alert-danger" id="errorAdmin" role="alert" style="display: none;">
+	<p>Une erreur est survenue</p>
+</div>
+<div class="alert alert-success" id="successAdmin" role="alert" style="display: none;">
+	<p>Opération réalisée avec succès</p>
+</div>
+
 <!-- Tab content -->
 <section class="tab-content">
   <div class="card tab-pane fade show active" id="allTrainings" role="tabpanel" aria-labelledby="home-tab">
@@ -325,7 +333,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h2>Mettre à jour le cours</h2>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button id="modalUpTrClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
@@ -403,7 +411,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h2>Mettre à jour l'utilisateur</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button id="modalUpUserClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
@@ -449,3 +457,4 @@
   </div>
 </div>
 <script src="../js/admin.js"></script>
+<script src="../js/calendar.js"></script>
