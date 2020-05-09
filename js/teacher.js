@@ -30,7 +30,6 @@ $(document).ready(function(){
 $(document).ready(function () {
 
     //****************getMyTrainings*****************************
-    //$(document).on('click', '#home-tab', function () {
     $(document).ready(function () {
         $.ajax({
             url: BACKEND_URL + 'teacher/getMyTrainings',
@@ -40,8 +39,6 @@ $(document).ready(function () {
             headers: {
                 Authorization: `Bearer ${ token }`
             },
-
-
             success: function (response) {
                 console.log("success");
                 //$("#cours").empty();
@@ -52,30 +49,31 @@ $(document).ready(function () {
                         '<td>' + new Date(training.endDatetime).toLocaleString() + '</td>' +
                         '<td><button id=' + i + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTeacher"><i class="fas fa-eye"></i> Afficher</button>' +
                         '<button id=' + i + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Editer</button>' +
-                        '<button id=' + i + ' type="button" class="deleteTraining btn btn-danger btn-sm"><i class="fas fa-trash"></i> Supprimer</button><br /></td>' +
                         '</tr>')
                 });
                 $('#tabcours').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
                     "language": {
                         "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
                     }
                 });
-
             },
             error: function (jqxhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
             },
-
-
         });
     });
 
 
     //****************getTrainingById*****************************
-    $(document).on('click', ".btn-success", function (e) {
+    $(document).on('click', ".getTraining", function (e) {
         e.preventDefault();
-
         console.log($(this).attr('id'));
 
         $.ajax({
@@ -86,9 +84,7 @@ $(document).ready(function () {
             headers: {
                 Authorization: `Bearer ${ token }`
             },
-
             success: function (response) {
-
                 $("h1[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
                 $("p[name=training_id]").empty().append(response.id);
                 $('p[name=start_training]').empty().append(new Date(response.startTraining.substring(0, 19)).toLocaleString());
@@ -97,19 +93,14 @@ $(document).ready(function () {
                 $('p[name=price_per_student]').empty().append(response.pricePerStudent);
                 $('p[name=training_description]').empty().append(response.trainingDescription);
                 $('p[name=subject]').empty().append(response.subject);
-
-
             },
             error: function (jqXhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
             },
         });
-
     });
 
     //****************getTrainingById (pour récuperer les Students)***********************
-    //$(document).on('click', "#profile-tab", function (e) {
     $(document).ready(function () {
         $.ajax({
             url: BACKEND_URL + 'teacher/getMyTrainings',
@@ -119,62 +110,59 @@ $(document).ready(function () {
             headers: {
                 Authorization: `Bearer ${ token }`
             },
-
-
             success: function (response) {
                 console.log("success");
-                //$("#students").empty();
+                $("#students").empty();
                 $.each(response, function (i, training) {
                     $.ajax({
-
-                        url: 'https://gestform.ei-bs.eu/training/getTrainingById?id=' + i,
-                        type: 'get',
+                        url: BACKEND_URL + 'training/getTrainingById?id=' + i,
+                        type: 'GET',
                         dataType: 'json',
                         contentType: 'application/json',
                         headers: {
                             Authorization: `Bearer ${ token }`
                         },
-
-
                         success: function (response) {
                             console.log("success");
-
                             $.each(response.participants, function (i, student) {
                                 $("#students").append('<tr>' +
                                     '<td>' + student.firstname + '</td>' +
                                     '<td>' + student.lastname + '</td>' +
                                     '<td>' + response.subject + '</td>' +
-                                    //'<td><button id=' + student.id + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayStudent">Afficher</button></td>' +
                                     '</tr>')
-
                             });
-                            $('#tabstudents').DataTable();
-
-
+                            $('#tabstudents').DataTable({
+                                "retrieve": true,
+                                "paging": true,
+                                "lengthChange": true,
+                                "searching": true,
+                                "ordering": true,
+                                "info": true,
+                                "autoWidth": false,
+                                "responsive": true,
+                                "language": {
+                                    "url": "vendor/datatable.french.json"
+                                }
+                            });
                         },
                         error: function (jqxhr) {
-                            $('#errorTeacher').fadeIn();
-                            $('#errorTeacher').delay(6000).fadeOut();
+                            $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
                         },
                     });
                 });
             },
-
             error: function (jqxhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
             },
         });
-
     });
 
     //*****************************************************************************
     //********************************** POST *************************************
     //*****************************************************************************
 
-
     //****************addTraining**************************
-    $("#submit_training").click(function (e) {
+    $(document).ready(function (e) {
         e.preventDefault();
 
         console.log(currentUser.id);
@@ -196,92 +184,22 @@ $(document).ready(function () {
             success: function () {
                 $('#successTeacher').fadeIn();
                 $('#successTeacher').delay(6000).fadeOut();
-                location.reload(true);
+
+                $('input[name = start_training]').val("");
+                $('input[name = end_training]').val("");
+                $('input[name = max_student]').val("");
+                $('input[name = price_per_student]').val("");
+                $('input[name = training_description]').val("");
+                $('input[name = subject]').val("");
+
+                table = $('#tabcours').DataTable();
+                table.destroy();
+                RefreshTab();
             },
             error: function (jqXhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
             },
         });
-    });
-
-    //****************createUser******************************
-    $(document).on('click', '#submit_s', function (e) {
-        e.preventDefault();
-        $("span[style^='color:red']").empty();
-        if ($("#email").val().length === 0) {
-            $("#email").after('<span style="color:red"> Merci de remplir ce champ !</span>');
-        } else if (!$("#email").val().match(/^[a-zA-Z0-9\.\-_]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/i)) { //Regex validation mail
-            $("#email").after('<span style="color:red"> Mail invalide !</span>');
-        } else if ($("#password").val().length === 0) {
-            $("#password").after('<span style="color:red"> Merci de remplir ce champ !</span>');
-        } else if (!$("#password").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
-            $("#password").after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
-
-        } else {
-
-
-
-            var form = $("#formS")[0]; //On récupére le formulaire par son id
-            var data = new FormData(form); //On le passe en param dans l'objet FormData
-
-            console.log(data);
-            $.ajax({
-                url: BACKEND_URL + 'admin/createUser',
-                type: 'POST',
-                data: data,
-                contentType: false,
-                cache: false,
-                processData: false, //Important
-                enctype: 'multipart/form-data',
-                headers: {
-                    Authorization: `Bearer ${ token }`
-                },
-
-                success: function (jqXhr) {
-                    //alert(jqXhr.responseText);
-                    $('#successUser').fadeIn();
-                    $('#successUser').delay(6000).fadeOut();
-
-                    //location.reload(true);
-                },
-                error: function (jqXhr) {
-                    $('#errorUser').fadeIn();
-                    $('#errorUser').delay(6000).fadeOut();
-                    //location.reload(true);
-                },
-            });
-        }
-    });
-
-    //*****************************************************************************
-    //********************************** DELETE ***********************************
-    //*****************************************************************************
-
-
-    //****************deleteTraining****************************
-    $(document).on('click', ".deleteTraining", function (e) {
-        e.preventDefault();
-        console.log($(this).attr('id'));
-        if (confirm("Etes-vous sûr de vouloir supprimer ce Training ?")) {
-            $.ajax({
-                url: BACKEND_URL + 'admin/deleteTraining?id = ' + $(this).attr('id'),
-                type: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${ token }`
-                },
-
-                success: function (response) {
-                    $('#successTeacher').fadeIn();
-                    $('#successTeacher').delay(6000).fadeOut();
-                    //location.reload(true);
-                },
-                error: function (jqXhr) {
-                    $('#errorTeacher').fadeIn();
-                    $('#errorTeacher').delay(6000).fadeOut();
-                },
-            });
-        }
     });
 
     //*****************************************************************************
@@ -294,163 +212,143 @@ $(document).ready(function () {
         e.preventDefault();
         console.log($(this).attr('id'));
 
-        if (confirm("Etes-vous sûr de vouloir modifier ce Training ?")) {
-            $.ajax({
-                url: BACKEND_URL + 'training/getTrainingById?id=' + $(this).attr('id'),
-                type: 'GET',
-                dataType: 'json',
-                contentType: 'application/json',
-                headers: {
-                    Authorization: `Bearer ${ token }`
-                },
+        $.ajax({
+            url: BACKEND_URL + 'training/getTrainingById?id=' + $(this).attr('id'),
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
 
-                success: function (response) {
-                    var chnStart = response.startTraining;
-                    var start = chnStart.substring(0, 19);
+            success: function (response) {
+                var chnStart = response.startTraining;
+                var start = chnStart.substring(0, 19);
 
-                    var chnEnd = response.endTraining;
-                    var end = chnEnd.substring(0, 19);
+                var chnEnd = response.endTraining;
+                var end = chnEnd.substring(0, 19);
 
-                    $("input[name=editTrainingId]").val(response.id);
-                    $('input[name=editStart_training]').val(start);
-                    $('input[name=editEnd_training]').val(end);
-                    $('input[name=editMax_student]').val(response.maxStudent);
-                    $('input[name=editPrice_per_student]').val(response.pricePerStudent);
-                    $('input[name=editTraining_description]').val(response.trainingDescription);
-                    $('input[name=editSubject]').val(response.subject);
-                    // $('input[name=start_training]').toggle("slide");
+                $("input[name=editTrainingId]").val(response.id);
+                $('input[name=editStart_training]').val(start);
+                $('input[name=editEnd_training]').val(end);
+                $('input[name=editMax_student]').val(response.maxStudent);
+                $('input[name=editPrice_per_student]').val(response.pricePerStudent);
+                $('input[name=editTraining_description]').val(response.trainingDescription);
+                $('input[name=editSubject]').val(response.subject);
 
-                    $("#submit_u").click(function (e) {
-                        e.preventDefault();
-                        data = {
-                            "id": $('input[name=editTrainingId]').val(),
-                            "startTraining": $('input[name=editStart_training]').val(),
-                            "endTraining": $('input[name=editEnd_training]').val(),
-                            "maxStudent": $('input[name=editMax_student]').val(),
-                            "pricePerStudent": $('input[name=editPrice_per_student]').val(),
-                            "trainingDescription": $('input[name=editTraining_description]').val(),
-                            "subject": $('input[name=start_training]').val()
-                        };
+                $("#submit_u").click(function (e) {
+                    e.preventDefault();
+                    data = {
+                        "id": $('input[name=editTrainingId]').val(),
+                        "startTraining": $('input[name=editStart_training]').val(),
+                        "endTraining": $('input[name=editEnd_training]').val(),
+                        "maxStudent": $('input[name=editMax_student]').val(),
+                        "pricePerStudent": $('input[name=editPrice_per_student]').val(),
+                        "trainingDescription": $('input[name=editTraining_description]').val(),
+                        "subject": $('input[name=start_training]').val()
+                    };
 
-                        $.ajax({
-                            url: BACKEND_URL + 'teacher/updateTraining',
-                            type: 'PUT',
-                            dataType: 'json', //type de données qu'on attend en réponse du serveur
-                            contentType: "application/json",
-                            processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
-                            data: JSON.stringify(data),
-                            headers: {
-                                Authorization: `Bearer ${ token }`
-                            },
+                    $.ajax({
+                        url: BACKEND_URL + 'teacher/updateTraining',
+                        type: 'PUT',
+                        dataType: 'json', //type de données qu'on attend en réponse du serveur
+                        contentType: "application/json",
+                        processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+                        data: JSON.stringify(data),
+                        headers: {
+                            Authorization: `Bearer ${ token }`
+                        },
 
-                            success: function () {
-                                $('#successAcount').fadeIn();
-                                $('#successAcount').delay(6000).fadeOut();
-                                //location.reload(true);
-                            },
-                            error: function (jqXhr) {
-                                $('#errorAcount').fadeIn();
-                                $('#errorAcount').delay(6000).fadeOut();
-                            },
-                        });
+                        success: function () {
+                            $('#successTeacher').fadeIn(400).delay(6000).fadeOut(400);
+                            $("#myModalUpdateTrainingClose").trigger("click");
+                            table = $('#tabcours').DataTable();
+                            table.destroy();
+                            RefreshTab();
+                        },
+                        error: function (jqXhr) {
+                            $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
+                        },
                     });
+                });
 
-                },
-                error: function (jqXhr) {
-                    $('#errorTeacher').fadeIn();
-                    $('#errorTeacher').delay(6000).fadeOut();
-                },
-            });
-        } else {
-            location.reload(true);
-            //location.href = 'teacher.html';
-        }
+            },
+            error: function (jqXhr) {
+                $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
+            },
+        });
     });
-
-
 
     //****************updateCurrentUser*****************************
     $(document).on('click', "#account-tab", function (e) {
-        //e.preventDefault();
 
-            $.ajax({
-                url: BACKEND_URL + 'user/getCurrentUser',
-                type: 'GET',
-                dataType: 'json',
-                contentType: 'application/json',
-                headers: {
-                    Authorization: `Bearer ${ token }`
-                },
+        $.ajax({
+            url: BACKEND_URL + 'user/getCurrentUser',
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function (response) {
+                $("input[name=myEmail]").val(response.email);
+                $('input[name=myLastname]').val(response.lastname);
+                $('input[name=myFirstname]').val(response.firstname);
+                $('input[name=myPhone]').val(response.phone);
+                $('input[name=myAddress]').val(response.address);
+                $('input[name=myPostcode]').val(response.postcode);
+                $('input[name=myCity]').val(response.city);
 
-                success: function (response) {
+                $("#submit_up").click(function (e) {
+                    e.preventDefault();
+                    data = {
+                        "email": $("input[name=myEmail]").val(),
+                        "lastname": $('input[name=myLastname]').val(),
+                        "firstname": $('input[name=myFirstname]').val(),
+                        "phone": $('input[name=myPhone]').val(),
+                        "address": $('input[name=myAddress]').val(),
+                        "postcode": $('input[name=myPostcode]').val(),
+                        "city": $('input[name=myCity]').val()
+                    };
 
-                    $("input[name=myEmail]").val(response.email);
-                    $('input[name=myLastname]').val(response.lastname);
-                    $('input[name=myFirstname]').val(response.firstname);
-                    $('input[name=myPhone]').val(response.phone);
-                    $('input[name=myAddress]').val(response.address);
-                    $('input[name=myPostcode]').val(response.postcode);
-                    $('input[name=myCity]').val(response.city);
+                    $.ajax({
+                        url: BACKEND_URL + 'user/updateCurrentUser',
+                        type: 'PUT',
+                        dataType: 'json', //type de données qu'on attend en réponse du serveur
+                        contentType: "application/json",
+                        processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+                        data: JSON.stringify(data),
+                        headers: {
+                            Authorization: `Bearer ${ token }`
+                        },
 
-                    $("#submit_up").click(function (e) {
-                        e.preventDefault();
-                        data = {
-                            "email": $("input[name=myEmail]").val(),
-                            "lastname": $('input[name=myLastname]').val(),
-                            "firstname": $('input[name=myFirstname]').val(),
-                            "phone": $('input[name=myPhone]').val(),
-                            "address": $('input[name=myAddress]').val(),
-                            "postcode": $('input[name=myPostcode]').val(),
-                            "city": $('input[name=myCity]').val()
-                        };
-
-                        $.ajax({
-                            url: BACKEND_URL + 'user/updateCurrentUser',
-                            type: 'PUT',
-                            dataType: 'json', //type de données qu'on attend en réponse du serveur
-                            contentType: "application/json",
-                            processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
-                            data: JSON.stringify(data),
-                            headers: {
-                                Authorization: `Bearer ${ token }`
-                            },
-
-                            success: function () {
-                                $('#successTeacher').fadeIn();
-                                $('#successTeacher').delay(6000).fadeOut();
-                                //location.reload(true);
-                            },
-                            error: function (jqXhr) {
-                                $('#errorTeacher').fadeIn();
-                                $('#errorTeacher').delay(6000).fadeOut();
-                            },
-                        });
+                        success: function () {
+                            $('#successTeacher').fadeIn(400).delay(6000).fadeOut(400);
+                        },
+                        error: function (jqXhr) {
+                            $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
+                        },
                     });
-
-                },
-                error: function (jqXhr) {
-                    $('#errorTeacher').fadeIn();
-                    $('#errorTeacher').delay(6000).fadeOut();
-                },
-            });
-            //location.reload(true);
-            //$('#bodyTeacher').reload(' #bodyTeacher');
-            //location.href = 'teacher.html';
-        
+                });
+            },
+            error: function (jqXhr) {
+                $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
+            },
+        });
     });
 
-
-
     //****************updatePassword*****************************
-    $("#submit_mdp").click(function (e) {
+    $(document).ready(function (e) {
         e.preventDefault();
 
         if ($("#oldpassword").val().length === 0) {
-            $("#credsMissing").fadeIn();
+            $("#credsMissing").fadeIn().delay(4000).fadeOut();
         } else if ($("#newpassword").val().length === 0) {
-            $("#credsMissing").fadeIn();
+            $("#credsMissing").fadeIn().delay(4000).fadeOut();
         } else if (!$("#newpassword").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
-            $("#logerror").fadeIn();
+            $("#oldpassword").val("");
+            $("#newpassword").val("");
+            $("#logerror").fadeIn().delay(4000).fadeOut();
 
         } else {
             $("#credsMissing").fadeOut();
@@ -473,17 +371,61 @@ $(document).ready(function () {
                 },
 
                 success: function () {
-                    $('#successUpdatePassword').fadeIn();
-                    //location.reload(true);
+                    $("#successUpdatePassword").fadeIn(400).delay(6000).fadeOut(400);
+                    $("#oldpassword").val("");
+                    $("#newpassword").val("");
                 },
                 error: function (jqXhr) {
-                    $('#errorUpdatePassword').fadeIn();
-                    //$('#formPass').load('teacher.html #inputMdp');
-
-                    //alert(jqXhr.responseText);
-                    //location.reload(true);
+                    $('#errorUpdatePassword').fadeIn(400).delay(6000).fadeOut(400);
+                    $("#oldpassword").val("");
+                    $("#newpassword").val("");
                 },
             });
         }
     });
 });
+
+//******************************************************************************
+//********************************* FUNCTION ***********************************
+//******************************************************************************
+
+function RefreshTab() {
+
+    $.ajax({
+        url: BACKEND_URL + 'teacher/getMyTrainings',
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+        success: function (response) {
+            console.log("success");
+            //$("#cours").empty();
+            $.each(response, function (i, training) {
+                $("#cours").append('<tr>' +
+                    '<td>' + training.subject + '</td>' +
+                    '<td>' + new Date(training.startDatetime).toLocaleString() + '</td>' +
+                    '<td>' + new Date(training.endDatetime).toLocaleString() + '</td>' +
+                    '<td><button id=' + i + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTeacher"><i class="fas fa-eye"></i> Afficher</button>' +
+                    '<button id=' + i + ' type="button" class="updateTraining btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Editer</button>' +
+                    '</tr>')
+            });
+            $('#tabcours').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                }
+            });
+        },
+        error: function (jqxhr) {
+            $('#errorTeacher').fadeIn(400).delay(6000).fadeOut(400);
+        },
+    });
+}

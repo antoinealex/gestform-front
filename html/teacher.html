@@ -1,5 +1,16 @@
-
-
+<!-- Alert -->
+<div class="alert alert-danger" id="errorTeacher" role="alert" style="display: none;">
+  Echec !
+</div>
+<div class="alert alert-success" id="successTeacher" role="alert" style="display: none;">
+  Réussi !
+</div>
+<div class="alert alert-success" id="successUpdatePassword" role="alert" style="display: none;">
+  Mot de passe modifié avec succés !
+</div>
+<div class="alert alert-danger" id="errorUpdatePassword" role="alert" style="display: none;">
+  Echec ! Veuillez recommencer !
+</div>
 
 <!-- Tab content -->
 <section class="tab-content">
@@ -329,7 +340,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h2>Mettre à jour le cours</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button id="myModalUpdateTrainingClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
@@ -364,3 +375,4 @@
     </div>
   </div>
   <script src="../js/teacher.js"></script>
+  <script src="../js/calendar.js"></script>
