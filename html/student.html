@@ -14,7 +14,7 @@
 
 <!-- Tab content -->
 <section class="tab-content">
-    <div class="card tab-pane fade show active" id="MyTrainings" role="tabpanel" aria-labelledby="home-tab">
+    <div class="card tab-pane fade show active" id="training" role="tabpanel" aria-labelledby="training-tab">
       <div class="card-header">
         <h3 class="card-title">Liste des cours à venir</h3>
       </div>
@@ -41,131 +41,54 @@
           </tr>
           </tfoot>
         </table>
-  
-        <!-- Formulaire Ajout commentaire -->
-        <br>
-        <div class="card card-primary">
-          <div class="card-header">
-            <h3 class="card-title">Ajouter un commentaire</h3>
-          </div>
-        </div>
-        <div class="modal-body">
-          <form id="formC">
-            <div class="offset-1 col-8">
-              <div class="form-group">
-                <label for="title_comment">Titre</label>
-                <input class="form-control" name="title_comment" type="text" required>
-              </div>
-              <div class="form-group">
-                <label for="body_comment">Commentaire</label>
-                <input class="form-control" name="body_comment" type="text" required>
-              </div>
-              <button class="btn btn-primary" id="submit_training" type="submit">Ajouter</button>
-            </div>
-          </form>
-        </div>
-        <br>
-        <!-- Alert -->
-        <div class="alert alert-danger" id="errorTeacher" role="alert" style="display: none;">
-            Echec !
-        </div>
-        <div class="alert alert-success" id="successTeacher" role="alert" style="display: none;">
-            Réussi !
-        </div>
       </div>
-      <!-- /.card-body -->
-  
-  
     </div>
     <!-- /.card -->
   
-    <div class="card tab-pane fade" id="MyStudents" role="tabpanel" aria-labelledby="user-tab">
+    <div class="tab-pane fade" id="myTrainings" role="tabpanel" aria-labelledby="myTrainings-tab">
       <div class="card-header">
         <h3 class="card-title">Liste de mes cours</h3>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="tabstudents" class="table table-bordered table-striped">
+        <table id="tabstudents" class="table table-bordered table-hover" style="width:100%">
           <thead>
-          <tr>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>Cours</th>
-          </tr>
+              <tr>
+                  <th>Sujet</th>
+                  <th>Début</th>
+                  <th>Fin</th>
+                  <th>Action</th>
+              </tr>
           </thead>
           <tbody id="students">
-          <!-- My trainings -->
-          </tfoot>
+              <!-- Liste de mes Trainings -->
+          </tbody>
         </table>
-  
-        <!-- Formulaire Ajout User -->
-        <br>
-        <div class="card card-primary">
-          <div class="card-header">
-            <h3 class="card-title">Ajouter un étudiant</h3>
-          </div>
-        </div>
-        <div class="modal-body">
-          <form id="formS">
-            <div class="offset-1 col-8">
-              <div>
-                <label for="email">Email</label>
-                <input class="form-control" name="email" type="email" id="email" required>
-              </div>  
-              <div>
-                <label for="roles">Rôle</label>
-                <select id="roles" name="roles" class="form-control">
-                    <option value="ROLE_STUDENT">Etudiant</option>
-                    <option value="ROLE_TEACHER">Professeur</option>
-                </select><br/>
-              </div>  
-              <div>
-                <label for="password">Mot de passe</label>
-                <input class="form-control" name="password" type="password" id="password" required>
-              </div>  
-              <div>
-                <label for="lastname">Nom</label>
-                <input class="form-control" name="lastname" type="text" id="lastname" required>
-              </div>  
-              <div>
-                <label for="firstname">Prénom</label>
-                <input class="form-control" name="firstname" type="text" id="firstname" required>
-              </div>  
-              <div>
-                <label for="phone">Téléphone</label>
-                <input class="form-control" name="phone" type="tel" id="phone" required>
-              </div>  
-              <div>
-                <label for="address">Adresse</label>
-                <input class="form-control" name="address" type="text" id="address" required>
-              </div>  
-              <div>
-                <label for="postcode">Code Postal</label>
-                <input class="form-control" name="postcode" type="text" id="postcode" required>
-              </div>  
-              <div>
-                <label for="city">Ville</label>
-                <input class="form-control" name="city" type="text" id="city" required>
-              </div>  
-              </br>
-              <button class="btn btn-primary" id="submit_s" type="submit">Ajouter</button>
-            </div>
-          </form>
-  
-        </div>
-        <br>
-        <div class="alert alert-danger" id="errorUser" role="alert" style="display: none;">
-            Echec !
-        </div>
-        <div class="alert alert-success" id="successUser" role="alert" style="display: none;">
-            Réussi !
-        </div>
       </div>
       <!-- /.card-body -->
     </div>
     <!-- /.card -->
-    <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
-      <p>En construction</p>
+    <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
+      <!-- Formulaire Ajout commentaire -->
+        <div class="card-header">
+          <h3 class="card-title">Ajouter un commentaire</h3>
+        </div>
+      <div class="modal-body">
+        <form id="formC">
+          <div class="offset-1 col-8">
+            <div class="form-group">
+              <label for="title_comment">Titre</label>
+              <input class="form-control" name="title_comment" type="text" required>
+            </div>
+            <div class="form-group">
+              <label for="body_comment">Commentaire</label>
+              <input class="form-control" name="body_comment" type="text" required>
+            </div>
+            <button class="btn btn-primary" id="submit_c" type="submit">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    <!-- /.card-body -->
     </div>
     
     <!-- Formulaire UpdateProfil -->
@@ -209,13 +132,6 @@
             <!-- /.card-body -->
             <button type="submit" class="btn btn-primary" id="submit_up">Mettre à jour</button>
           </div>
-        </div>
-        <br>
-        <div class="alert alert-danger" id="errorAcount" role="alert" style="display: none;">
-            Echec !
-        </div>
-        <div class="alert alert-success" id="successAcount" role="alert" style="display: none;">
-            Réussi !
         </div>
       </form>
     </div>
@@ -272,7 +188,7 @@
         </div>
       </form>
     </div>
-  </section>
+</section>
   <!-- /.tab-content -->
   
   <!-- Modal content -->
@@ -292,16 +208,12 @@
               <div class="modal-body">
                 <form id="formTraining">
                   <div class="offset-1 col-6">
-                    <label for="NameTeacher"><strong>Professeur</strong></label><br/>
-                    <p name="NameTeacher" type="text"></p><br/>
+                    <label for="subject"><strong>Sujet</strong></label><br/>
+                    <p name="subject" type="text"></p><br/>
                     <label for="start_training"><strong>Début</strong></label><br/>
                     <p name="start_training" type="datetime-local"></p><br/>
                     <label for="end_training"><strong>Fin</strong></label><br/>
                     <p name="end_training" type="datetime-local"></p><br/>
-                    <label for="max_student"><strong>Nombre maximum d'étudiants</strong></label><br/>
-                    <p name="max_student" type="text"></p><br/>
-                    <label for="price_per_student"><strong>Prix du cours</strong></label><br/>
-                    <p name="price_per_student" type="text">€</p><br/>
                     <label for="training_description"><strong>Description</strong></label><br/>
                     <p name="training_description" type="text"></p><br/>
                     </br>

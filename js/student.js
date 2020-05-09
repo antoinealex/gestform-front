@@ -6,23 +6,23 @@ var token = localStorage.getItem('MonToken');
 //****************getMenu************************
 $(document).ready(function(){
     $('#TrainingMenu').append('\
-        <a class="nav-link active" id="training-tab" data-toggle="tab" href="#Trainings" role="tab" aria-controls="Trainings" aria-selected="true">\
+        <a class="nav-link active" id="training-tab" data-toggle="tab" href="#training" role="tab" aria-controls="Training" aria-selected="true">\
             <i class="fas fa-school nav-icon"></i>\
             <p>Participer à un cours</p>\
         </a>\
     ');
     $('#UserMenu').append('\
-        <a class="nav-link" id="user-tab" data-toggle="tab" href="#myTrainings" role="tab" aria-controls="myTrainings" aria-selected="false">\
+        <a class="nav-link" id="myTrainings-tab" data-toggle="tab" href="#myTrainings" role="tab" aria-controls="myTrainings" aria-selected="false">\
             <i class="fas fa-users nav-icon"></i>\
             <p>Mes cours</p>\
         </a>\
     ');
     $('#CalendarMenu').append('\
-        <a class="nav-link" id="calendar-tab" data-toggle="tab" href="#calendar" role="tab" aria-controls="calendar" aria-selected="false">\
-            <i class="fas fa-calendar nav-icon"></i>\
-            <p>Calendrier</p>\
-        </a>\
-    ');
+    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="false">\
+        <i class="fas fa-calendar nav-icon"></i>\
+        <p>Ajouter un commentaire</p>\
+    </a>\
+');
 });
 
 //****************getCurrentUser************************
@@ -40,15 +40,16 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log("success");
+
                 $("#cours").empty();
                 $.each(response, function (i, training) {
                     $("#cours").append('<tr>' +
                         '<td>' + training.subject + '</td>' +
-                        '<td>' + new Date(training.startTraining.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td>' + new Date(training.endTraining.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td><button id=' + training.id + ' type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button>'+
-                        '<button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Participer</button>' +
-                        '</tr>')
+                        '<td>' + new Date(training.start.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td>' + new Date(training.end.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td><button id=' + training.id + 'type="button" class="getTraining btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i>Afficher</button>' +
+                        '<button id=' + training.id + 'type="button" class="subscribe btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i>Participer</button></td>' +
+                        '</tr>');
                 });
                 $('#tabcours').DataTable({
                     "paging": true,
@@ -59,12 +60,11 @@ $(document).ready(function () {
                     "autoWidth": false,
                     "responsive": true,
                     "language": {
-                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                        "url": "../vendor/datatable.french.json"
                     }
                 });
             },
             error: function (jqxhr) {
-                //Error alert
                 $('#errorStudent').fadeIn(400).delay(6000).fadeOut(400);
             },
         });
@@ -74,6 +74,7 @@ $(document).ready(function () {
 
     $(document).on('click', ".getTraining", function (e) {
         e.preventDefault();
+
         console.log($(this).attr('id'));
 
         $.ajax({
@@ -84,26 +85,24 @@ $(document).ready(function () {
             headers: {
                 Authorization: `Bearer ${ token }`
             },
+
             success: function (response) {
-                var chnStart = response.startTraining;
+                var chnStart = response.start;
                 var start = chnStart.substring(0, 19);
 
-                var chnEnd = response.endTraining;
+                var chnEnd = response.end;
                 var end = chnEnd.substring(0, 19);
 
-                $("h1[name=subject]").empty().append(response.subject);
-                //$("p[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
+                $("p[name=subject]").empty().append(response.subject);
                 $('p[name=start_training]').empty().append(new Date(start).toLocaleString());
                 $('p[name=end_training]').empty().append(new Date(end).toLocaleString());
-                //$('p[name=max_student]').empty().append(response.maxStudent);
-                //$('p[name=price_per_student]').empty().append(response.pricePerStudent);
-                $('p[name=training_description]').empty().append(response.trainingDescription);
+                $('p[name=training_description]').empty().append(response.description);
+
             },
             error: function (jqXhr) {
-                //Error alert
                 $('#errorStudent').fadeIn(400).delay(6000).fadeOut(400);
             },
-        })
+        });
     });
 
     //****************getMyTrainings******************************
@@ -126,7 +125,7 @@ $(document).ready(function () {
                         '<td>' + training.subject + '</td>' +
                         '<td>' + new Date(training.startDatetime.substring(0, 19)).toLocaleString() + '</td>' +
                         '<td>' + new Date(training.endDatetime.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" id="MonCours" data-toggle="modal" data-target="#myModalDisplayMyTraining"><i class="fas fa-eye"></i> Afficher</button></td>' +
+                        '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" id="MonCours" data-toggle="modal" data-target="#myModalDisplayMyTraining"><i class="fas fa-eye"></i>Afficher</button></td>' +
                         '</tr>');
                 });
                 $('#tabstudents').DataTable({
@@ -138,7 +137,7 @@ $(document).ready(function () {
                     "autoWidth": false,
                     "responsive": true,
                     "language": {
-                        "url": "vendor/datatable.french.json"
+                        "url": "../vendor/datatable.french.json"
                     }
                 });
             },
@@ -196,7 +195,7 @@ $(document).ready(function () {
 
     //****************subscribeTraining******************************
 
-    $(document).on('click', ".btn-primary", function (e) {
+    $(document).on('click', ".subscribe", function (e) {
         e.preventDefault();
         console.log($(this).attr('id'));
         var data = {};
@@ -226,8 +225,8 @@ $(document).ready(function () {
 
 
 
-    //****************updateCurrentUser***************************
-    $(document).ready(function (e) {
+    //**************** updateCurrentUser ***************************
+    $('#account-tab').click(function (e) {
         e.preventDefault();
 
         $.ajax({
@@ -238,9 +237,7 @@ $(document).ready(function () {
             headers: {
                 Authorization: `Bearer ${ token }`
             },
-
             success: function (response) {
-
                 $("input[name=myEmail]").val(response.email);
                 $('input[name=myLastname]').val(response.lastname);
                 $('input[name=myFirstname]').val(response.firstname);
@@ -248,14 +245,12 @@ $(document).ready(function () {
                 $('input[name=myAddress]').val(response.address);
                 $('input[name=myPostcode]').val(response.postcode);
                 $('input[name=myCity]').val(response.city);
-
             },
             error: function (jqXhr) {
                 $('#errorStudent').fadeIn(400).delay(6000).fadeOut(400);
             },
         })
     });
-
     $("#submit_up").click(function (e) {
         e.preventDefault();
         data = {
@@ -267,7 +262,6 @@ $(document).ready(function () {
             "postcode": $('input[name=myPostcode]').val(),
             "city": $('input[name=myCity]').val()
         }
-
         $.ajax({
             url: BACKEND_URL + 'user/updateCurrentUser',
             type: 'PUT',
@@ -331,3 +325,51 @@ $(document).ready(function () {
         }
     });
 });
+
+//******************************************************************************
+//********************************* FUNCTION ***********************************
+//******************************************************************************
+
+//**************** refresh function ********************
+function RefreshTab() {
+
+    $.ajax({
+        url: BACKEND_URL + 'student/getMyTrainings',
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+        success: function (response) {
+            console.log("success");
+
+            $("#students").empty();
+            $.each(response, function (i, training) {
+                $("#students").append('<tr>' +
+                    '<td>' + training.subject + '</td>' +
+                    '<td>' + new Date(training.startDatetime.substring(0, 19)).toLocaleString() + '</td>' +
+                    '<td>' + new Date(training.endDatetime.substring(0, 19)).toLocaleString() + '</td>' +
+                    '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" id="MonCours" data-toggle="modal" data-target="#myModalDisplayMyTraining"><i class="fas fa-eye"></i> Afficher</button></td>' +
+                    '</tr>');
+            });
+            $('#tabstudents').DataTable({
+                "retrieve": true,
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "url": "../vendor/datatable.french.json"
+                }
+            });
+        },
+        error: function (jqxhr) {
+            $('#errorStudent').fadeIn();
+            $('#errorStudent').delay(6000).fadeOut();
+        },
+    });
+}
