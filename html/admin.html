@@ -85,9 +85,6 @@
         </form>
       </div>
       <br>
-      <div class="alertAddTraining">
-        <!-- Success or fail -->
-      </div>
     </div>
     <!-- /.card-body -->
 
@@ -179,9 +176,32 @@
     <!-- /.card-body -->
   </div>
   <!-- /.card -->
-  <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="contact-tab">
-    <p>En construction</p>
-  </div>
+
+	<!-- Calendar -->
+	<div class="card tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="calendar-tab">
+		<br>
+		<br>
+		<br>
+		<div id="calendar"></div>
+		<div id="calendarModal" class="modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 id="modalTitle" class="modal-title" style="position: relative; top: 0px; left: 0px;"></h4>
+					</div>
+					<div id="modalBody" class="modal-body">
+						<p id="eventStart"></p>
+						<p id="eventEnd"></p>
+						<p id="eventDescription"></p>
+						<p id="eventType"></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
   
   <!-- Formulaire UpdateProfil -->
   <div class="card tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
@@ -226,9 +246,6 @@
         </div>
       </div>
       <br>
-      <div class="alertMessage">
-        <!-- alert -->
-      </div>
     </form>
   </div>
 
@@ -276,9 +293,6 @@
         </div>
       </div>  
       <br>
-      <div class="alertUpdateMessage">
-        <!-- alert success or fail -->
-      </div>
     </form>
   </div>
 </section>
@@ -362,9 +376,6 @@
                 </div>
               </form>
             </div>
-            <div class="alertUpdateTraining">
-              <!-- Success or fail -->
-            </div>
           </div>
         </div>
       </div>
@@ -395,9 +406,6 @@
                     </br>
                   </div>
                 </form>
-              </div>
-              <div class="alertMessage">
-                <!-- Success or fail -->
               </div>
             </div>
           </div>
@@ -444,10 +452,6 @@
                       type="submit">Mettre à jour</button>
                   </div>
                 </form>
-
-              </div>
-              <div class="alertUpdateUser">
-                <!-- Success or fail -->
               </div>
             </div>
           </div>

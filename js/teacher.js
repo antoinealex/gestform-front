@@ -8,17 +8,17 @@ $(document).ready(function(){
     $('#TrainingMenu').append('\
         <a class="nav-link active" id="training-tab" data-toggle="tab" href="#MyTrainings" role="tab" aria-controls="training" aria-selected="true">\
             <i class="fas fa-school nav-icon"></i>\
-            <p>Cours</p>\
+            <p>Mes cours</p>\
         </a>\
     ');
     $('#UserMenu').append('\
         <a class="nav-link" id="user-tab" data-toggle="tab" href="#MyStudents" role="tab" aria-controls="user" aria-selected="false">\
             <i class="fas fa-users nav-icon"></i>\
-            <p>Utilisateurs</p>\
+            <p>Mes élèves</p>\
         </a>\
     ');
     $('#CalendarMenu').append('\
-        <a class="nav-link" id="calendar-tab" data-toggle="tab" href="#calendar" role="tab" aria-controls="calendar" aria-selected="false">\
+        <a class="nav-link" id="calendar-tab" data-toggle="tab" href="#calendrier" role="tab" aria-controls="calendrier" aria-selected="false">\
             <i class="fas fa-calendar nav-icon"></i>\
             <p>Calendrier</p>\
         </a>\
@@ -60,7 +60,7 @@ $(document).ready(function () {
                     "autoWidth": false,
                     "responsive": true,
                     "language": {
-                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                        "url": "../vendor/datatable.french.json"
                     }
                 });
             },
@@ -130,19 +130,6 @@ $(document).ready(function () {
                                     '<td>' + student.lastname + '</td>' +
                                     '<td>' + response.subject + '</td>' +
                                     '</tr>')
-                            });
-                            $('#tabstudents').DataTable({
-                                "retrieve": true,
-                                "paging": true,
-                                "lengthChange": true,
-                                "searching": true,
-                                "ordering": true,
-                                "info": true,
-                                "autoWidth": false,
-                                "responsive": true,
-                                "language": {
-                                    "url": "vendor/datatable.french.json"
-                                }
                             });
                         },
                         error: function (jqxhr) {
@@ -245,7 +232,7 @@ $(document).ready(function () {
                         "maxStudent": $('input[name=editMax_student]').val(),
                         "pricePerStudent": $('input[name=editPrice_per_student]').val(),
                         "trainingDescription": $('input[name=editTraining_description]').val(),
-                        "subject": $('input[name=start_training]').val()
+                        "subject": $('input[name=editSubject]').val()
                     };
 
                     $.ajax({
@@ -401,7 +388,7 @@ function RefreshTab() {
         },
         success: function (response) {
             console.log("success");
-            //$("#cours").empty();
+            $("#cours").empty();
             $.each(response, function (i, training) {
                 $("#cours").append('<tr>' +
                     '<td>' + training.subject + '</td>' +
@@ -420,7 +407,7 @@ function RefreshTab() {
                 "autoWidth": false,
                 "responsive": true,
                 "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    "url": "../vendor/datatable.french.json"
                 }
             });
         },

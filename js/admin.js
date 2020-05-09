@@ -17,7 +17,7 @@ $(document).ready(function(){
         </a>\
     ');
     $('#CalendarMenu').append('\
-        <a class="nav-link" id="calendar-tab" data-toggle="tab" href="#calendar" role="tab" aria-controls="calendar" aria-selected="false">\
+        <a class="nav-link" id="calendar-tab" data-toggle="tab" href="#calendrier" role="tab" aria-controls="calendrier" aria-selected="false">\
             <i class="fas fa-calendar nav-icon"></i>\
             <p>Calendrier</p>\
         </a>\
@@ -74,7 +74,7 @@ $(document).ready(function (){
             "autoWidth": false,
             "responsive": true,
             "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                "url": "../vendor/datatable.french.json"
             }
         });
         },
@@ -132,7 +132,7 @@ $(document).ready(function (){
             "autoWidth": false,
             "responsive": true,
             "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                "url": "../vendor/datatable.french.json"
             }
         });
         },
@@ -591,21 +591,18 @@ $("#submit_mdp").click(function (e) {
 
             success: function () {
                 //Success alert
-                $('#successAdmin').fadeIn(400);
-                $('#successAdmin').delay(6000).fadeOut(400);
+                $('#successAdmin').fadeIn(400).delay(6000).fadeOut(400);
                 //clear fields
                 $("#oldpassword").val("");
                 $("#newpassword").val("");
             },
             error: function (jqXhr) {
                 //Error alert
-                $('#errorAdmin').fadeIn(400);
-                $('#errorAdmin').delay(6000).fadeOut(400);
+                $('#errorAdmin').fadeIn(400).delay(6000).fadeOut(400);
                 //clear fields
                 $("#oldpassword").val("");
                 $("#newpassword").val("");
                 console.log(jqXhr.responseText);
-                location.reload(true);
             },
         });
     }
@@ -679,6 +676,7 @@ $(document).on('click',".deleteUser", function (){
 //********************************* FUNCTION ***********************************
 //******************************************************************************
 
+//**************** refresh function ********************
 function refreshUser() {
     $.ajax({
         url: BACKEND_URL + "admin/getAllUser",
@@ -690,6 +688,7 @@ function refreshUser() {
         },
         success: function (user) {
             console.log("success GET")
+            $('#userList').empty();
             $.each(user, function (i, user) {
                 $('#userList').append('\
                     <tr>\
@@ -710,6 +709,19 @@ function refreshUser() {
                     </tr>\
                 ')
             });
+            $('#showUser').DataTable({
+                "retrieve": true,
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "url": "../vendor/datatable.french.json"
+                }
+            });
         },
         error : function( jqXHR, textStatus, errorThrown ){
             alert( textStatus, errorThrown );
@@ -719,6 +731,7 @@ function refreshUser() {
         }
     });
 }
+
 
 function refreshTraining() {
     $(document).ready(function (){
@@ -733,6 +746,7 @@ function refreshTraining() {
             },
             success: function (training) {
                 console.log("success GET")
+                $('#trainingList').empty();
                 $.each(training, function (i, training) {
 
                     var start = training.startTraining;
@@ -758,6 +772,19 @@ function refreshTraining() {
                         </td>\
                     </tr>\
                     ')
+                });
+                $('#showTraining').DataTable({
+                    "retrieve": true,
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "language": {
+                        "url": "../vendor/datatable.french.json"
+                    }
                 });
             },
             error : function( jqXHR, textStatus, errorThrown ){
