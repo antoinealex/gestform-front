@@ -51,6 +51,7 @@ function login(callback) {
                 error: function (jqXhr) {
                     $("#logpending").fadeOut();
                     $("#logerror").fadeIn();
+                    $("#myLoader").hide();
                 },
             });
         }
