@@ -29,6 +29,8 @@
 	<link href='vendor/fontawesome.all.css' rel='stylesheet'>
 	<link rel="stylesheet" href="vendor/fullcalendar/bootstrap/main.css">
 	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="loader.css">
+
 	<!-- Loading script file -->
 	<script src="vendor/jquery-3.4.1.min.js"></script>
 	<script src="vendor/jquery-ui.js"></script>
@@ -44,6 +46,8 @@
 	<script src="vendor/fullcalendar/list/main.js"></script>
 	<script src="vendor/fullcalendar/interaction/main.js"></script>
 	<script src="js/init.js"></script>
+
+
 
 </head>
 
@@ -68,13 +72,22 @@
 		</header>
 	</div>
 
+	<div class="container" id="myLoader">
+		<div class="loader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+
 	<main class="main-content">
 		<div class="fullwidth-block">
 			<div class="container">
 				<div class="row">
-					<div id="loader" style="display: none">
-						<img src="images/loading.gif">
-					</div>
+<!--					<div id="loader" style="display: none">-->
+<!--						<img src="images/loading.gif">-->
+<!--					</div>-->
 					<div id="loginInterface" class="col-md-4 offset-4">
 						<!--LOGIN FORM WILL BE DISPLAYED HERE IF REQUIRED-->
 					</div>
@@ -84,45 +97,11 @@
 				</div> <!-- .row -->
 			</div>
 		</div> <!-- .fullwidth-block -->
-
 	</main>
-
-	<footer class="site-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5">
-					<div class="widget">
-						<h3 class="widget-title">Contactez nous</h3>
-						<address>You Stud' <br>25 rue de Lille <br>59200 tourcoing</address>
-
-						<a href="mailto:contact@you-stud.fr">contact@you-stud.fr</a> <br>
-						<a href="tel:07 70 51 26 85">07 70 51 26 85</a>
-					</div>
-				</div>
-				<div class="col-md-5">
-					<div class="widget">
-						<h3 class="widget-title">Rejoignez-nous</h3>
-						<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-						<div class="social-links circle">
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<!-- <a href="#"><i class="fa fa-google-plus"></i></a>
-								<a href="#"><i class="fa fa-twitter"></i></a>
-								<a href="#"><i class="fa fa-pinterest"></i></a> -->
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="copy">Copyright 2020 You Stud. All rights reserved.</div>
-		</div>
-
-	</footer>
-
-
 
 	<script src="js/plugins.js"></script>
 	<script src="js/app.js"></script>
-	<script src="js/security.js"></script> 
+	<script src="js/security.js"></script>
 
 </body>
 
