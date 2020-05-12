@@ -622,7 +622,7 @@ $("#submit_mdp").click(function (e) {
                 //Success alert
                 $('#successAdmin').fadeIn(400);
                 $('#successAdmin').delay(6000).fadeOut(400);
-                
+
                 $("#oldpassword").val("");
                 $("#newpassword").val("");
                 // closing Modal
@@ -633,12 +633,9 @@ $("#submit_mdp").click(function (e) {
                 //Error alert
                 $('#errorAdmin').fadeIn(400);
                 $('#errorAdmin').delay(6000).fadeOut(400);
-<<<<<<< HEAD
-=======
-                
+
                 $("#oldpassword").val("");
                 $("#newpassword").val("");
->>>>>>> 99af4520a0854da3ea94b3d1763afe41455145fd
             },
         });
     }
