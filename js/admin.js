@@ -725,7 +725,7 @@ $(document).on('click', "[id$=_excel]", function (e) {
             Authorization: `Bearer ${ token }`
         },
         success: function (response) {
-            location.href = "http://gestform/" + response.filename;
+            location.href = BACKEND_URL + response.filename;
             //Success alert
             $('#successAdmin').fadeIn(400);
             $('#successAdmin').delay(6000).fadeOut(400);
@@ -757,7 +757,7 @@ $(document).on('click', "[id$=_pdf]", function (e) {
             Authorization: `Bearer ${ token }`
         },
         success: function (response) {
-            location.href = "http://gestform/" + response.filename;
+            location.href = BACKEND_URL + response.filename;
             //Success alert
             $('#successAdmin').fadeIn(400);
             $('#successAdmin').delay(6000).fadeOut(400);

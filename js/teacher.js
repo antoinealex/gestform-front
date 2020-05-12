@@ -430,7 +430,7 @@ $(document).ready(function () {
                 Authorization: `Bearer ${ token }`
             },
             success: function (response) {
-                location.href = "http://gestform/" + response.filename;
+                location.href = BACKEND_URL + response.filename;
                 //Success alert
                 $('#successTeacher').fadeIn(400);
                 $('#successTeacher').delay(6000).fadeOut(400);
@@ -462,7 +462,7 @@ $(document).ready(function () {
                 Authorization: `Bearer ${ token }`
             },
             success: function (response) {
-                location.href = "http://gestform/" + response.filename;
+                location.href = BACKEND_URL + response.filename;
                 //Success alert
                 $('#successTeacher').fadeIn(400);
                 $('#successTeacher').delay(6000).fadeOut(400);
