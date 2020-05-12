@@ -55,7 +55,7 @@ $(document).ready(function () {
                 "autoWidth": false,
                 "responsive": true,
                 "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    "url": "vendor/datatable.french.json"
                 }
             });
         },
@@ -113,7 +113,7 @@ $(document).ready(function () {
                 "autoWidth": false,
                 "responsive": true,
                 "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    "url": "vendor/datatable.french.json"
                 }
             });
         },
@@ -598,7 +598,8 @@ $("#submit_mdp").click(function (e) {
         $("#newpassword").after('<span style="color:red"> Merci de remplir ce champ !</span>');
     } else if (!$("#newpassword").val().match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
         $("#newpassword").after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
-
+        $("#oldpassword").val("");
+        $("#newpassword").val("");
     } else {
 
         data = {
@@ -621,6 +622,9 @@ $("#submit_mdp").click(function (e) {
                 //Success alert
                 $('#successAdmin').fadeIn(400);
                 $('#successAdmin').delay(6000).fadeOut(400);
+                
+                $("#oldpassword").val("");
+                $("#newpassword").val("");
                 // closing Modal
                 $('#modalUpPassClose').trigger('click');
             },
@@ -629,6 +633,12 @@ $("#submit_mdp").click(function (e) {
                 //Error alert
                 $('#errorAdmin').fadeIn(400);
                 $('#errorAdmin').delay(6000).fadeOut(400);
+<<<<<<< HEAD
+=======
+                
+                $("#oldpassword").val("");
+                $("#newpassword").val("");
+>>>>>>> 99af4520a0854da3ea94b3d1763afe41455145fd
             },
         });
     }
@@ -812,7 +822,7 @@ function refreshUser() {
                 "autoWidth": false,
                 "responsive": true,
                 "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                    "url": "vendor/datatable.french.json"
                 }
             });
         },
@@ -876,7 +886,7 @@ function refreshTraining() {
                     "autoWidth": false,
                     "responsive": true,
                     "language": {
-                        "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                        "url": "vendor/datatable.french.json"
                     }
                 });
             },

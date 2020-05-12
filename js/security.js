@@ -4,6 +4,7 @@
 
 function login(callback) {
     $("#submitLogin").click(function (e) {
+        $("#myLoader").show();
         e.preventDefault();
         var data = {};
         data['email'] = $('input[name = email]').val(); //Recuperation des données formulaire connexion
@@ -13,7 +14,8 @@ function login(callback) {
         } else {
             $("#credsMissing").fadeOut();
             $("#logerror").fadeOut();
-            $("#logpending").show();
+            $()
+            // $("#logpending").show();
             $.ajax({
                 url: BACKEND_URL + 'security/login_check', //Request
                 type: 'POST',
@@ -49,6 +51,7 @@ function login(callback) {
                 error: function (jqXhr) {
                     $("#logpending").fadeOut();
                     $("#logerror").fadeIn();
+                    $("#myLoader").hide();
                 },
             });
         }
@@ -68,6 +71,5 @@ function logout(){
         success : function(){
             //location.href = "index.html";
         }
-
     });
 }
