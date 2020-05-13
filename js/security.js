@@ -71,3 +71,73 @@ function logout(){
 
     });
 }
+
+//***********************************************************************
+//*********************** FORGOT PASSWORD *******************************
+//***********************************************************************
+function forgotpassword(callback) {
+    $("#sendEmail").click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: BACKEND_URL + 'security/forgotpassword', //Request
+            type: 'POST',
+            processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+            data: "email=" + $('input[name = myEmail]').val(),
+            success: function () {
+                $("#emailsuccess").fadeIn();
+                $("#sendEmailInterface").fadeOut();
+                $("#loginInterface").fadeIn();
+
+            },
+            error: function (jqXhr) {
+                $("#emailpending").fadeOut();
+                $("#emailerror").fadeIn();
+                console.log(data);
+            },
+        });
+    });
+}
+
+//***********************************************************************
+//*********************** RESET PASSWORD ********************************
+//***********************************************************************
+$("#submitReset").click(function (e) {
+    e.preventDefault();
+    //récupérer le token dans l'url
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var token = urlParams.get('resetpassword?token');
+
+    var password = $('input[name = newPassword]').val();
+    var confirmPassword = $('input[name = ConfirmNewPassword]').val();
+    
+    //Regex pour formater le mot de passe
+    if (password == confirmPassword) {
+        if (password.length === 0) {
+            password.after('<span style="color:red"> Merci de remplir ce champ !</span>');
+        } else if (!password.match(/^(?=.*[a-z])(?=.*[0-9]).{6,}$/i)) { //Regex=> 6 caractéres au moins une lettre et un chiffre
+            password.after('<span style="color:red"> 6 caractéres minimum dont un [a-b] et un [0-9] !</span>');
+        } else {
+            $("#passwordpending").show();
+            $.ajax({
+                url: BACKEND_URL + 'security/resetPassword', //Request
+                type: 'POST',
+                processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+                data: "token=" + token + "&password=" + password,
+                success: function () {
+                    window.location.replace("index.html");
+                },
+                error: function (jqXhr) {
+                    $("#passwordpending").fadeOut();
+                    $("#passworderror").fadeIn();
+                    $("#newPassword").val("");
+                    $("#ConfirmNewPassword").val("");
+                    console.log(data);
+                },
+            });
+        }
+    } else {
+        $("#credsMissingPass").fadeIn();
+    }
+});
