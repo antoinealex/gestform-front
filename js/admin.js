@@ -4,25 +4,25 @@ var token = localStorage.getItem('MonToken');
 //*****************************************************************************
 
 //****************getAllTraining********************
-$(document).ready(function () {
+$(document).ready(function (){
 
-    $.ajax({
-        url: BACKEND_URL + "training/getAllTraining",
-        type: 'GET',
-        datatype: 'JSON',
-        contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-        success: function (training) {
-            console.log("success GET")
-            $('#trainingList').empty();
-            $.each(training, function (i, training) {
+        $.ajax({
+            url: BACKEND_URL + "training/getAllTraining",
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function (training) {
+                console.log("success GET")
+                $('#trainingList').empty();
+                $.each(training, function (i, training) {
 
-                var start = training.startTraining;
-                var end = training.endTraining;
+                    var start = training.startTraining;
+                    var end = training.endTraining;
 
-                $('#trainingList').append('\
+                    $('#trainingList').append('\
                     <tr>\
                         <td>' + training.id + '</td>\
                         <td>' + training.subject + '</td>\
@@ -41,10 +41,8 @@ $(document).ready(function () {
                         </button>\
                         </td>\
                     </tr>\
-                ');
-
+                ')
             });
-
             $('#showTraining').DataTable({
                 "retrieve": true,
                 "paging": true,
@@ -59,32 +57,32 @@ $(document).ready(function () {
                 }
             });
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus, errorThrown);
+        error : function( jqXHR, textStatus, errorThrown ){
+            alert( textStatus, errorThrown );
         },
-        complete: function (jqXHR, textStatus) {
-            console.log(textStatus);
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
         }
     });
 });
 
 
 //****************getAllUser********************
-$(document).ready(function () {
+$(document).ready(function (){
 
-    $.ajax({
-        url: BACKEND_URL + "admin/getAllUser",
-        type: 'GET',
-        datatype: 'JSON',
-        contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-        success: function (user) {
-            console.log("success GET")
-            $('#userList').empty();
-            $.each(user, function (i, user) {
-                $('#userList').append('\
+        $.ajax({
+            url: BACKEND_URL + "admin/getAllUser",
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function (user) {
+                console.log("success GET")
+                $('#userList').empty();
+                $.each(user, function (i, user) {
+                    $('#userList').append('\
                     <tr>\
                         <td>' + user.id + '</td>\
                         <td>' + user.firstname + ' ' + user.lastname + '</td>\
@@ -101,7 +99,7 @@ $(document).ready(function () {
                         </button>\
                         </td>\
                     </tr>\
-                ');
+                ')
             });
             $('#showUser').DataTable({
                 "retrieve": true,
@@ -117,30 +115,28 @@ $(document).ready(function () {
                 }
             });
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus, errorThrown);
+        error : function( jqXHR, textStatus, errorThrown ){
+            alert( textStatus, errorThrown );
         },
-        complete: function (jqXHR, textStatus) {
-            console.log(textStatus);
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
         }
     });
 });
 
 //****************getTrainingById********************
-$(document).on('click', ".getTraining", function () {
-    event.preventDefault();
-    var id = $(this).attr('id');
+$(document).on('click',".getTraining", function (){
+event.preventDefault();
+var id = $(this).attr('id');
 
     $.ajax({
         url: BACKEND_URL + "training/getTrainingById?id=" + id,
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-
-        success: function (training) {
+        headers: { Authorization: `Bearer ${ token }`},
+        
+        success: function(training) {
             console.log(id);
             $("p[name=teacher_id]").empty().append(training.teacher["firstname"] + " " + training.teacher["lastname"]);
             $('p[name=start_training]').empty().append(new Date(training.startTraining.substring(0, 19)).toLocaleString());
@@ -152,37 +148,29 @@ $(document).on('click', ".getTraining", function () {
             // $.each(training, function(i, student){
             //     $('p[name=student_list]').empty().append(student.participants['fistname'])
             // })
-
-            //Ajout bouton exports dans la modal
-            $("#myModalGetTrainingExport").empty().append('<button id=' + id + "_excel" + ' type="button" class="btn btn-success btn-sm">' +
-                '<i class="fa fa-download"></i>EXCEL</button>' + '  ' +
-                '<button id=' + id + "_pdf" + ' type="button" class="btn btn-danger btn-sm">' +
-                '<i class="fa fa-download"></i>PDF</button>');
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus, errorThrown);
+        error : function( jqXHR, textStatus, errorThrown ){
+            alert( textStatus, errorThrown );
         },
-        complete: function (jqXHR, textStatus) {
-            console.log(textStatus);
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
         }
     });
 });
 
 //****************getUSerById********************
-$(document).on('click', ".getUser", function () {
-    event.preventDefault();
-    var id = $(this).attr('id');
+$(document).on('click',".getUser", function (){
+event.preventDefault();
+var id = $(this).attr('id');
 
     $.ajax({
         url: BACKEND_URL + "admin/getUserByID?id=" + id,
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-
-        success: function (user) {
+        headers: { Authorization: `Bearer ${ token }`},
+        
+        success: function(user) {
             console.log(id);
             $("p[name=nom]").empty().append(user.firstname + " " + user.lastname);
             $('p[name=role]').empty().append(user.roles[0]);
@@ -190,11 +178,11 @@ $(document).on('click', ".getUser", function () {
             $('p[name=phone]').empty().append(user.phone);
             $('p[name=adress]').empty().append(user.address + " " + user.city + " " + user.postcode);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus, errorThrown);
+        error : function( jqXHR, textStatus, errorThrown ){
+            alert( textStatus, errorThrown );
         },
-        complete: function (jqXHR, textStatus) {
-            console.log(textStatus);
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
         }
     });
 });
@@ -205,39 +193,35 @@ $(document).on('click', ".getUser", function () {
 
 //****************addTraining********************
 
-$("#addNewTraining").click(function () {
-
+$("#addNewTraining").click(function (){
+    
     //récupération des teachers
     $.ajax({
         url: BACKEND_URL + "admin/getAllUser",
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-        success: function (user) {
+        headers: { Authorization: `Bearer ${ token }`},
+        success: function(user){
             console.log("success GET")
-            $.each(user, function (i, user) {
+            $.each(user, function(i, user){
                 if (user.roles[0] === "ROLE_TEACHER") {
                     $('select[name=addTeacher]').append('\
                     <option name="newTeacher" value="' + user.id + '">' + user.firstname + ' ' + user.lastname + '</option>\
                     ')
-                }
-            });
-        }
-    });
-    //POST
-    $("#submit_t").click(function () {
-        event.preventDefault();
-        data = {};
+                    }
+                });
+            }
+        });
+        //POST
+        $("#submit_t").click(function () {
+            event.preventDefault();
+            data = {};
 
         $.ajax({
             url: BACKEND_URL + "training/addTraining",
             type: 'POST',
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
+            headers: { Authorization: `Bearer ${ token }`},
             data: {
                 teacher_id: $('select[name=addTeacher]').val(),
                 start_training: $('input[name=addStart_training]').val(),
@@ -247,33 +231,33 @@ $("#addNewTraining").click(function () {
                 training_description: $('input[name=addTraining_description]').val(),
                 subject: $('input[name=addSubject]').val()
             },
-            success: function () {
+            success: function(){
                 //Success alert
                 $('#successAdmin').fadeIn(400);
-                $('#successAdmin').delay(6000).fadeOut(400);
+                $('#successAdmin').delay(6000).fadeOut(400);  
                 // Replace tab
                 $('#showTraining').DataTable().destroy();
                 refreshTraining();
                 //close modal
                 $('#modalAddTrClose').trigger('click');
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
+            error : function( jqXHR, textStatus, errorThrown ){
+                console.log( textStatus, errorThrown );
                 //Error alert
                 $('#errorAdmin').fadeIn(400);
-                $('#errorAdmin').delay(6000).fadeOut(400);
+                $('#errorAdmin').delay(6000).fadeOut(400);  
             },
-            complete: function (jqXHR, textStatus) {
-                console.log(textStatus);
+            complete : function( jqXHR, textStatus ){
+                console.log( textStatus );
             }
         });
     });
 });
 
 //****************addUser********************
-$("#submit_s").click(function () {
-    event.preventDefault();
-    $("span[style^='color:red']").empty();
+$("#submit_s").click(function (){
+event.preventDefault();
+$("span[style^='color:red']").empty();
     if ($("#email").val().length === 0) {
         $("#email").after('<span style="color:red"> Merci de remplir ce champ !</span>');
     } else if (!$("#email").val().match(/^[a-zA-Z0-9\.\-_]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}$/i)) { //Regex validation mail
@@ -289,9 +273,7 @@ $("#submit_s").click(function () {
         $.ajax({
             url: BACKEND_URL + "admin/createUser",
             type: 'POST',
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
+            headers: { Authorization: `Bearer ${ token }`},
             data: {
                 email: $('input[name=addEmail]').val(),
                 roles: $('select[name=addRoles]').val(),
@@ -303,7 +285,7 @@ $("#submit_s").click(function () {
                 postcode: $('input[name=addPostcode]').val(),
                 city: $('input[name=addCity]').val()
             },
-            success: function () {
+            success: function(){
                 //Success alert
                 $('#successAdmin').fadeIn(400);
                 $('#successAdmin').delay(6000).fadeOut(400);
@@ -314,14 +296,14 @@ $("#submit_s").click(function () {
                 $('#modalAddUserClose').trigger('click');
 
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
+            error : function( jqXHR, textStatus, errorThrown ){
+                console.log( textStatus, errorThrown );
                 //Error alert
                 $('#errorAdmin').fadeIn(400);
                 $('#errorAdmin').delay(6000).fadeOut(400);
             },
-            complete: function (jqXHR, textStatus) {
-                console.log(textStatus);
+            complete : function( jqXHR, textStatus ){
+                console.log( textStatus );
             }
         });
     }
@@ -333,45 +315,45 @@ $("#submit_s").click(function () {
 
 //****************updateTraining********************
 
-$(document).on('click', ".updateTraining", function () {
-    event.preventDefault();
-    var id = $(this).attr('id');
+$(document).on('click',".updateTraining", function (){
+event.preventDefault();
+var id = $(this).attr('id');
 
-    $.ajax({
-        url: BACKEND_URL + "training/getTrainingById?id=" + id,
-        type: 'GET',
-        datatype: 'JSON',
-        contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
+        $.ajax({
+            url: BACKEND_URL + "training/getTrainingById?id=" + id,
+            type: 'GET',
+            datatype: 'JSON',
+            contentType: "application/json",
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
 
-        success: function (training) {
-            console.log(id);
-            //Formater la date
-            var chnStart = training.startTraining;
-            var start = chnStart.substring(0, 19);
-            var chnEnd = training.endTraining;
-            var end = chnEnd.substring(0, 19);
+            success: function (training) {
+                console.log(id);
+                //Formater la date
+                var chnStart = training.startTraining;
+                var start = chnStart.substring(0, 19);
+                var chnEnd = training.endTraining;
+                var end = chnEnd.substring(0, 19);
 
-            $('input[name=editTrainingId]').val(training.id)
-            $('select[name=teacherSelect]').empty().append('\
+                $('input[name=editTrainingId]').val(training.id)
+                $('select[name=teacherSelect]').empty().append('\
             <option name="teacher_name" value="' + training.teacher['id'] + '">' + training.teacher['firstname'] + ' ' + training.teacher['lastname'] + '</option>\
             ')
-            //Call ajax pour récupérer les teachers
-            $.ajax({
-                url: BACKEND_URL + "admin/getAllUser",
-                type: 'GET',
-                datatype: 'JSON',
-                contentType: "application/json",
-                headers: {
-                    Authorization: `Bearer ${ token }`
-                },
-                success: function (user) {
-                    console.log("success GET")
-                    $.each(user, function (i, user) {
-                        if (user.roles[0] === "ROLE_TEACHER") {
-                            $('select[name=teacherSelect]').append('\
+                //Call ajax pour récupérer les teachers
+                $.ajax({
+                    url: BACKEND_URL + "admin/getAllUser",
+                    type: 'GET',
+                    datatype: 'JSON',
+                    contentType: "application/json",
+                    headers: {
+                        Authorization: `Bearer ${ token }`
+                    },
+                    success: function (user) {
+                        console.log("success GET")
+                        $.each(user, function (i, user) {
+                            if (user.roles[0] === "ROLE_TEACHER") {
+                                $('select[name=teacherSelect]').append('\
                             <option name="teacher_name" value="' + user.id + '">' + user.firstname + ' ' + user.lastname + '</option>\
                             ')
                         }
@@ -385,14 +367,14 @@ $(document).on('click', ".updateTraining", function () {
             $('input[name=editTraining_description]').val(training.trainingDescription);
             $('input[name=editSubject]').val(training.subject);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus, errorThrown);
+        error : function( jqXHR, textStatus, errorThrown ){
+            alert( textStatus, errorThrown );
         },
-        complete: function (jqXHR, textStatus) {
-            console.log(textStatus);
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
         }
     });
-    $("#formU").on('click', "#submit_u", function () {
+    $("#formU").on('click',"#submit_u", function (){
         event.preventDefault();
         var trainingData = {
             id: $('input[name=editTrainingId]').val(),
@@ -411,26 +393,24 @@ $(document).on('click', ".updateTraining", function () {
             dataType: 'json', //text
             contentType: "application/json",
             processData: false,
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
+            headers: { Authorization: `Bearer ${ token }`},
             data: JSON.stringify(trainingData),
-            success: function () {
+            success: function(){
                 //Success alert
                 $('#successAdmin').fadeIn(400);
-                $('#successAdmin').delay(6000).fadeOut(400);
+                $('#successAdmin').delay(6000).fadeOut(400);          
                 // Replace tab
                 $('#showTraining').DataTable().destroy();
                 refreshTraining();
                 // closing Modal
                 $('#modalUpTrClose').trigger('click');
-
+                
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
+            error : function( jqXHR, textStatus, errorThrown ){
+                console.log( textStatus, errorThrown );
                 //Error alert
                 $('#errorAdmin').fadeIn(400);
-                $('#errorAdmin').delay(6000).fadeOut(400);
+                $('#errorAdmin').delay(6000).fadeOut(400);   
             },
             complete: function (jqXHR, textStatus) {
                 console.log(textStatus);
@@ -441,20 +421,18 @@ $(document).on('click', ".updateTraining", function () {
 
 //****************updateUser********************
 
-$(document).on('click', ".updateUser", function () {
-    event.preventDefault();
-    var id = $(this).attr('id');
+$(document).on('click',".updateUser", function (){
+event.preventDefault();
+var id = $(this).attr('id');
 
     $.ajax({
         url: BACKEND_URL + "admin/getUserByID?id=" + id,
         type: 'GET',
         datatype: 'JSON',
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-
-        success: function (user) {
+        headers: { Authorization: `Bearer ${ token }`},
+        
+        success: function(user) {
             console.log(id);
 
             $('input[name=editUserId]').val(id)
@@ -467,14 +445,14 @@ $(document).on('click', ".updateUser", function () {
             $('input[name=editPostcode]').val(user.postcode);
             $('input[name=editCity]').val(user.city);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus, errorThrown);
+        error : function( jqXHR, textStatus, errorThrown ){
+            alert( textStatus, errorThrown );
         },
-        complete: function (jqXHR, textStatus) {
-            console.log(textStatus);
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
         }
     });
-    $("#formE").on('click', "#submit_e", function () {
+    $("#formE").on('click',"#submit_e", function (){
         event.preventDefault();
         var userData = {
             id: $('input[name=editUserId]').val(),
@@ -494,26 +472,24 @@ $(document).on('click', ".updateUser", function () {
             datatype: 'JSON',
             contentType: "application/json",
             processData: false,
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
+            headers: { Authorization: `Bearer ${ token }`},
             data: JSON.stringify(userData),
 
-            success: function () {
+            success: function(){
                 //Success alert
                 $('#successAdmin').fadeIn(400);
-                $('#successAdmin').delay(6000).fadeOut(400);
+                $('#successAdmin').delay(6000).fadeOut(400);   
                 // Replace tab
                 $('#showUser').DataTable().destroy();
                 refreshUser();
                 // closing Modal
                 $('#modalUpUserClose').trigger('click')
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
+            error : function( jqXHR, textStatus, errorThrown ){
+                console.log( textStatus, errorThrown );
                 //Error alert
                 $('#errorAdmin').fadeIn(400);
-                $('#errorAdmin').delay(6000).fadeOut(400);
+                $('#errorAdmin').delay(6000).fadeOut(400);   
             },
             complete: function (jqXHR, textStatus) {
                 console.log(textStatus);
@@ -524,7 +500,7 @@ $(document).on('click', ".updateUser", function () {
 
 //****************update currentUser ********************
 $("#modalUpdateProfil").click(function (e) {
-    e.preventDefault();
+e.preventDefault();
 
     $.ajax({
         url: BACKEND_URL + "user/getCurrentUser",
@@ -550,40 +526,40 @@ $("#modalUpdateProfil").click(function (e) {
 });
 
 $("#submit_up").click(function (e) {
-    e.preventDefault();
-    data = {
-        "email": $("input[name=myEmail]").val(),
-        "lastname": $('input[name=myLastname]').val(),
-        "firstname": $('input[name=myFirstname]').val(),
-        "phone": $('input[name=myPhone]').val(),
-        "address": $('input[name=myAddress]').val(),
-        "postcode": $('input[name=myPostcode]').val(),
-        "city": $('input[name=myCity]').val()
-    }
+e.preventDefault();
+data = {
+    "email": $("input[name=myEmail]").val(),
+    "lastname": $('input[name=myLastname]').val(),
+    "firstname": $('input[name=myFirstname]').val(),
+    "phone": $('input[name=myPhone]').val(),
+    "address": $('input[name=myAddress]').val(),
+    "postcode": $('input[name=myPostcode]').val(),
+    "city": $('input[name=myCity]').val()
+}
 
-    $.ajax({
-        url: BACKEND_URL + "user/updateCurrentUser",
-        type: 'PUT',
-        dataType: 'json', //type de données qu'on attend en réponse du serveur
-        contentType: "application/json",
-        processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
-        data: JSON.stringify(data),
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
+        $.ajax({
+            url: BACKEND_URL + "user/updateCurrentUser",
+            type: 'PUT',
+            dataType: 'json', //type de données qu'on attend en réponse du serveur
+            contentType: "application/json",
+            processData: false, //Définit à false permet d'eviter => application / x-www-form-urlencoded(par default)
+            data: JSON.stringify(data),
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
 
         success: function () {
-            //Success alert
-            $('#successAdmin').fadeIn(400);
-            $('#successAdmin').delay(6000).fadeOut(400);
-            // closing Modal
-            $('#modalUpProfilClose').trigger('click');
+                //Success alert
+                $('#successAdmin').fadeIn(400);
+                $('#successAdmin').delay(6000).fadeOut(400);
+                // closing Modal
+                $('#modalUpProfilClose').trigger('click');
         },
         error: function (jqXhr) {
             console.log(jqXhr.responseText);
             //Error alert
             $('#errorAdmin').fadeIn(400);
-            $('#errorAdmin').delay(6000).fadeOut(400);
+            $('#errorAdmin').delay(6000).fadeOut(400);  
         },
     });
 });
@@ -622,7 +598,7 @@ $("#submit_mdp").click(function (e) {
                 //Success alert
                 $('#successAdmin').fadeIn(400);
                 $('#successAdmin').delay(6000).fadeOut(400);
-
+                
                 $("#oldpassword").val("");
                 $("#newpassword").val("");
                 // closing Modal
@@ -633,7 +609,7 @@ $("#submit_mdp").click(function (e) {
                 //Error alert
                 $('#errorAdmin').fadeIn(400);
                 $('#errorAdmin').delay(6000).fadeOut(400);
-
+                
                 $("#oldpassword").val("");
                 $("#newpassword").val("");
             },
@@ -646,50 +622,46 @@ $("#submit_mdp").click(function (e) {
 //******************************************************************************
 
 //****************deleteTraining********************
-$(document).on('click', ".deleteTraining", function () {
+$(document).on('click',".deleteTraining", function (){
     event.preventDefault();
-
+    
     $(this).text('Chargement');
     $.ajax({
         url: BACKEND_URL + "admin/deleteTraining?id=" + $(this).attr('id'),
         type: 'DELETE',
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-
-        success: function (response) {
+        headers: { Authorization: `Bearer ${ token }`},
+        
+        success: function(response) {
             //Success alert
             $('#successAdmin').fadeIn(400);
             $('#successAdmin').delay(6000).fadeOut(400);
             // Replace tab
             $('#showTraining').DataTable().destroy();
-            refreshTraining();
+            refreshTraining(); 
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
+        error : function( jqXHR, textStatus, errorThrown ){
+            console.log( textStatus, errorThrown );
             //Error alert
             $('#errorAdmin').fadeIn(400);
             $('#errorAdmin').delay(6000).fadeOut(400);
         },
-        complete: function (jqXHR, textStatus) {
-            console.log(textStatus);
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
         }
     });
 });
 
 //****************deleteUser********************
-$(document).on('click', ".deleteUser", function () {
+$(document).on('click',".deleteUser", function (){
     event.preventDefault();
-
+    
     $(this).text('Chargement');
     $.ajax({
         url: BACKEND_URL + "admin/deleteUser?id=" + $(this).attr('id'),
         type: 'DELETE',
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-
-        success: function (response) {
+        headers: { Authorization: `Bearer ${ token }`},
+        
+        success: function(response) {
             //Success alert
             $('#successAdmin').fadeIn(400);
             $('#successAdmin').delay(6000).fadeOut(400);
@@ -697,77 +669,14 @@ $(document).on('click', ".deleteUser", function () {
             $('#showUser').DataTable().destroy();
             refreshUser();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error : function( jqXHR, textStatus, errorThrown ){
             //Error alert
             $('#errorAdmin').fadeIn(400);
             $('#errorAdmin').delay(6000).fadeOut(400);
-            console.log(textStatus, errorThrown);
+            console.log( textStatus, errorThrown );
         },
-        complete: function (jqXHR, textStatus) {
-            console.log(textStatus);
-        }
-    });
-});
-
-//****************Export to Excel********************
-
-$(document).on('click', "[id$=_excel]", function (e) {
-
-    e.preventDefault();
-    console.log("je suis ici");
-    var id = $(this).attr('id').replace("_excel", "");
-    console.log(id);
-
-    $.ajax({
-        url: BACKEND_URL + "exports/getTrainingStudents/excel?id=" + id,
-        type: 'GET',
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-        success: function (response) {
-            location.href = BACKEND_URL + response.filename;
-            //Success alert
-            $('#successAdmin').fadeIn(400);
-            $('#successAdmin').delay(6000).fadeOut(400);
-        },
-
-        error: function (jqXHR, textStatus, errorThrown) {
-            //Error alert
-            $('#errorAdmin').fadeIn(400);
-            $('#errorAdmin').delay(6000).fadeOut(400);
-            console.log(textStatus, errorThrown);
-        }
-    });
-});
-
-
-//****************Export to Pdf********************
-
-$(document).on('click', "[id$=_pdf]", function (e) {
-
-    e.preventDefault();
-    console.log("je suis ici");
-    var id = $(this).attr('id').replace("_pdf", "");
-    console.log(id);
-
-    $.ajax({
-        url: BACKEND_URL + "exports/getTrainingStudents/pdf?id=" + id,
-        type: 'GET',
-        headers: {
-            Authorization: `Bearer ${ token }`
-        },
-        success: function (response) {
-            location.href = BACKEND_URL + response.filename;
-            //Success alert
-            $('#successAdmin').fadeIn(400);
-            $('#successAdmin').delay(6000).fadeOut(400);
-        },
-
-        error: function (jqXHR, textStatus, errorThrown) {
-            //Error alert
-            $('#errorAdmin').fadeIn(400);
-            $('#errorAdmin').delay(6000).fadeOut(400);
-            console.log(textStatus, errorThrown);
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
         }
     });
 });
@@ -823,18 +732,18 @@ function refreshUser() {
                 }
             });
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus, errorThrown);
+        error : function( jqXHR, textStatus, errorThrown ){
+            alert( textStatus, errorThrown );
         },
-        complete: function (jqXHR, textStatus) {
-            console.log(textStatus);
+        complete : function( jqXHR, textStatus ){
+            console.log( textStatus );
         }
     });
 }
 
 
 function refreshTraining() {
-    $(document).ready(function () {
+    $(document).ready(function (){
 
         $.ajax({
             url: BACKEND_URL + "training/getAllTraining",
@@ -887,11 +796,11 @@ function refreshTraining() {
                     }
                 });
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(textStatus, errorThrown);
+            error : function( jqXHR, textStatus, errorThrown ){
+                alert( textStatus, errorThrown );
             },
-            complete: function (jqXHR, textStatus) {
-                console.log(textStatus);
+            complete : function( jqXHR, textStatus ){
+                console.log( textStatus );
             }
         });
     });

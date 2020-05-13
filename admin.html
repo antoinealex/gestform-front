@@ -8,24 +8,20 @@
 <!-- Dynamic menu -->
 <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTrainings" role="tab" aria-controls="home"
-			aria-selected="true">Cours</a>
+		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTrainings" role="tab" aria-controls="home" aria-selected="true">Cours</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="profile-tab" data-toggle="tab" href="#allUsers" role="tab" aria-controls="profile"
-			aria-selected="false">Utilisateurs</a>
+		<a class="nav-link" id="profile-tab" data-toggle="tab" href="#allUsers" role="tab" aria-controls="profile" aria-selected="false">Utilisateurs</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="contact-tab" data-toggle="tab" href="#calendrier" role="tab" aria-controls="contact"
-			aria-selected="false">Calendrier</a>
+		<a class="nav-link" id="contact-tab" data-toggle="tab" href="#calendrier" role="tab" aria-controls="contact" aria-selected="false">Calendrier</a>
 	</li>
 </ul>
 <!-- tabs -->
 <div class="tab-content" id="myTabContent">
 	<div class="tab-pane fade show active" id="allTrainings" role="tabpanel" aria-labelledby="home-tab">
 		<p class="text-center"><br>
-			<a id="addNewTraining" href="#" class="more button secondary" data-toggle="modal"
-				data-target="#myModalAjoutTraining">Ajouter un Training</a>
+			<a id="addNewTraining" href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAjoutTraining">Ajouter un Training</a>
 		</p>
 		<!-- Training tab -->
 		<h2 class="section-title">Liste des cours</h2>
@@ -47,8 +43,7 @@
 	</div>
 	<div class="tab-pane fade" id="allUsers" role="tabpanel" aria-labelledby="profile-tab">
 		<p class="text-center"><br>
-			<a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAddStudent">Ajouter un
-				utilisateur</a>
+			<a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAddStudent">Ajouter un utilisateur</a>
 		</p>
 		<!-- User tab -->
 		<h2 class="section-title">Liste des utilisateurs</h2>
@@ -101,8 +96,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h2>Informations personnelles</h2>
-						<button id="modalUpProfilClose" type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button id="modalUpProfilClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 					</div>
@@ -124,8 +118,7 @@
 								<label for="city">Ville</label><br />
 								<input name="myCity" type="text" required><br />
 								</br>
-								<button class="btn btn-outline-success my-2 my-sm-0" id="submit_up"
-									type="submit">Modifier</button>
+								<button class="btn btn-outline-success my-2 my-sm-0" id="submit_up" type="submit">Modifier</button>
 							</div>
 						</form>
 
@@ -152,40 +145,26 @@
 						<div class="modal-body">
 							<form id="formTraining">
 								<div class="offset-1 col-6">
-									<label for="teacher_id">
-										<strong>Professeur</strong>
-									</label><br />
-									<p name="teacher_id"></p><br />
-									<label for="start_training">
-										<strong>Date et heure de début</strong>
-									</label><br />
-									<p name="start_training"></p><br />
-									<label for="end_training">
-										<strong>Date et heure de fin</strong>
-									</label><br />
-									<p name="end_training"></p><br />
-									<label for="max_student">
-										<strong>Nombre maximal d'étudiant</strong>
-									</label><br />
-									<p name="max_student"></p><br />
-									<label for="price_per_student">
-										<strong>Prix/student</strong>
-									</label><br />
-									<p name="price_per_student"></p><br />
-									<label for="training_description">
-										<strong>Description</strong>
-									</label><br />
-									<p name="training_description"></p><br />
-									<label for="subject">
-										<strong>Subject</strong>
-									</label><br />
-									<p name="subject"></p><br />
+									<label for="teacher_id"><strong>Professeur</strong></label><br/>
+									<p name="teacher_id">
+									</p><br/>
+									<label for="start_training"><strong>Date et heure de début</strong></label><br/>
+									<p name="start_training"></p><br/>
+									<label for="end_training"><strong>Date et heure de fin</strong></label><br/>
+									<p name="end_training"></p><br/>
+									<label for="max_student"><strong>Nombre maximal d'étudiant</strong></label><br/>
+									<p name="max_student"></p><br/>
+									<label for="price_per_student"><strong>Prix/student</strong></label><br/>
+									<p name="price_per_student"></p><br/>
+									<label for="training_description"><strong>Description</strong></label><br/>
+									<p name="training_description"></p><br/>
+									<label for="subject"><strong>Subject</strong></label><br/>
+									<p name="subject"></p><br/>
 									<!-- <label for="student_list">Liste des inscrits</label><br>
-																	<p name="student_list"></p> -->
+									<p name="student_list"></p> -->
 									</br>
 								</div>
 							</form>
-							<div class="export" id="myModalGetTrainingExport"></div>
 						</div>
 					</div>
 				</div>
@@ -198,8 +177,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h2>Ajouter un cours</h2>
-							<button id="modalAddTrClose" type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
+							<button id="modalAddTrClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
 						</div>
@@ -234,15 +212,15 @@
 					</div>
 				</div>
 			</div>
-		</div><!-- Editer Training -->
+		</div>
+		<!-- Editer Training -->
 		<div class="col-md-5">
 			<div class="modal fade" id="myModalUpdateTraining">
 				<div class="modal-dialog modal-md">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h2>Mettre à jour le cours</h2>
-							<button id="modalUpTrClose" type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
+							<button id="modalUpTrClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
 						</div>
@@ -282,7 +260,8 @@
 						</div>
 					</div>
 				</div>
-			</div><!-- Formulaire Afficher User -->
+			</div>
+			<!-- Formulaire Afficher User -->
 			<div class="col-md-5">
 				<div class="modal fade" id="myModalGetUser">
 					<div class="modal-dialog modal-md">
@@ -296,26 +275,16 @@
 							<div class="modal-body">
 								<form id="formUser">
 									<div class="offset-1 col-6">
-										<label for="nom">
-											<strong>Nom et prénom</strong>
-										</label><br />
-										<p name="nom"></p><br />
-										<label for="role">
-											<strong>Rôle</strong>
-										</label><br />
-										<p name="role"></p><br />
-										<label for="email">
-											<strong>Email</strong>
-										</label><br />
-										<p name="email"></p><br />
-										<label for="phone">
-											<strong>Téléphone</strong>
-										</label><br />
-										<p name="phone"></p><br />
-										<label for="adress">
-											<strong>Adresse</strong>
-										</label><br />
-										<p name="adress"></p><br />
+										<label for="nom"><strong>Nom et prénom</strong></label><br/>
+										<p name="nom"></p><br/>
+										<label for="role"><strong>Rôle</strong></label><br/>
+										<p name="role"></p><br/>
+										<label for="email"><strong>Email</strong></label><br/>
+										<p name="email"></p><br/>
+										<label for="phone"><strong>Téléphone</strong></label><br/>
+										<p name="phone"></p><br/>
+										<label for="adress"><strong>Adresse</strong></label><br/>
+										<p name="adress"></p><br/>
 										</br>
 									</div>
 								</form>
@@ -326,15 +295,15 @@
 						</div>
 					</div>
 				</div>
-			</div><!-- Formulaire Ajout User -->
+			</div>
+			<!-- Formulaire Ajout User -->
 			<div class="col-md-5">
 				<div class="modal fade" id="myModalAddStudent">
 					<div class="modal-dialog modal-md">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h2>Ajouter un utilisateur</h2>
-								<button id="modalAddUserClose" type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
+								<button id="modalAddUserClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
@@ -364,8 +333,7 @@
 										<label for="city">Ville</label><br />
 										<input name="addCity" type="text" id="city" required><br />
 										</br>
-										<button class="btn btn-outline-success my-2 my-sm-0" id="submit_s"
-											type="submit">Ajouter</button>
+										<button class="btn btn-outline-success my-2 my-sm-0" id="submit_s" type="submit">Ajouter</button>
 									</div>
 								</form>
 
@@ -376,15 +344,15 @@
 						</div>
 					</div>
 				</div>
-			</div><!-- Formulaire Editer User -->
+			</div>
+			<!-- Formulaire Editer User -->
 			<div class="col-md-5">
 				<div class="modal fade" id="myModalUpdateUser">
 					<div class="modal-dialog modal-md">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h2>Mettre à jour l'utilisateur</h2>
-								<button id="modalUpUserClose" type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
+								<button id="modalUpUserClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
@@ -395,7 +363,7 @@
 										<label for="lastname">Nom</label><br />
 										<input name="editLastname" type="text" required><br />
 										<label for="firstname">Prénom</label><br />
-										<input name="editFirstname" type="text" required><br />
+										<input  name="editFirstname" type="text" required><br />
 										<label for="roles">Rôle</label><br />
 										<select name="editRoles" class="form-control">
 											<option value="ROLE_STUDENT">Etudiant</option>
@@ -425,15 +393,15 @@
 						</div>
 					</div>
 				</div>
-			</div><!-- Formulaire UpdatePassword -->
+			</div>
+			<!-- Formulaire UpdatePassword -->
 			<div class="col-md-5">
 				<div class="modal fade" id="myModalUpdatePassword">
 					<div class="modal-dialog modal-md">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h2>Modifier mon mot de passe</h2>
-								<button id="modalUpPassClose" type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
+								<button id="modalUpPassClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
 							</div>
@@ -449,7 +417,7 @@
 								<div class="alert alert-danger" id="logerror" role="alert" style="display: none;">
 									Mot de passe ou identifiant invalide ! (6 caractéres minimum dont: [a-b] et [0-9])
 								</div>
-
+	
 								<div class="alert alert-warning" id="credsMissing" role="alert" style="display: none;">
 									Veuillez saisir votre identifiant et votre mot de passe !
 								</div>
@@ -473,6 +441,7 @@
 		</div>
 	</div>
 </div>
-</div><!-- .fullwidth-block -->
+</div> <!-- .fullwidth-block -->
 <script src="js/admin.js"></script>
 <script src="js/calendar.js"></script>
+
