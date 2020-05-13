@@ -1,11 +1,13 @@
-let BACKEND_URL = "http://gestform/";
+let BACKEND_URL = "http://gestform.ei-bs.eu/";
 let isConnected = false;
 let currentUser;
 
 
 $(document).ready(function () {
-    $("#loader").fadeOut;
+    // $("#loader").fadeOut;
+
     if (localStorage.getItem('MonToken')) {
+
         token = localStorage.getItem('MonToken');
         $.ajax({
             url: BACKEND_URL + "user/getCurrentUser", //Request
@@ -26,6 +28,8 @@ $(document).ready(function () {
                     success: function (response) {
                         $("#loginInterface").append(response);
                         login();
+
+                        $("#myLoader").hide('5000');
                     }
                 });
             }
@@ -38,6 +42,7 @@ $(document).ready(function () {
             success: function (response) {
                 $("#loginInterface").append(response);
                 login();
+                $("#myLoader").hide('5000');
             }
         });
     }
@@ -94,6 +99,7 @@ function adminDashboard() {
         success: function (response) {
             $("#dashboard").append(response);
             location.hash = 'adminDashboard';
+            $("#myLoader").hide('5000');
         }
     });
 }
@@ -106,6 +112,7 @@ function teacherDashboard() {
         success: function (response) {
             $("#dashboard").append(response);
             location.hash = 'teacherDashboard';
+            $("#myLoader").hide('5000');
         }
     });
 }
@@ -118,6 +125,7 @@ function studentDashboard() {
         success: function (response) {
             $("#dashboard").append(response);
             location.hash = 'studentDashboard';
+            $("#myLoader").hide('5000');
         }
     });
 }
