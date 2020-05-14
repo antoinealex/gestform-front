@@ -8,6 +8,39 @@ $(document).ready(function () {
     //****************getTrainings************************
 
     $(document).ready(function () {
+
+        //Ajax pour récupérer l'id des trainings aux quels participe déja le stdudent et cacher le btn participer
+        $.ajax({
+            url: BACKEND_URL + 'student/getMyTrainings',
+            type: 'get',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+
+
+            success: function (response) {
+
+                idTraining = [];
+                j = 0;
+                $.each(response, function (i, training) {
+                    idTraining[j] = i;
+                    j++;
+                });
+                console.log(idTraining);
+
+            },
+            error: function (jqxhr) {
+                $('#errorStudent').fadeIn(400);
+                $('#errorStudent').delay(4000).fadeOut(400);
+            },
+
+
+        });
+
+
+
         $.ajax({
             url: BACKEND_URL + 'public/getTrainings',
             type: 'get',
@@ -22,14 +55,22 @@ $(document).ready(function () {
                 console.log("success");
 
                 $("#cours").empty();
+
+                index = 0;
                 $.each(response, function (i, training) {
-                    $("#cours").append('<tr>' +
-                        '<td>' + training.subject + '</td>' +
-                        '<td>' + new Date(training.start.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td>' + new Date(training.end.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td><button id=' + training.id + ' type="button" class="btn btn-success training btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=' + training.id + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Participer</button></td>' +
-                        '</tr>');
+
+                    if (idTraining[index] != training.id) {
+                        $("#cours").append('<tr>' +
+                            '<td>' + training.subject + '</td>' +
+                            '<td>' + new Date(training.start).toLocaleString() + '</td>' +
+                            '<td>' + new Date(training.end).toLocaleString() + '</td>' +
+                            '<td><button id=' + training.id + ' type="button" class="btn btn-success training btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=' + training.id + "_particip" + ' type="button" class="btn btn-primary participer btn-sm"><i class="fas fa-pen"></i> Participer</button></td>' +
+                            '</tr>');
+                    } else index++;
+
+
                 });
+
                 $('#tabcours').DataTable({
                     "paging": true,
                     "lengthChange": true,
@@ -44,8 +85,8 @@ $(document).ready(function () {
                 });
             },
             error: function (jqxhr) {
-                $('#errorStudent').fadeIn();
-                $('#errorStudent').delay(6000).fadeOut();
+                $('#errorStudent').fadeIn(400);
+                $('#errorStudent').delay(4000).fadeOut(400);
             },
 
 
@@ -69,11 +110,11 @@ $(document).ready(function () {
             },
 
             success: function (response) {
-                var chnStart = response.start;
-                var start = chnStart.substring(0, 19);
 
-                var chnEnd = response.end;
-                var end = chnEnd.substring(0, 19);
+                var start = response.start;
+
+
+                var end = response.end;
 
                 $("h1[name=subject]").empty().append(response.subject);
                 $("p[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
@@ -85,8 +126,8 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                $('#errorStudent').fadeIn();
-                $('#errorStudent').delay(6000).fadeOut();
+                $('#errorStudent').fadeIn(400);
+                $('#errorStudent').delay(4000).fadeOut(400);
             },
         });
 
@@ -113,11 +154,14 @@ $(document).ready(function () {
                 $.each(response, function (i, training) {
                     $("#students").append('<tr>' +
                         '<td>' + training.subject + '</td>' +
-                        '<td>' + new Date(training.startDatetime.substring(0, 19)).toLocaleString() + '</td>' +
-                        '<td>' + new Date(training.endDatetime.substring(0, 19)).toLocaleString() + '</td>' +
+                        '<td>' + new Date(training.startDatetime).toLocaleString() + '</td>' +
+                        '<td>' + new Date(training.endDatetime).toLocaleString() + '</td>' +
                         '<td><button id=' + i + ' type="button" class="btn btn-success moncours btn-sm" data-toggle="modal" data-target="#myModalDisplayMyTraining"><i class="fas fa-eye"></i> Afficher</button></td>' +
                         '</tr>');
                 });
+
+
+
                 $('#tabstudents').DataTable({
                     "paging": true,
                     "lengthChange": true,
@@ -132,8 +176,8 @@ $(document).ready(function () {
                 });
             },
             error: function (jqxhr) {
-                $('#errorStudent').fadeIn();
-                $('#errorStudent').delay(6000).fadeOut();
+                $('#errorStudent').fadeIn(400);
+                $('#errorStudent').delay(4000).fadeOut(400);
             },
 
 
@@ -156,11 +200,11 @@ $(document).ready(function () {
             },
 
             success: function (response) {
-                var chnStart = response.start;
-                var start = chnStart.substring(0, 19);
 
-                var chnEnd = response.end;
-                var end = chnEnd.substring(0, 19);
+                var start = response.start;
+
+
+                var end = response.end;
                 console.log(response.subject);
                 $("h1[name=Subject]").empty().append(response.subject);
                 $("p[name=Teacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
@@ -170,8 +214,8 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                $('#errorStudent').fadeIn();
-                $('#errorStudent').delay(6000).fadeOut();
+                $('#errorStudent').fadeIn(400);
+                $('#errorStudent').delay(4000).fadeOut(400);
             },
         });
 
@@ -199,8 +243,8 @@ $(document).ready(function () {
                 Authorization: `Bearer ${ token }`
             },
             success: function () {
-                $('#successStudent').fadeIn();
-                $('#successStudent').delay(6000).fadeOut();
+                $('#successStudent').fadeIn(400);
+                $('#successStudent').delay(4000).fadeOut(400);
 
                 $('input[name = title_comment]').val("");
                 $('input[name = body_comment]').val("");
@@ -209,8 +253,8 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                $('#errorStudent').fadeIn();
-                $('#errorStudent').delay(6000).fadeOut();
+                $('#errorStudent').fadeIn(400);
+                $('#errorStudent').delay(4000).fadeOut(400);
 
                 $('input[name = title_comment]').val("");
                 $('input[name = body_comment]').val("");
@@ -228,10 +272,14 @@ $(document).ready(function () {
     //****************subscribeTraining******************************
 
     $(document).on('click', ".btn-primary", function (e) {
+
         e.preventDefault();
-        console.log($(this).attr('id'));
-        var data = {};
-        data['id'] = $(this).attr('id');
+        $("#" + $(this).attr('id')).hide();
+        console.log($(this).attr('id').replace("_particip", ""));
+        var data = {
+            'id': $(this).attr('id').replace("_particip", "")
+        };
+
 
         $.ajax({
             url: BACKEND_URL + 'student/subscribeTraining',
@@ -245,15 +293,22 @@ $(document).ready(function () {
             },
 
             success: function (response) {
-                $('#successStudent').fadeIn();
-                $('#successStudent').delay(6000).fadeOut();
                 table = $('#tabstudents').DataTable();
                 table.destroy();
                 RefreshTab();
+                // tab = $('#tabcours').DataTable();
+                // tab.destroy();
+                // RefreshTabCours();
+
+                $('#successStudent').fadeIn(400);
+                $('#successStudent').delay(4000).fadeOut(400);
+
+
+
             },
             error: function (jqXhr) {
-                $('#errorStudent').fadeIn();
-                $('#errorStudent').delay(6000).fadeOut();
+                $('#errorStudent').fadeIn(400);
+                $('#errorStudent').delay(4000).fadeOut(400);
             },
         });
 
@@ -286,8 +341,8 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                $('#errorStudent').fadeIn();
-                $('#errorStudent').delay(6000).fadeOut();
+                $('#errorStudent').fadeIn(400);
+                $('#errorStudent').delay(4000).fadeOut(400);
 
             },
         });
@@ -318,14 +373,14 @@ $(document).ready(function () {
             },
 
             success: function () {
-                $('#successStudent').fadeIn();
-                $('#successStudent').delay(6000).fadeOut();
+                $('#successStudent').fadeIn(400);
+                $('#successStudent').delay(4000).fadeOut(400);
                 $('#myModalUpdateProfilClose').trigger('click');
 
             },
             error: function (jqXhr) {
-                $('#errorStudent').fadeIn();
-                $('#errorStudent').delay(6000).fadeOut();
+                $('#errorStudent').fadeIn(400);
+                $('#errorStudent').delay(4000).fadeOut(400);
                 $('#myModalUpdateProfilClose').trigger('click');
             },
         });
@@ -365,14 +420,14 @@ $(document).ready(function () {
                 },
 
                 success: function (response) {
-                    $("#successUpdatePassword").fadeIn().delay(6000).fadeOut();
+                    $("#successUpdatePassword").fadeIn(400).delay(4000).fadeOut(400);
                     $("#oldpassword").val("");
                     $("#newpassword").val("");
                     $("#myModalUpdatePasswordClose").trigger("click");
 
                 },
                 error: function (jqXhr) {
-                    $('#errorUpdatePassword').fadeIn().delay(6000).fadeOut();
+                    $('#errorUpdatePassword').fadeIn(400).delay(4000).fadeOut(400);
                     $("#oldpassword").val("");
                     $("#newpassword").val("");
                     $("#myModalUpdatePasswordClose").trigger("click");
@@ -404,11 +459,12 @@ function RefreshTab() {
             $.each(response, function (i, training) {
                 $("#students").append('<tr>' +
                     '<td>' + training.subject + '</td>' +
-                    '<td>' + new Date(training.startDatetime.substring(0, 19)).toLocaleString() + '</td>' +
-                    '<td>' + new Date(training.endDatetime.substring(0, 19)).toLocaleString() + '</td>' +
+                    '<td>' + new Date(training.startDatetime).toLocaleString() + '</td>' +
+                    '<td>' + new Date(training.endDatetime).toLocaleString() + '</td>' +
                     '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" id="MonCours" data-toggle="modal" data-target="#myModalDisplayMyTraining"><i class="fas fa-eye"></i> Afficher</button></td>' +
                     '</tr>');
             });
+
             $('#tabstudents').DataTable({
                 "retrieve": true,
                 "paging": true,
@@ -422,6 +478,7 @@ function RefreshTab() {
                     "url": "vendor/datatable.french.json"
                 }
             });
+
         },
         error: function (jqxhr) {
             $('#errorStudent').fadeIn();
@@ -431,3 +488,89 @@ function RefreshTab() {
 
     });
 }
+
+// function RefreshTabCours() {
+//     $.ajax({
+//         url: BACKEND_URL + 'student/getMyTrainings',
+//         type: 'get',
+//         dataType: 'json',
+//         contentType: 'application/json',
+//         headers: {
+//             Authorization: `Bearer ${ token }`
+//         },
+
+
+//         success: function (response) {
+
+//             idTraining = [];
+//             j = 0;
+//             $.each(response, function (i, training) {
+//                 idTraining[j] = i;
+//                 j++;
+//             });
+//             console.log(idTraining);
+
+//         },
+//         error: function (jqxhr) {
+//             $('#errorStudent').fadeIn();
+//             $('#errorStudent').delay(6000).fadeOut();
+//         },
+
+
+//     });
+
+
+
+//     $.ajax({
+//         url: BACKEND_URL + 'public/getTrainings',
+//         type: 'get',
+//         dataType: 'json',
+//         contentType: 'application/json',
+//         headers: {
+//             Authorization: `Bearer ${ token }`
+//         },
+
+
+//         success: function (response) {
+//             console.log("success");
+
+//             $("#cours").empty();
+
+//             index = 0;
+//             $.each(response, function (i, training) {
+//                 // for (let index = 0; index < idTraining.length; index++) {
+
+//                 if (idTraining[index] != training.id) {
+//                     $("#cours").append('<tr>' +
+//                         '<td>' + training.subject + '</td>' +
+//                         '<td>' + new Date(training.start).toLocaleString() + '</td>' +
+//                         '<td>' + new Date(training.end).toLocaleString() + '</td>' +
+//                         '<td><button id=' + training.id + ' type="button" class="btn btn-success training btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=id=' + training.id + "_particip" + ' type="button" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i> Participer</button></td>' +
+//                         '</tr>');
+//                 } else index++;
+
+//                 // }
+//             });
+//             $('#tabcours').DataTable({
+//                 "retrieve": true,
+//                 "paging": true,
+//                 "lengthChange": true,
+//                 "searching": true,
+//                 "ordering": true,
+//                 "info": true,
+//                 "autoWidth": false,
+//                 "responsive": true,
+//                 "language": {
+//                     "url": "vendor/datatable.french.json"
+//                 }
+//             });
+
+//         },
+//         error: function (jqxhr) {
+//             $('#errorStudent').fadeIn();
+//             $('#errorStudent').delay(6000).fadeOut();
+//         },
+
+
+//     });
+// }

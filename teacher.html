@@ -1,9 +1,9 @@
 <div id="bodyTeacher">
     <div class="alert alert-danger" id="errorTeacher" role="alert" style="display: none;">
-        Echec !
+        Une erreur est survenue !
     </div>
     <div class="alert alert-success" id="successTeacher" role="alert" style="display: none;">
-        Réussi !
+        Opération réalisée avec succès !
     </div>
     <div class="alert alert-success" id="successUpdatePassword" role="alert" style="display: none;">
         Mot de passe modifié avec succés !
@@ -53,6 +53,7 @@
             <table id="tabstudents" class="table table-bordered table-hover" style="width:100%">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Prénom</th>
                         <th>Nom</th>
                         <th>Cours</th>
@@ -65,6 +66,14 @@
         </div>
         <div class="tab-pane fade" id="calendrier" role="tabpanel" aria-labelledby="contact-tab">
             <br>
+            <p class="text-center">
+                <a href="#" class="more button secondary" data-toggle="modal" data-target="#myModalAddEvent">Ajouter
+                    un
+                    Evénement</a> <a href="#" class="more button secondary" data-toggle="modal"
+                    data-target="#myModalAddAppointment">Ajouter
+                    un
+                    Rendez-vous</a>
+            </p>
             <br>
             <br>
             <div id="calendar"></div>
@@ -254,13 +263,13 @@
             </div>
         </div>
 
-        <!-- Formulaire Ajout Student -->
+        <!-- Formulaire Ajout Event -->
         <div class="col-md-5">
-            <div class="modal fade" id="myModalAddStudent">
+            <div class="modal fade" id="myModalAddEvent">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h2>Ajouter un étudiant</h2>
+                            <h2>Ajouter un Evénement</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -268,29 +277,51 @@
                         <div class="modal-body">
                             <form id="formS">
                                 <div class="offset-1 col-6">
-                                    <label for="email">Email</label><br />
-                                    <input name="email" type="email" id="email" required><br />
-                                    <label for="roles">Rôle</label><br />
-                                    <select id="roles" name="roles" class="form-control">
-                                        <option value="ROLE_STUDENT">Etudiant</option>
-                                        <option value="ROLE_TEACHER">Professeur</option>
-                                    </select><br />
-                                    <label for="password">Mot de passe</label><br />
-                                    <input name="password" type="password" id="password" required><br />
-                                    <label for="lastname">Nom</label><br />
-                                    <input name="lastname" type="text" id="lastname" required><br />
-                                    <label for="firstname">Prénom</label><br />
-                                    <input name="firstname" type="text" id="firstname" required><br />
-                                    <label for="phone">Téléphone</label><br />
-                                    <input name="phone" type="tel" id="phone" required><br />
-                                    <label for="address">Adresse</label><br />
-                                    <input name="address" type="text" id="address" required><br />
-                                    <label for="postcode">Code Postal</label><br />
-                                    <input name="postcode" type="text" id="postcode" required><br />
-                                    <label for="city">Ville</label><br />
-                                    <input name="city" type="text" id="city" required><br />
+                                    <label for="titleEvent">Titre</label><br />
+                                    <input name="titleEvent" type="text" required><br />
+                                    <label for="startEvent">Début</label><br />
+                                    <input name="startEvent" type="datetime-local" required><br />
+                                    <label for="endEvent">Fin</label><br />
+                                    <input name="endEvent" type="datetime-local" required><br />
+                                    <label for="descriptionEvent">Déscription</label><br />
+                                    <input name="description" type="text" required><br />
                                     </br>
-                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_s"
+                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_e"
+                                        type="submit">Ajouter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulaire Ajout Rendez vous -->
+        <div class="col-md-5">
+            <div class="modal fade" id="myModalAddAppointment">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Ajouter un Rendez-vous</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formS">
+                                <div class="offset-1 col-6">
+                                    <label for="title_event">Titre</label><br />
+                                    <input name="title_event" type="text" required><br />
+                                    <label for="start_event">Début</label><br />
+                                    <input name="start_event" type="datetime-local" required><br />
+                                    <label for="end_event">Fin</label><br />
+                                    <input name="end_event" type="datetime-local" required><br />
+                                    <label for="description_event">Description</label><br />
+                                    <input name="description_event" type="text" required><br />
+                                    <label for="idUserInvitation_event">Id</label><br />
+                                    <input name="idUserInvitation_event" type="text" required><br />
+                                    </br>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" id="submit_App"
                                         type="submit">Ajouter</button>
                                 </div>
                             </form>

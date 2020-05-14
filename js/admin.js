@@ -46,12 +46,12 @@ $(document).ready(function () {
             });
 
             $('#showTraining').DataTable({
-                "retrieve": true,
+                "retrieve": false,
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
                 "ordering": true,
-                "info": true,
+                "info": false,
                 "autoWidth": false,
                 "responsive": true,
                 "language": {
@@ -227,48 +227,57 @@ $("#addNewTraining").click(function () {
             });
         }
     });
-    //POST
-    $("#submit_t").click(function () {
-        event.preventDefault();
-        data = {};
+});
+//POST
+$("#submit_t").click(function () {
+    event.preventDefault();
+    data = {};
 
-        $.ajax({
-            url: BACKEND_URL + "training/addTraining",
-            type: 'POST',
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
-            data: {
-                teacher_id: $('select[name=addTeacher]').val(),
-                start_training: $('input[name=addStart_training]').val(),
-                end_training: $('input[name=addEnd_training]').val(),
-                max_student: $('input[name=addMax_student]').val(),
-                price_per_student: $('input[name=addPrice_per_student]').val(),
-                training_description: $('input[name=addTraining_description]').val(),
-                subject: $('input[name=addSubject]').val()
-            },
-            success: function () {
-                //Success alert
-                $('#successAdmin').fadeIn(400);
-                $('#successAdmin').delay(6000).fadeOut(400);
-                // Replace tab
-                $('#showTraining').DataTable().destroy();
-                refreshTraining();
-                //close modal
-                $('#modalAddTrClose').trigger('click');
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
-                //Error alert
-                $('#errorAdmin').fadeIn(400);
-                $('#errorAdmin').delay(6000).fadeOut(400);
-            },
-            complete: function (jqXHR, textStatus) {
-                console.log(textStatus);
-            }
-        });
+    $.ajax({
+        url: BACKEND_URL + "training/addTraining",
+        type: 'POST',
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+        data: {
+            teacher_id: $('select[name=addTeacher]').val(),
+            start_training: $('input[name=addStart_training]').val(),
+            end_training: $('input[name=addEnd_training]').val(),
+            max_student: $('input[name=addMax_student]').val(),
+            price_per_student: $('input[name=addPrice_per_student]').val(),
+            training_description: $('input[name=addTraining_description]').val(),
+            subject: $('input[name=addSubject]').val()
+        },
+        success: function () {
+            //Success alert
+            $('#successAdmin').fadeIn(400);
+            $('#successAdmin').delay(6000).fadeOut(400);
+
+            $('select[name=addTeacher]').val(""),
+                $('input[name=addStart_training]').val(""),
+                $('input[name=addEnd_training]').val(""),
+                $('input[name=addMax_student]').val(""),
+                $('input[name=addPrice_per_student]').val(""),
+                $('input[name=addTraining_description]').val(""),
+                $('input[name=addSubject]').val("")
+            //close modal
+            $('#modalAddTrClose').trigger('click');
+            // Replace tab
+            $('#showTraining').DataTable().destroy();
+            refreshTraining();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+            //Error alert
+            $('#errorAdmin').fadeIn(400);
+            $('#errorAdmin').delay(6000).fadeOut(400);
+        },
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
+        }
     });
 });
+
 
 //****************addUser********************
 $("#submit_s").click(function () {
@@ -879,7 +888,7 @@ function refreshTraining() {
                     "lengthChange": true,
                     "searching": true,
                     "ordering": true,
-                    "info": true,
+                    "info": false,
                     "autoWidth": false,
                     "responsive": true,
                     "language": {

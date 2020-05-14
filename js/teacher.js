@@ -44,8 +44,8 @@ $(document).ready(function () {
 
             },
             error: function (jqxhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400);
+                $('#errorTeacher').delay(4000).fadeOut(400);
             },
 
 
@@ -88,8 +88,8 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400);
+                $('#errorTeacher').delay(4000).fadeOut(400);
             },
         });
 
@@ -117,6 +117,7 @@ $(document).ready(function () {
 
                 $.each(response, function (i, student) {
                     $("#students").append('<tr>' +
+                        '<td>' + student.id + '</td>' +
                         '<td>' + student.firstname + '</td>' +
                         '<td>' + student.lastname + '</td>' +
                         '<td>' + student.subject + '</td>' +
@@ -141,8 +142,8 @@ $(document).ready(function () {
 
             },
             error: function (jqxhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400);
+                $('#errorTeacher').delay(4000).fadeOut(400);
             },
         });
 
@@ -175,8 +176,8 @@ $(document).ready(function () {
                 Authorization: `Bearer ${ token }`
             },
             success: function () {
-                $('#successTeacher').fadeIn();
-                $('#successTeacher').delay(6000).fadeOut();
+                $('#successTeacher').fadeIn(400);
+                $('#successTeacher').delay(4000).fadeOut(400);
 
                 $('input[name = start_training]').val("");
                 $('input[name = end_training]').val("");
@@ -192,8 +193,8 @@ $(document).ready(function () {
                 RefreshTab();
             },
             error: function (jqXhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400);
+                $('#errorTeacher').delay(4000).fadeOut(400);
 
                 $('input[name = start_training]').val("");
                 $('input[name = end_training]').val("");
@@ -203,6 +204,101 @@ $(document).ready(function () {
                 $('input[name = subject]').val("");
 
                 $("#myModalAjoutTrainigClose").trigger("click");
+            },
+        });
+    });
+
+    //****************add NewUserEvent**************************
+
+    $("#submit_e").click(function (e) {
+        e.preventDefault();
+
+
+        $.ajax({
+            url: BACKEND_URL + 'calendar/newUserEvent',
+            type: 'POST',
+            data: {
+                status: $('input[name = titleEvent]').val(),
+                startEvent: $('input[name = startEvent]').val(),
+                endEvent: $('input[name = endEvent]').val(),
+                eventDescription: $('input[name = descriptionEvent]').val(),
+            },
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function () {
+                $('#successTeacher').fadeIn(400);
+                $('#successTeacher').delay(4000).fadeOut(400);
+
+                $('input[name = titleEvent]').val("");
+                $('input[name = startEvent]').val("");
+                $('input[name = endEvent]').val("");
+                $('input[name = descriptionEvent]').val("");
+
+                $("#myModalAddEvent").trigger("click");
+
+                table = $('#tabcours').DataTable();
+                table.destroy();
+                RefreshTab();
+            },
+            error: function (jqXhr) {
+                $('#errorTeacher').fadeIn(400);
+                $('#errorTeacher').delay(4000).fadeOut(400);
+
+                $('input[name = titleEvent]').val("");
+                $('input[name = startEvent]').val("");
+                $('input[name = endEvent]').val("");
+                $('input[name = descriptionEvent]').val("");
+
+                $("#myModalAddEvent").trigger("click");
+            },
+        });
+    });
+
+    //****************add NewUserAppointment**************************
+
+    $("#submit_App").click(function (e) {
+        e.preventDefault();
+
+
+        $.ajax({
+            url: BACKEND_URL + 'calendar/newUserAppointment',
+            type: 'POST',
+            data: {
+                status: $('input[name = title_event]').val(),
+                startEvent: $('input[name = start_event]').val(),
+                endEvent: $('input[name = end_event]').val(),
+                eventDescription: $('input[name = description_event]').val(),
+                idUserInvitation: $('input[name = idUserInvitation_event]').val(),
+            },
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+            success: function () {
+                $('#successTeacher').fadeIn(400);
+                $('#successTeacher').delay(4000).fadeOut(400);
+
+                $('input[name = title_event]').val("");
+                $('input[name = start_event]').val("");
+                $('input[name = end_event]').val("");
+                $('input[name = description_event]').val("");
+
+                $("#myModalAddAppointment").trigger("click");
+
+                table = $('#tabcours').DataTable();
+                table.destroy();
+                RefreshTab();
+            },
+            error: function (jqXhr) {
+                $('#errorTeacher').fadeIn(400);
+                $('#errorTeacher').delay(4000).fadeOut(400);
+
+                $('input[name = title_event]').val("");
+                $('input[name = start_event]').val("");
+                $('input[name = end_event]').val("");
+                $('input[name = description_event]').val("");
+
+                $("#myModalAddAppointment").trigger("click");
             },
         });
     });
@@ -267,8 +363,8 @@ $(document).ready(function () {
                         },
 
                         success: function () {
-                            $('#successTeacher').fadeIn();
-                            $('#successTeacher').delay(6000).fadeOut();
+                            $('#successTeacher').fadeIn(400);
+                            $('#successTeacher').delay(4000).fadeOut(400);
                             $("#myModalUpdateTrainingClose").trigger("click");
 
                             table = $('#tabcours').DataTable();
@@ -276,8 +372,8 @@ $(document).ready(function () {
                             RefreshTab();
                         },
                         error: function (jqXhr) {
-                            $('#errorTeacher').fadeIn();
-                            $('#errorTeacher').delay(6000).fadeOut();
+                            $('#errorTeacher').fadeIn(400);
+                            $('#errorTeacher').delay(4000).fadeOut(400);
                             $("#myModalUpdateTrainingClose").trigger("click");
                         },
                     });
@@ -285,8 +381,8 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400);
+                $('#errorTeacher').delay(4000).fadeOut(400);
                 $("#myModalUpdateTrainingClose").trigger("click");
             },
         });
@@ -342,14 +438,14 @@ $(document).ready(function () {
                         },
 
                         success: function () {
-                            $('#successTeacher').fadeIn();
-                            $('#successTeacher').delay(6000).fadeOut();
+                            $('#successTeacher').fadeIn(400);
+                            $('#successTeacher').delay(4000).fadeOut(400);
                             $('#myModalUpdateProfilClose').trigger('click');
 
                         },
                         error: function (jqXhr) {
-                            $('#errorTeacher').fadeIn();
-                            $('#errorTeacher').delay(6000).fadeOut();
+                            $('#errorTeacher').fadeIn(400);
+                            $('#errorTeacher').delay(4000).fadeOut(400);
                             $('#myModalUpdateProfilClose').trigger('click');
                         },
                     });
@@ -357,8 +453,8 @@ $(document).ready(function () {
 
             },
             error: function (jqXhr) {
-                $('#errorTeacher').fadeIn();
-                $('#errorTeacher').delay(6000).fadeOut();
+                $('#errorTeacher').fadeIn(400);
+                $('#errorTeacher').delay(4000).fadeOut(400);
             },
         });
     });
@@ -518,8 +614,8 @@ function RefreshTab() {
 
         },
         error: function (jqxhr) {
-            $('#errorTeacher').fadeIn();
-            $('#errorTeacher').delay(6000).fadeOut();
+            $('#errorTeacher').fadeIn(400);
+            $('#errorTeacher').delay(4000).fadeOut(400);
         },
 
 
