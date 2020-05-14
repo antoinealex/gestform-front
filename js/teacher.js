@@ -6,7 +6,7 @@ var token = localStorage.getItem('MonToken');
 $(document).ready(function () {
 
     //****************getMyTrainings*****************************
-
+    //$(document).on('click', '#home-tab', function () {
     $(document).ready(function () {
         $.ajax({
             url: BACKEND_URL + 'teacher/getMyTrainings',
@@ -56,7 +56,6 @@ $(document).ready(function () {
     //****************getTrainingById*****************************
     $(document).on('click', ".btn-success", function (e) {
         e.preventDefault();
-        var id = $(this).attr('id');
 
         console.log($(this).attr('id'));
 
@@ -80,11 +79,6 @@ $(document).ready(function () {
                 $('p[name=training_description]').empty().append(response.trainingDescription);
                 $('p[name=subject]').empty().append(response.subject);
 
-                $("#myModalDisplayTeacherExport").empty().append('<button id=' + id + "_excel" + ' type="button" class="btn btn-success btn-sm">' +
-                    '<i class="fa fa-download"></i>EXCEL</button>' + '  ' +
-                    '<button id=' + id + "_pdf" + ' type="button" class="btn btn-danger btn-sm">' +
-                    '<i class="fa fa-download"></i>PDF</button>');
-
 
             },
             error: function (jqXhr) {
@@ -95,15 +89,11 @@ $(document).ready(function () {
 
     });
 
-    //****************getCurrentTeacherStudents (pour récuperer les Students)***********************
-
+    //****************getTrainingById (pour récuperer les Students)***********************
+    //$(document).on('click', "#profile-tab", function (e) {
     $(document).ready(function () {
-
-        $("#students").empty();
-
         $.ajax({
-
-            url: BACKEND_URL + 'teacher/getCurrentTeacherStudents',
+            url: BACKEND_URL + 'teacher/getMyTrainings',
             type: 'get',
             dataType: 'json',
             contentType: 'application/json',
@@ -114,33 +104,58 @@ $(document).ready(function () {
 
             success: function (response) {
                 console.log("success");
+                $("#students").empty();
+                $.each(response, function (i, training) {
+                    $.ajax({
 
-                $.each(response, function (i, student) {
-                    $("#students").append('<tr>' +
-                        '<td>' + student.id + '</td>' +
-                        '<td>' + student.firstname + '</td>' +
-                        '<td>' + student.lastname + '</td>' +
-                        '<td>' + student.subject + '</td>' +
-                        '</tr>');
+                        url: BACKEND_URL + 'training/getTrainingById?id=' + i,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        headers: {
+                            Authorization: `Bearer ${ token }`
+                        },
 
+
+                        success: function (response) {
+                            console.log("success");
+
+                            $.each(response.participants, function (i, student) {
+                                $("#students").append('<tr>' +
+                                    '<td>' + student.id + '</td>' +
+                                    '<td>' + student.firstname + '</td>' +
+                                    '<td>' + student.lastname + '</td>' +
+                                    '<td>' + student.subject + '</td>' +
+                                    '</tr>');
+
+                            });
+
+                            // table = $('#tabstudents').DataTable();
+                            // //table.destroy();
+                            // $('#tabstudents').DataTable({
+                            //     "retrieve": true,
+                            //     "paging": true,
+                            //     "lengthChange": true,
+                            //     "searching": true,
+                            //     "ordering": true,
+                            //     "info": true,
+                            //     "autoWidth": false,
+                            //     "responsive": true,
+                            //     "language": {
+                            //         "url": "vendor/datatable.french.json"
+                            //     }
+                            // });
+
+
+                        },
+                        error: function (jqxhr) {
+                            $('#errorTeacher').fadeIn();
+                            $('#errorTeacher').delay(6000).fadeOut();
+                        },
+                    });
                 });
-
-                $('#tabstudents').DataTable({
-                    "retrieve": true,
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "responsive": true,
-                    "language": {
-                        "url": "vendor/datatable.french.json"
-                    }
-                });
-
-
             },
+
             error: function (jqxhr) {
                 $('#errorTeacher').fadeIn(400);
                 $('#errorTeacher').delay(4000).fadeOut(400);
@@ -148,7 +163,6 @@ $(document).ready(function () {
         });
 
     });
-
 
     //*****************************************************************************
     //********************************** POST *************************************
@@ -187,7 +201,7 @@ $(document).ready(function () {
                 $('input[name = subject]').val("");
 
                 $("#myModalAjoutTrainigClose").trigger("click");
-
+                //location.reload(true);
                 table = $('#tabcours').DataTable();
                 table.destroy();
                 RefreshTab();
@@ -314,6 +328,7 @@ $(document).ready(function () {
         e.preventDefault();
         console.log($(this).attr('id'));
 
+        // if (confirm("Etes-vous sûr de vouloir modifier ce Training ?")) {
         $.ajax({
             url: BACKEND_URL + 'training/getTrainingById?id=' + $(this).attr('id'),
             type: 'GET',
@@ -366,7 +381,7 @@ $(document).ready(function () {
                             $('#successTeacher').fadeIn(400);
                             $('#successTeacher').delay(4000).fadeOut(400);
                             $("#myModalUpdateTrainingClose").trigger("click");
-
+                            //location.reload(true);
                             table = $('#tabcours').DataTable();
                             table.destroy();
                             RefreshTab();
@@ -386,7 +401,10 @@ $(document).ready(function () {
                 $("#myModalUpdateTrainingClose").trigger("click");
             },
         });
-
+        // } else {
+        //     location.reload(true);
+        //     //location.href = 'teacher.html';
+        // }
     });
 
 
@@ -395,6 +413,7 @@ $(document).ready(function () {
     $(document).on('click', "#modalUpdateProfil", function (e) {
         //e.preventDefault();
 
+        // if (confirm("Etes-vous sûr de vouloir modifier votre profil ?")) {
         $.ajax({
             url: BACKEND_URL + 'user/getCurrentUser',
             type: 'GET',
@@ -457,6 +476,11 @@ $(document).ready(function () {
                 $('#errorTeacher').delay(4000).fadeOut(400);
             },
         });
+        // } else {
+        //     location.reload(true);
+        //     //$('#bodyTeacher').reload(' #bodyTeacher');
+        //     //location.href = 'teacher.html';
+        // }
     });
 
 
@@ -505,72 +529,13 @@ $(document).ready(function () {
                     $("#oldpassword").val("");
                     $("#newpassword").val("");
                     $("#myModalUpdatePasswordClose").trigger("click");
+                    //$('#formPass').load('teacher.html #inputMdp');
+
+                    //alert(jqXhr.responseText);
+                    //location.reload(true);
                 },
             });
         }
-    });
-
-    //****************Export to Excel********************
-
-    $(document).on('click', "[id$=_excel]", function (e) {
-
-        e.preventDefault();
-        console.log("je suis ici");
-        var id = $(this).attr('id').replace("_excel", "");
-        console.log(id);
-
-        $.ajax({
-            url: BACKEND_URL + "exports/getTrainingStudents/excel?id=" + id,
-            type: 'GET',
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
-            success: function (response) {
-                location.href = BACKEND_URL + response.filename;
-                //Success alert
-                $('#successTeacher').fadeIn(400);
-                $('#successTeacher').delay(6000).fadeOut(400);
-            },
-
-            error: function (jqXHR, textStatus, errorThrown) {
-                //Error alert
-                $('#errorTeacher').fadeIn(400);
-                $('#errorTeacher').delay(6000).fadeOut(400);
-                console.log(textStatus, errorThrown);
-            }
-        });
-    });
-
-
-    //****************Export to Pdf********************
-
-    $(document).on('click', "[id$=_pdf]", function (e) {
-
-        e.preventDefault();
-        console.log("je suis ici");
-        var id = $(this).attr('id').replace("_pdf", "");
-        console.log(id);
-
-        $.ajax({
-            url: BACKEND_URL + "exports/getTrainingStudents/pdf?id=" + id,
-            type: 'GET',
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
-            success: function (response) {
-                location.href = BACKEND_URL + response.filename;
-                //Success alert
-                $('#successTeacher').fadeIn(400);
-                $('#successTeacher').delay(6000).fadeOut(400);
-            },
-
-            error: function (jqXHR, textStatus, errorThrown) {
-                //Error alert
-                $('#errorTeacher').fadeIn(400);
-                $('#errorTeacher').delay(6000).fadeOut(400);
-                console.log(textStatus, errorThrown);
-            }
-        });
     });
 });
 
@@ -596,7 +561,7 @@ function RefreshTab() {
                     '<td>' + new Date(training.startDatetime).toLocaleString() + '</td>' +
                     '<td>' + new Date(training.endDatetime).toLocaleString() + '</td>' +
                     '<td><button id=' + i + ' type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModalDisplayTeacher"><i class="fas fa-eye"></i> Afficher</button> <button id=' + i + ' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalUpdateTraining"><i class="fas fa-pen"></i> Editer</button><br/></td>' +
-                    '</tr>');
+                    '</tr>')
             });
             $('#tabcours').DataTable({
                 "retrieve": true,

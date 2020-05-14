@@ -2,9 +2,7 @@ function showCalendar() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: [ 'dayGrid', 'list', 'interaction', 'timeGrid', 'bootstrap' ],
-        themeSystem: 'bootstrap',
-        defaultView: 'timeGridWeek',
+        plugins: [ 'dayGrid', 'list', 'interaction', 'timeGrid'],
         titleFormat: {
             month: 'long',
             year: 'numeric',
@@ -16,6 +14,7 @@ function showCalendar() {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
         },
+        lazyFetching: false,
         timeZone: 'local',
         locale: 'fr',
         buttonText: {
@@ -28,19 +27,6 @@ function showCalendar() {
         firstDay: 1,
         eventSources:[
             {
-                events: function (info, successCallback, failureCallback) {
-                    $.ajax({
-                        url: BACKEND_URL + "calendar/getCurrentUserEvents",
-                        type: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
-                        }, success: function (response) {
-                                successCallback(response);
-                        }
-                    })
-                },
-            },
-            {
                 editable: false,
                 selectable: false,
                 selectHelper: false,
@@ -52,8 +38,25 @@ function showCalendar() {
                             'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
                         }, success: function (response) {
                             successCallback(response);
+                        }, error: function () {
+                            failureCallback('Vous n\'avez pas d\'événement');
                         }
                     });
+                },
+            },
+            {
+                events: function (info, successCallback, failureCallback) {
+                    $.ajax({
+                        url: BACKEND_URL + "calendar/getCurrentUserEventsFC",
+                        type: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
+                        }, success: function (response) {
+                                successCallback(response);
+                        }, error: function () {
+                            failureCallback('Vous n\'avez pas d\'événement');
+                        }
+                    })
                 },
             }
         ],
@@ -111,6 +114,7 @@ function showCalendar() {
             $('#calendarModal').modal();
         }
     });
+    calendar.refetchEvents();
     calendar.render();
 }
 

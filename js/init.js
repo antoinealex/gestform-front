@@ -48,6 +48,35 @@ $(document).ready(function () {
     }
 });
 
+
+$(document).on('click', '#forgotPassword', function (e) {
+    e.preventDefault();
+    $("#loginInterface").fadeOut();
+    $.ajax({
+        url: "forgot-password.html",
+        type: 'GET',
+        datatype: "HTML",
+        success: function (response) {
+            $("#sendEmailInterface").append(response);
+            forgotpassword();
+        }
+    });
+})
+$(document).on('click', '#restepass', function (e) {
+    e.preventDefault();
+    $("#loginInterface").fadeOut();
+    $.ajax({
+        url: "recover-password.html",
+        type: 'GET',
+        datatype: "HTML",
+        success: function (response) {
+            $("#sendEmailInterface").append(response);
+            resetPassword();
+        }
+    });
+})
+
+
 /*---FUNCTION TO SHOW USER DASHBOARD---*/
 
 function dashboardChooser(role) {
