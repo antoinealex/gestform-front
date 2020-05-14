@@ -113,7 +113,7 @@ $("#submitReset").click(function (e) {
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);
     var token = urlParams.get('recover-password.html?token');
-
+    console.log(token);
     var password = $('input[name = newPassword]').val();
     var confirmPassword = $('input[name = ConfirmNewPassword]').val();
 
@@ -138,7 +138,6 @@ $("#submitReset").click(function (e) {
                     $("#passworderror").fadeIn();
                     $("#newPassword").val("");
                     $("#ConfirmNewPassword").val("");
-                    console.log(data);
                 },
             });
         }
