@@ -111,6 +111,10 @@ $("#submitReset").click(function (e) {
     e.preventDefault();
     //récupérer le token dans l'url
     var queryString = window.location.search;
+    $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        return results[1] || 0;
+    }
     var urlParams = new URLSearchParams(queryString);
     var token = $.urlParam('token');
     console.log(token);
