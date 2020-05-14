@@ -41,8 +41,10 @@ $(document).ready(function () {
                         </button>\
                         </td>\
                     </tr>\
-                ')
+                ');
+
             });
+
             $('#showTraining').DataTable({
                 "retrieve": false,
                 "paging": true,
@@ -99,7 +101,7 @@ $(document).ready(function () {
                         </button>\
                         </td>\
                     </tr>\
-                ')
+                ');
             });
             $('#showUser').DataTable({
                 "retrieve": true,
@@ -150,6 +152,7 @@ $(document).on('click', ".getTraining", function () {
             // $.each(training, function(i, student){
             //     $('p[name=student_list]').empty().append(student.participants['fistname'])
             // })
+
             //Ajout bouton exports dans la modal
             $("#myModalGetTrainingExport").empty().append('<button id=' + id + "_excel" + ' type="button" class="btn btn-success btn-sm">' +
                 '<i class="fa fa-download"></i>EXCEL</button>' + '  ' +
@@ -215,6 +218,7 @@ $("#addNewTraining").click(function () {
         },
         success: function (user) {
             console.log("success GET")
+            $('select[name=addTeacher]').empty();
             $.each(user, function (i, user) {
                 if (user.roles[0] === "ROLE_TEACHER") {
                     $('select[name=addTeacher]').append('\
@@ -316,6 +320,15 @@ $("#submit_s").click(function () {
                 // Replace tab
                 $('#showUser').DataTable().destroy();
                 refreshUser();
+                $('input[name=addEmail]').val(""),
+                    $('select[name=addRoles]').val(""),
+                    $('input[name=addPassword]').val(""),
+                    $('input[name=addLastname]').val(""),
+                    $('input[name=addFirstname]').val(""),
+                    $('input[name=addPhone]').val(""),
+                    $('input[name=addAddress]').val(""),
+                    $('input[name=addPostcode]').val(""),
+                    $('input[name=addCity]').val("")
                 //closing modal
                 $('#modalAddUserClose').trigger('click');
 
@@ -325,6 +338,15 @@ $("#submit_s").click(function () {
                 //Error alert
                 $('#errorAdmin').fadeIn(400);
                 $('#errorAdmin').delay(6000).fadeOut(400);
+                $('input[name=addEmail]').val(""),
+                    $('select[name=addRoles]').val(""),
+                    $('input[name=addPassword]').val(""),
+                    $('input[name=addLastname]').val(""),
+                    $('input[name=addFirstname]').val(""),
+                    $('input[name=addPhone]').val(""),
+                    $('input[name=addAddress]').val(""),
+                    $('input[name=addPostcode]').val(""),
+                    $('input[name=addCity]').val("")
             },
             complete: function (jqXHR, textStatus) {
                 console.log(textStatus);
@@ -763,7 +785,7 @@ $(document).on('click', "[id$=_pdf]", function (e) {
             Authorization: `Bearer ${ token }`
         },
         success: function (response) {
-            location.href = BACKEND_URL + response.filename;
+            window.open(BACKEND_URL + response.filename);
             //Success alert
             $('#successAdmin').fadeIn(400);
             $('#successAdmin').delay(6000).fadeOut(400);

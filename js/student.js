@@ -6,38 +6,38 @@ var token = localStorage.getItem('MonToken');
 $(document).ready(function () {
 
     //****************getTrainings************************
-    //$(document).on('click', '#home', function () {
+
     $(document).ready(function () {
 
         //Ajax pour récupérer l'id des trainings aux quels participe déja le stdudent et cacher le btn participer
-        $.ajax({
-            url: BACKEND_URL + 'student/getMyTrainings',
-            type: 'get',
-            dataType: 'json',
-            contentType: 'application/json',
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
+        // $.ajax({
+        //     url: BACKEND_URL + 'student/getMyTrainings',
+        //     type: 'get',
+        //     dataType: 'json',
+        //     contentType: 'application/json',
+        //     headers: {
+        //         Authorization: `Bearer ${ token }`
+        //     },
 
 
-            success: function (response) {
+        //     success: function (response) {
 
-                idTraining = [];
-                j = 0;
-                $.each(response, function (i, training) {
-                    idTraining[j] = i;
-                    j++;
-                });
-                console.log(idTraining);
+        //         idTraining = [];
+        //         j = 0;
+        //         $.each(response, function (i, training) {
+        //             idTraining[j] = i;
+        //             j++;
+        //         });
+        //         console.log(idTraining);
 
-            },
-            error: function (jqxhr) {
-                $('#errorStudent').fadeIn(400);
-                $('#errorStudent').delay(4000).fadeOut(400);
-            },
+        //     },
+        //     error: function (jqxhr) {
+        //         $('#errorStudent').fadeIn(400);
+        //         $('#errorStudent').delay(4000).fadeOut(400);
+        //     },
 
 
-        });
+        // });
 
 
 
@@ -56,17 +56,17 @@ $(document).ready(function () {
 
                 $("#cours").empty();
 
-                index = 0;
+                //index = 0;
                 $.each(response, function (i, training) {
 
-                    if (idTraining[index] != training.id) {
-                        $("#cours").append('<tr>' +
-                            '<td>' + training.subject + '</td>' +
-                            '<td>' + new Date(training.start).toLocaleString() + '</td>' +
-                            '<td>' + new Date(training.end).toLocaleString() + '</td>' +
-                            '<td><button id=' + training.id + ' type="button" class="btn btn-success training btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=' + training.id + "_particip" + ' type="button" class="btn btn-primary participer btn-sm"><i class="fas fa-pen"></i> Participer</button></td>' +
-                            '</tr>');
-                    } else index++;
+                    // if (idTraining[index] != training.id) {
+                    $("#cours").append('<tr>' +
+                        '<td>' + training.subject + '</td>' +
+                        '<td>' + new Date(training.start).toLocaleString() + '</td>' +
+                        '<td>' + new Date(training.end).toLocaleString() + '</td>' +
+                        '<td><button id=' + training.id + ' type="button" class="btn btn-success training btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=' + training.id + "_particip" + ' type="button" class="btn btn-primary participer btn-sm"><i class="fas fa-pen"></i> Participer</button></td>' +
+                        '</tr>');
+                    // } else index++;
 
 
                 });
@@ -95,7 +95,7 @@ $(document).ready(function () {
 
     //****************getTrainingById******************************
 
-    $(document).on('click', ".btn-success", function (e) {
+    $(document).on('click', ".training", function (e) {
         e.preventDefault();
 
         console.log($(this).attr('id'));
@@ -117,11 +117,11 @@ $(document).ready(function () {
                 var end = response.end;
 
                 $("h1[name=subject]").empty().append(response.subject);
-                //$("p[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
+                $("p[name=NameTeacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
                 $('p[name=start_training]').empty().append(new Date(start).toLocaleString());
                 $('p[name=end_training]').empty().append(new Date(end).toLocaleString());
-                //$('p[name=max_student]').empty().append(response.maxStudent);
-                //$('p[name=price_per_student]').empty().append(response.pricePerStudent);
+                $('p[name=max_student]').empty().append(response.maxstudent);
+                $('p[name=price_per_student]').empty().append(response.price);
                 $('p[name=training_description]').empty().append(response.description);
 
             },
@@ -135,11 +135,7 @@ $(document).ready(function () {
 
     //****************getMyTrainings******************************
 
-    //$(document).on('click', ".btn-success", function (e) {
     $(document).ready(function () {
-
-
-        //console.log($(this).attr('id'));
 
         $.ajax({
             url: BACKEND_URL + 'student/getMyTrainings',
@@ -189,7 +185,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on('click', ".btn-success", function (e) {
+    $(document).on('click', ".moncours", function (e) {
         e.preventDefault();
 
         console.log($(this).attr('id'));
@@ -211,7 +207,7 @@ $(document).ready(function () {
                 var end = response.end;
                 console.log(response.subject);
                 $("h1[name=Subject]").empty().append(response.subject);
-                //$("p[name=Teacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
+                $("p[name=Teacher]").empty().append(response.teacher['lastname'] + " " + response.teacher['firstname']);
                 $('p[name=startTraining]').empty().append(new Date(start).toLocaleString());
                 $('p[name=endTraining]').empty().append(new Date(end).toLocaleString());
                 $('p[name=trainingDescription]').empty().append(response.description);
@@ -254,7 +250,7 @@ $(document).ready(function () {
                 $('input[name = body_comment]').val("");
 
                 $("#myModalAddCommentClose").trigger("click");
-                //location.reload(true);
+
             },
             error: function (jqXhr) {
                 $('#errorStudent').fadeIn(400);
@@ -285,7 +281,6 @@ $(document).ready(function () {
         };
 
 
-        // if (confirm("Etes-vous sûr de vouloir participer à ce Training ?")) {
         $.ajax({
             url: BACKEND_URL + 'student/subscribeTraining',
             type: 'PUT',
@@ -316,9 +311,6 @@ $(document).ready(function () {
                 $('#errorStudent').delay(4000).fadeOut(400);
             },
         });
-        // } else {
-        //     //location.href = 'student.html';
-        // }
 
     });
 
@@ -328,7 +320,6 @@ $(document).ready(function () {
     $("#modalUpdateProfil").click(function (e) {
         e.preventDefault();
 
-        // if (confirm("Etes-vous sûr de vouloir modifier votre profil ?")) {
         $.ajax({
             url: BACKEND_URL + 'user/getCurrentUser',
             type: 'GET',
@@ -354,11 +345,8 @@ $(document).ready(function () {
                 $('#errorStudent').delay(4000).fadeOut(400);
 
             },
-        })
-        // } else {
-        //     location.reload(true);
-        //     //location.href = 'student.html';
-        // }
+        });
+
     });
 
     $("#submit_up").click(function (e) {
@@ -437,7 +425,6 @@ $(document).ready(function () {
                     $("#newpassword").val("");
                     $("#myModalUpdatePasswordClose").trigger("click");
 
-                    //location.reload(true);
                 },
                 error: function (jqXhr) {
                     $('#errorUpdatePassword').fadeIn(400).delay(4000).fadeOut(400);
@@ -445,7 +432,6 @@ $(document).ready(function () {
                     $("#newpassword").val("");
                     $("#myModalUpdatePasswordClose").trigger("click");
 
-                    //location.reload(true);
                 },
             });
         }

@@ -2,7 +2,9 @@ function showCalendar() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: [ 'dayGrid', 'list', 'interaction', 'timeGrid'],
+        plugins: ['dayGrid', 'list', 'interaction', 'timeGrid', 'bootstrap'],
+        themeSystem: 'bootstrap',
+        defaultView: 'timeGridWeek',
         titleFormat: {
             month: 'long',
             year: 'numeric',
@@ -14,18 +16,33 @@ function showCalendar() {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
         },
-        lazyFetching: false,
         timeZone: 'local',
         locale: 'fr',
         buttonText: {
-            today:    'Aujourd\'hui',
-            month:    'Mois',
-            week:     'Semaine',
-            day:      'Jour',
-            list:     'Liste'
+            today: 'Aujourd\'hui',
+            month: 'Mois',
+            week: 'Semaine',
+            day: 'Jour',
+            list: 'Liste'
         },
         firstDay: 1,
-        eventSources:[
+        eventSources: [{
+                events: function (info, successCallback, failureCallback) {
+                    $.ajax({
+                        url: BACKEND_URL + "calendar/getCurrentUserEventsFC",
+                        type: 'GET',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
+                        },
+                        success: function (response) {
+                            successCallback(response);
+                        },
+                        error: function () {
+                            failureCallback('Vous n\'avez pas d\'événement');
+                        }
+                    });
+                },
+            },
             {
                 editable: false,
                 selectable: false,
@@ -36,85 +53,69 @@ function showCalendar() {
                         type: 'GET',
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
-                        }, success: function (response) {
+                        },
+                        success: function (response) {
                             successCallback(response);
-                        }, error: function () {
+                        },
+                        error: function () {
                             failureCallback('Vous n\'avez pas d\'événement');
                         }
                     });
                 },
-            },
-            {
-                events: function (info, successCallback, failureCallback) {
-                    $.ajax({
-                        url: BACKEND_URL + "calendar/getCurrentUserEventsFC",
-                        type: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
-                        }, success: function (response) {
-                                successCallback(response);
-                        }, error: function () {
-                            failureCallback('Vous n\'avez pas d\'événement');
-                        }
-                    })
-                },
             }
         ],
         editable: true,
-        
-        eventResize: function(info, event){
+
+        eventResize: function (info, event) {
             var data = {};
             data['id'] = info.event.id;
             data['start'] = calendar.formatIso(info.event.start);
             data['end'] = calendar.formatIso(info.event.end);
             $.ajax({
                 url: BACKEND_URL + "calendar/updateCurrentUserEventFC",
-                type:"PUT",
+                type: "PUT",
                 dataType: 'json',
                 preventData: false,
-                headers:{
+                headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('MonToken')
                 },
                 data: JSON.stringify(data),
-                success:function(){
+                success: function () {
                     var refetch = calendar.refetchEvents();
                     alert('evenement mise a jour');
                 }
             });
         },
 
-        eventDrop:function(info)
-        {
+        eventDrop: function (info) {
             var data = {};
             data['id'] = info.event.id;
             data['start'] = calendar.formatIso(info.event.start);
             data['end'] = calendar.formatIso(info.event.end);
             $.ajax({
                 url: BACKEND_URL + "calendar/updateCurrentUserEventFC",
-                type:"PUT",
+                type: "PUT",
                 dataType: 'json',
                 preventData: false,
-                headers:{
+                headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('MonToken'),
                 },
                 data: JSON.stringify(data),
-                success:function()
-                {
+                success: function () {
                     var refetch = calendar.refetchEvents();
                     alert("evenement mise a jour");
                 }
             });
         },
 
-        eventClick:function(info, jsEvent, view) {
-            $('#modalTitle').html(info.event.title );
+        eventClick: function (info, jsEvent, view) {
+            $('#modalTitle').html(info.event.title);
             $('#eventStart').html('<strong>Début</strong> : ' + new Date(info.event.start).toLocaleString());
             $('#eventEnd').html('<strong>Fin</strong> : ' + new Date(info.event.end).toLocaleString());
             $('#eventDescription').html('<strong>Description</strong> : ' + info.event.extendedProps.description);
             $('#calendarModal').modal();
         }
     });
-    calendar.refetchEvents();
     calendar.render();
 }
 

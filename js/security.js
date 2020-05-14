@@ -4,7 +4,7 @@
 
 function login(callback) {
     $("#submitLogin").click(function (e) {
-        $("#myLoader").show();
+
         e.preventDefault();
         var data = {};
         data['email'] = $('input[name = email]').val(); //Recuperation des données formulaire connexion
@@ -14,9 +14,10 @@ function login(callback) {
         } else {
             $("#credsMissing").fadeOut();
             $("#logerror").fadeOut();
-            $()
+            $("#myLoader").show();
             // $("#logpending").show();
             $.ajax({
+
                 url: BACKEND_URL + 'security/login_check', //Request
                 type: 'POST',
                 dataType: 'json', //type de données qu'on attend en réponse du serveur
@@ -62,13 +63,13 @@ function login(callback) {
 //*************************** LOGOUT ************************************
 //***********************************************************************
 
-function logout(){
+function logout() {
     localStorage.setItem('MonToken', '');
     console.log("ok");
     $.ajax({
         url: BACKEND_URL + 'security/logout',
         type: 'GET',
-        success : function(){
+        success: function () {
             //location.href = "index.html";
         }
     });
@@ -88,8 +89,10 @@ function forgotpassword(callback) {
             data: "email=" + $('input[name = myEmail]').val(),
             success: function () {
                 $("#emailsuccess").fadeIn();
-                $("#sendEmailInterface").fadeOut();
-                $("#loginInterface").fadeIn();
+                setTimeout(function () {
+                    location.href = "./";
+                }, 5000);
+
 
             },
             error: function (jqXhr) {
@@ -113,7 +116,7 @@ $("#submitReset").click(function (e) {
 
     var password = $('input[name = newPassword]').val();
     var confirmPassword = $('input[name = ConfirmNewPassword]').val();
-    
+
     //Regex pour formater le mot de passe
     if (password == confirmPassword) {
         if (password.length === 0) {

@@ -1,4 +1,4 @@
-let BACKEND_URL = "http://gestform.ei-bs.eu/";
+let BACKEND_URL = "https://gestform.ei-bs.eu/";
 let isConnected = false;
 let currentUser;
 
@@ -32,6 +32,9 @@ $(document).ready(function () {
                         $("#myLoader").hide('5000');
                     }
                 });
+            },
+            completed: function () {
+                $("#myLoader").hide('5000');
             }
         });
     } else {
@@ -42,6 +45,9 @@ $(document).ready(function () {
             success: function (response) {
                 $("#loginInterface").append(response);
                 login();
+                $("#myLoader").hide('5000');
+            },
+            error: function () {
                 $("#myLoader").hide('5000');
             }
         });
