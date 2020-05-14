@@ -12,3 +12,15 @@
 #branding img {
     width: 75%;
 }
+
+#forgotPassword {
+    display: block;
+    margin: auto;
+    width: 66% !important;
+}
+
+#sendEmail {
+    display: block;
+    margin: auto;
+    width: 66% !important;
+}

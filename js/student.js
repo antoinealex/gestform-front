@@ -10,87 +10,90 @@ $(document).ready(function () {
     $(document).ready(function () {
 
         //Ajax pour récupérer l'id des trainings aux quels participe déja le stdudent et cacher le btn participer
-        // $.ajax({
-        //     url: BACKEND_URL + 'student/getMyTrainings',
-        //     type: 'get',
-        //     dataType: 'json',
-        //     contentType: 'application/json',
-        //     headers: {
-        //         Authorization: `Bearer ${ token }`
-        //     },
-
-
-        //     success: function (response) {
-
-        //         idTraining = [];
-        //         j = 0;
-        //         $.each(response, function (i, training) {
-        //             idTraining[j] = i;
-        //             j++;
-        //         });
-        //         console.log(idTraining);
-
-        //     },
-        //     error: function (jqxhr) {
-        //         $('#errorStudent').fadeIn(400);
-        //         $('#errorStudent').delay(4000).fadeOut(400);
-        //     },
-
-
-        // });
-
-
-
+        var myTrainings = [];
         $.ajax({
-            url: BACKEND_URL + 'public/getTrainings',
-            type: 'get',
-            dataType: 'json',
-            contentType: 'application/json',
-            headers: {
-                Authorization: `Bearer ${ token }`
-            },
+             url: BACKEND_URL + 'student/getMyTrainings',
+             type: 'get',
+             dataType: 'json',
+             contentType: 'application/json',
+             headers: {
+                 Authorization: `Bearer ${ token }`
+             },
 
 
-            success: function (response) {
-                console.log("success");
+             success: function (response) {
 
-                $("#cours").empty();
-
-                //index = 0;
-                $.each(response, function (i, training) {
-
-                    // if (idTraining[index] != training.id) {
-                    $("#cours").append('<tr>' +
-                        '<td>' + training.subject + '</td>' +
-                        '<td>' + new Date(training.start).toLocaleString() + '</td>' +
-                        '<td>' + new Date(training.end).toLocaleString() + '</td>' +
-                        '<td><button id=' + training.id + ' type="button" class="btn btn-success training btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=' + training.id + "_particip" + ' type="button" class="btn btn-primary participer btn-sm"><i class="fas fa-pen"></i> Participer</button></td>' +
-                        '</tr>');
-                    // } else index++;
-
-
-                });
-
-                $('#tabcours').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "responsive": true,
-                    "language": {
-                        "url": "vendor/datatable.french.json"
-                    }
-                });
-            },
-            error: function (jqxhr) {
-                $('#errorStudent').fadeIn(400);
-                $('#errorStudent').delay(4000).fadeOut(400);
-            },
+                 myTrainings = [];
+                 j = 0;
+                 $.each(response, function (i, training) {
+                     myTrainings[j] = parseInt(i,10);
+                     j++;
+                 });
+                 console.log(myTrainings);
+                getTrainings();
+             },
+             error: function (jqxhr) {
+                 $('#errorStudent').fadeIn(400);
+                 $('#errorStudent').delay(4000).fadeOut(400);
+             },
 
 
-        });
+         });
+
+        myTrainings.forEach(trainingId => {
+            console.log(trainingId) //value
+        })
+
+        function getTrainings() {
+            $.ajax({
+                url: BACKEND_URL + 'public/getTrainings',
+                type: 'get',
+                dataType: 'json',
+                contentType: 'application/json',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+
+
+                success: function (response) {
+                    $("#cours").empty();
+
+                    //index = 0;
+                    $.each(response, function (i, training) {
+                        console.log(myTrainings.includes(training.id));
+                        if (!myTrainings.includes(training.id)) {
+                        $("#cours").append('<tr>' +
+                            '<td>' + training.subject + '</td>' +
+                            '<td>' + new Date(training.start).toLocaleString() + '</td>' +
+                            '<td>' + new Date(training.end).toLocaleString() + '</td>' +
+                            '<td><button id=' + training.id + ' type="button" class="btn btn-success training btn-sm" data-toggle="modal" data-target="#myModalDisplayTraining"><i class="fas fa-eye"></i> Afficher</button> <button id=' + training.id + "_particip" + ' type="button" class="btn btn-primary participer btn-sm"><i class="fas fa-pen"></i> Participer</button></td>' +
+                            '</tr>');
+                        }
+
+
+                    });
+
+                    $('#tabcours').DataTable({
+                        "paging": true,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "responsive": true,
+                        "language": {
+                            "url": "vendor/datatable.french.json"
+                        }
+                    });
+                },
+                error: function (jqxhr) {
+                    $('#errorStudent').fadeIn(400);
+                    $('#errorStudent').delay(4000).fadeOut(400);
+                },
+
+
+            });
+        }
     });
 
     //****************getTrainingById******************************
