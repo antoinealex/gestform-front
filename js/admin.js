@@ -150,6 +150,11 @@ $(document).on('click', ".getTraining", function () {
             // $.each(training, function(i, student){
             //     $('p[name=student_list]').empty().append(student.participants['fistname'])
             // })
+            //Ajout bouton exports dans la modal
+            $("#myModalGetTrainingExport").empty().append('<button id=' + id + "_excel" + ' type="button" class="btn btn-success btn-sm">' +
+                '<i class="fa fa-download"></i>EXCEL</button>' + '  ' +
+                '<button id=' + id + "_pdf" + ' type="button" class="btn btn-danger btn-sm">' +
+                '<i class="fa fa-download"></i>PDF</button>');
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus, errorThrown);
@@ -706,6 +711,69 @@ $(document).on('click', ".deleteUser", function () {
         },
         complete: function (jqXHR, textStatus) {
             console.log(textStatus);
+        }
+    });
+});
+
+//****************Export to Excel********************
+
+$(document).on('click', "[id$=_excel]", function (e) {
+
+    e.preventDefault();
+    console.log("je suis ici");
+    var id = $(this).attr('id').replace("_excel", "");
+    console.log(id);
+
+    $.ajax({
+        url: BACKEND_URL + "exports/getTrainingStudents/excel?id=" + id,
+        type: 'GET',
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+        success: function (response) {
+            location.href = BACKEND_URL + response.filename;
+            //Success alert
+            $('#successAdmin').fadeIn(400);
+            $('#successAdmin').delay(6000).fadeOut(400);
+        },
+
+        error: function (jqXHR, textStatus, errorThrown) {
+            //Error alert
+            $('#errorAdmin').fadeIn(400);
+            $('#errorAdmin').delay(6000).fadeOut(400);
+            console.log(textStatus, errorThrown);
+        }
+    });
+});
+
+
+//****************Export to Pdf********************
+
+$(document).on('click', "[id$=_pdf]", function (e) {
+
+    e.preventDefault();
+    console.log("je suis ici");
+    var id = $(this).attr('id').replace("_pdf", "");
+    console.log(id);
+
+    $.ajax({
+        url: BACKEND_URL + "exports/getTrainingStudents/pdf?id=" + id,
+        type: 'GET',
+        headers: {
+            Authorization: `Bearer ${ token }`
+        },
+        success: function (response) {
+            location.href = BACKEND_URL + response.filename;
+            //Success alert
+            $('#successAdmin').fadeIn(400);
+            $('#successAdmin').delay(6000).fadeOut(400);
+        },
+
+        error: function (jqXHR, textStatus, errorThrown) {
+            //Error alert
+            $('#errorAdmin').fadeIn(400);
+            $('#errorAdmin').delay(6000).fadeOut(400);
+            console.log(textStatus, errorThrown);
         }
     });
 });
